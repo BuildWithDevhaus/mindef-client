@@ -1,13 +1,17 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import UserHome from './pages/UserHome';
+import AdminHome from './pages/AdminHome';
 
-
-function App() {
+const App = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<UserHome />} />
+        <Route path="/admin" element={<AdminHome />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
