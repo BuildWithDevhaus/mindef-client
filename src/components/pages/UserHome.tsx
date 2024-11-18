@@ -1,5 +1,5 @@
 import React from "react"
-import UserLayout from "../layouts/UserLayout"
+import UserLayout from "../templates/UserLayout"
 
 const UserHome: React.FC = () => {
   
