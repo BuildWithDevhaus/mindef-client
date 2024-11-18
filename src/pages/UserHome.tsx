@@ -1,10 +1,12 @@
-import React from 'react'
+import React from "react"
+import UserLayout from "../layouts/UserLayout"
 
-const UserHome = () => {
+const UserHome: React.FC = () => {
+  
   return (
-    <div>
-      <h1 className='text-3xl'>User Home</h1>
-    </div>
+    <UserLayout>
+      <h1 className='text-6xl font-bold'>Enter your full name</h1>
+    </UserLayout>
   )
 }
 
