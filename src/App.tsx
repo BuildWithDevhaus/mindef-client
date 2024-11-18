@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import UserHome from './pages/UserHome';
-import AdminHome from './pages/AdminHome';
+import UserHome from './components/pages/UserHome';
+import AdminHome from './components/pages/AdminHome';
 
 const App = () => {
   return (
