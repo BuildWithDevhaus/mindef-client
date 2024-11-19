@@ -18,14 +18,13 @@ const ScanNric: React.FC = () => {
 
     if (staff && step !== "select-activity") {
       setStep("select-activity");
-    } else if (!staff && step !== "user-registration") {
-      setStep("user-registration");
+    } else if (!staff && step !== "user-registration-name") {
+      setStep("user-registration-name");
     }
-  }, [nricNo, step, setStep]);
+  }, [nricNo]);
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNricNo(e.target.value);
-    console.log(e.target.value);
   };
 
   // TODO: Change this into real logic
