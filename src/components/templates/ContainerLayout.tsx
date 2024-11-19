@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
+import clsx from 'clsx'
 
-const ContainerLayout: React.FC = () => {
+interface ContainerLayoutProps {
+  children: ReactNode
+  className?: string
+}
+
+const ContainerLayout: React.FC<ContainerLayoutProps> = ({ children, className }) => {
   return (
-    <div>
-      
+    <div className={clsx('flex flex-col gap-14 p-7 rounded shadow-lg', className)}>
+      {children}
     </div>
   )
 }
