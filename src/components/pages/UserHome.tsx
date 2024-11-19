@@ -1,11 +1,13 @@
 import React from "react"
 import UserLayout from "../templates/UserLayout"
+import ScanNric from "../organisms/ScanNric"
+import UserRegistrationForm from "../organisms/UserRegistrationForm"
 
 const UserHome: React.FC = () => {
-  
   return (
     <UserLayout>
-      <h1 className='text-6xl font-bold'>Enter your full name</h1>
+      <ScanNric />
+      <UserRegistrationForm />
     </UserLayout>
   )
 }
