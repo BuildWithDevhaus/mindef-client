@@ -4,6 +4,7 @@ interface ButtonPrimaryProps {
   children: ReactNode;
   onClick?: () => void;
 }
+
 const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ children, onClick }) => {
   return (
     <button
