@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import { InputFieldProps } from "../../types/input";
 
 interface InputFieldSecondaryProps extends InputFieldProps {
   type?: "disabled" | "enabled";

@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import { InputFieldProps } from "../../types/input";
 
 const InputFieldPrimary: React.FC<InputFieldProps> = ({
   placeholder,

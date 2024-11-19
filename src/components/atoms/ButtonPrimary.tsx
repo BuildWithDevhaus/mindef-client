@@ -1,5 +1,4 @@
 import React from "react";
-import { ButtonProps } from "../../types/button";
 
 const ButtonPrimary: React.FC<ButtonProps> = ({ children, onClick }) => {
   return (
