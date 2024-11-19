@@ -1,11 +1,7 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
+import { ButtonProps } from '../../types/button'
 
-interface ButtonSecondaryProps {
-  children: ReactNode;
-  onClick?: () => void;
-}
-
-const ButtonSecondary: React.FC<ButtonSecondaryProps> = ({ children, onClick }) => {
+const ButtonSecondary: React.FC<ButtonProps> = ({ children, onClick }) => {
   return (
     <button
       className="bg-[#ffffff] text-[#344054] hover:bg-[#ebebeb] font-semibold py-2 px-4 border-solid border-2 border-[#2F6D57] rounded-xl"
