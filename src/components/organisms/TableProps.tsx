@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import TableCell from "../atoms/TableCell";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import ButtonSecondary from "../atoms/ButtonSecondary";
-import ButtonCircle from "../atoms/ButtonCircle";
 
 type TableProps = {
   headers: string[];
