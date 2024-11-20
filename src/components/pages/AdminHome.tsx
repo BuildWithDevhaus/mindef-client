@@ -102,13 +102,57 @@ const pageData = [
       />
     </div>,
   ],
+  [
+    "9983847389",
+    "Navy",
+    "Female",
+    "Color Party",
+    "1cm",
+    "16cm",
+    "16cm",
+    "Row: 2, Rack: B2, No: 29",
+    <div className="flex gap-4 justify-center">
+      <IconButton
+        className="text-[#6DA893] hover:text-[#2F6D57]"
+        icon="pencil"
+        onClick={() => alert("Edited")}
+      />
+      <IconButton
+        className="text-[#6DA893] hover:text-[#2F6D57]"
+        icon="close"
+        onClick={() => alert("Deleted")}
+      />
+    </div>,
+  ],
+  [
+    "9983847389",
+    "Navy",
+    "Female",
+    "Color Party",
+    "1cm",
+    "16cm",
+    "16cm",
+    "Row: 2, Rack: B2, No: 29",
+    <div className="flex gap-4 justify-center">
+      <IconButton
+        className="text-[#6DA893] hover:text-[#2F6D57]"
+        icon="pencil"
+        onClick={() => alert("Edited")}
+      />
+      <IconButton
+        className="text-[#6DA893] hover:text-[#2F6D57]"
+        icon="close"
+        onClick={() => alert("Deleted")}
+      />
+    </div>,
+  ],
 ];
 
 const AdminHome: React.FC = () => {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-2xl font-bold my-4">Page 1 Inventory</h1>
-      <Table headers={pageHeaders} data={pageData} />
+      <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
     </div>
   );
 };
