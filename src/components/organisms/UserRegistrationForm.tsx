@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useStep } from "../../hooks/useStep";
-import Summary from "../../features/UserRegistration/Summary";
 import StepName from "../../features/UserRegistration/StepName";
 import StepGender from "../../features/UserRegistration/StepGender";
 import StepDivision from "../../features/UserRegistration/StepDivision";
@@ -23,7 +22,7 @@ const UserRegistrationForm: React.FC = () => {
     e.preventDefault();
 
     // TODO: Change this into real logic
-    setStep("user-registration-success");
+    setStep("select-activity");
   };
 
   return (
@@ -48,9 +47,6 @@ const UserRegistrationForm: React.FC = () => {
               onConfirm={handleChange}
               onSubmit={() => formRef.current?.requestSubmit()}
             />
-          )}
-          {step === "user-registration-success" && (
-            <Summary userDetails={userDetails} />
           )}
         </form>
       )}
