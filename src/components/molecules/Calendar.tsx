@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Calendar: React.FC = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default Calendar
+export default Calendar;

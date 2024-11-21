@@ -1,15 +1,15 @@
-import React from 'react';
-import IconCloseBox from '../atoms/IconCloseBox';
-import IconPencil from '../atoms/IconPencil';
-import clsx from 'clsx';
+import React from "react";
+import IconCloseBox from "../atoms/IconCloseBox";
+import IconPencil from "../atoms/IconPencil";
+import clsx from "clsx";
 
 
 const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, onClick, className }) => {
   const renderIcon = () => {
     switch (icon) {
-      case 'close':
+      case "close":
         return <IconCloseBox />;
-      case 'pencil':
+      case "pencil":
         return <IconPencil />;
       default:
         return null;
@@ -19,7 +19,11 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, onClick, className }) => 
   return (
     <button
       onClick={onClick}
-      className={clsx('flex justify-center items-center w-8 h-8 rounded-md hover hover:scale-110', className)}>
+      className={clsx(
+        "flex justify-center items-center w-8 h-8 rounded-md hover hover:scale-110",
+        className
+      )}
+    >
       {renderIcon()}
     </button>
   );

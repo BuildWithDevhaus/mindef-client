@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const SelectOptionItem: React.FC<SelectOptionItemProps> = ({ value, text }) => {
   return <option value={value}>{text}</option>;

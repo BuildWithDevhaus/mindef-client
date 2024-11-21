@@ -11,7 +11,7 @@ const pageHeaders = [
   "Sleeves Length",
   "Collar Length",
   "Shirt Location:",
-  "Action",
+  "Action:",
 ];
 const pageData = [
   [
@@ -64,7 +64,7 @@ const AdminHome: React.FC = () => {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-2xl font-bold my-4">Page 1 Inventory</h1>
-      <Table headers={pageHeaders} data={pageData} />
+      <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
     </div>
   );
 };

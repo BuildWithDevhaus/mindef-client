@@ -1,7 +1,7 @@
 interface TableProps {
-  headers: Array<string>;
-  data: (Array<string | number | JSX.Element>)[]; 
-  className?: string;
+  headers: string[];
+  data: Array<(string | number | JSX.Element)[]>;
+  rowsPerPage?: number;
 };
 
 interface TableRowProps {
