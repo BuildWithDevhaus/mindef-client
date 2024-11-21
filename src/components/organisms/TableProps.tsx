@@ -61,12 +61,14 @@ const Table: React.FC<TableProps> = ({ headers, data, rowsPerPage = 5 }) => {
           <ButtonSecondary
             onClick={handlePrevious}
             disabled={currentPage === 1}
+            className={currentPage === 1 ? "hidden" : ""}
           >
             Previous
           </ButtonSecondary>
           <ButtonPrimary
             onClick={handleNext}
             disabled={currentPage === totalPages}
+            className={currentPage === totalPages ? "hidden" : ""}
           >
             Next
           </ButtonPrimary>
