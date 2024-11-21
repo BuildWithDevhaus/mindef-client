@@ -1,12 +1,5 @@
-// components/organisms/Table.tsx
 import React from 'react';
 import TableRow from '../molecules/TableRow';
-
-type TableProps = {
-  headers: Array<string>;
-  data: (Array<string | number | JSX.Element>)[]; 
-  className?: string;
-};
 
 const Table: React.FC<TableProps> = ({ headers, data, className }) => (
   <table className={`w-full border-collapse border text-[#475467] ${className || ''}`}>
