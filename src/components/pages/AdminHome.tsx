@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "../organisms/TableProps";
-import ButtonIcon from "../molecules/ButtonIcon";
+import TableAction from "../molecules/TableAction";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -23,18 +23,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="pencil"
-        onClick={() => alert("Edited")}
-      />
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="close"
-        onClick={() => alert("Deleted")}
-      />
-    </div>,
+    <TableAction itemId={9983847389} />,
   ],
   [
     "9983847389",
@@ -45,18 +34,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="pencil"
-        onClick={() => alert("Edited")}
-      />
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="close"
-        onClick={() => alert("Deleted")}
-      />
-    </div>,
+    <TableAction itemId={9983847389} />,
   ],
   [
     "9983847389",
@@ -67,18 +45,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="pencil"
-        onClick={() => alert("Edited")}
-      />
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="close"
-        onClick={() => alert("Deleted")}
-      />
-    </div>,
+    <TableAction itemId={9983847389} />,
   ],
   [
     "9983847389",
@@ -89,18 +56,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="pencil"
-        onClick={() => alert("Edited")}
-      />
-      <ButtonIcon
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="close"
-        onClick={() => alert("Deleted")}
-      />
-    </div>,
+    <TableAction itemId={9983847389} />,
   ],
 ];
 

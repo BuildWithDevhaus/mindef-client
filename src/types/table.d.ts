@@ -13,3 +13,7 @@ interface TableCellProps {
   content: string | number | JSX.Element;
   className?: string;
 };
+
+interface TableActionProps {
+  itemId: number;
+};
