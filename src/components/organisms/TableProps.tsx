@@ -4,12 +4,6 @@ import TableCell from "../atoms/TableCell";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import ButtonSecondary from "../atoms/ButtonSecondary";
 
-type TableProps = {
-  headers: string[];
-  data: Array<(string | number | JSX.Element)[]>;
-  rowsPerPage?: number;
-};
-
 const Table: React.FC<TableProps> = ({ headers, data, rowsPerPage = 5 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,13 +25,13 @@ const Table: React.FC<TableProps> = ({ headers, data, rowsPerPage = 5 }) => {
 
   return (
     <div>
-      <table className="min-w-full border-collapse border border-gray-200">
+      <table className="min-w-full text-[#475467]">
         <thead>
           <tr>
             {headers.map((header, index) => (
               <th
                 key={index}
-                className="border border-gray-200 px-4 py-2 text-left font-semibold"
+                className="text-[12px] border-x-2 border-t-2 px-4 py-2 font-semibold"
               >
                 {header}
               </th>
@@ -51,7 +45,7 @@ const Table: React.FC<TableProps> = ({ headers, data, rowsPerPage = 5 }) => {
                 <TableCell
                   key={cellIndex}
                   content={cell}
-                  className="border border-gray-200 px-4 py-2"
+                  className="border-x-2 text-sm px-4 py-2"
                 />
               ))}
             </tr>
@@ -59,8 +53,8 @@ const Table: React.FC<TableProps> = ({ headers, data, rowsPerPage = 5 }) => {
         </tbody>
       </table>
 
-      <div className="flex justify-between items-center mt-4">
-        <span className="text-sm text-gray-600">
+      <div className="flex justify-between items-center px-6 py-4 border-x-2 border-b-2 border-gray-200">
+        <span className="text-sm text-gray-600 font-semibold">
           Page {currentPage} of {totalPages}
         </span>
 

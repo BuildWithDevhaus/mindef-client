@@ -11,7 +11,7 @@ const pageHeaders = [
   "Sleeves Length",
   "Collar Length",
   "Shirt Location:",
-  "Action",
+  "Action:",
 ];
 const pageData = [
   [
@@ -23,7 +23,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-3 justify-center">
       <IconButton
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
@@ -45,7 +45,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-3 justify-center">
       <IconButton
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
@@ -67,29 +67,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
-      <IconButton
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="pencil"
-        onClick={() => alert("Edited")}
-      />
-      <IconButton
-        className="text-[#6DA893] hover:text-[#2F6D57]"
-        icon="close"
-        onClick={() => alert("Deleted")}
-      />
-    </div>,
-  ],
-  [
-    "9983847389",
-    "Navy",
-    "Female",
-    "Color Party",
-    "1cm",
-    "16cm",
-    "16cm",
-    "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-3 justify-center">
       <IconButton
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
@@ -111,7 +89,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-3 justify-center">
       <IconButton
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
@@ -133,7 +111,29 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 2, Rack: B2, No: 29",
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-3 justify-center">
+      <IconButton
+        className="text-[#6DA893] hover:text-[#2F6D57]"
+        icon="pencil"
+        onClick={() => alert("Edited")}
+      />
+      <IconButton
+        className="text-[#6DA893] hover:text-[#2F6D57]"
+        icon="close"
+        onClick={() => alert("Deleted")}
+      />
+    </div>,
+  ],
+  [
+    "9983847389",
+    "Navy",
+    "Female",
+    "Color Party",
+    "1cm",
+    "16cm",
+    "16cm",
+    "Row: 2, Rack: B2, No: 29",
+    <div className="flex gap-3 justify-center">
       <IconButton
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"

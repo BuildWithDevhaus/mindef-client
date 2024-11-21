@@ -1,10 +1,5 @@
 import React from "react";
 
-type TableCellProps = {
-  content: string | number | JSX.Element;
-  className?: string;
-};
-
 const TableCell: React.FC<TableCellProps> = ({ content, className }) => {
   const formatLocation = (location: string) => {
     return location
@@ -14,7 +9,7 @@ const TableCell: React.FC<TableCellProps> = ({ content, className }) => {
 
   return (
     <td
-      className={`text-center border-2  px-6 py-4 bg-[#F9FAFB] ${
+      className={`text-center border-[1px] px-6 py-4 bg-[#F9FAFB] ${
         className || ""
       }`}
     >
