@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "../organisms/TableProps";
-import IconButton from "../molecules/ButtonIcon";
+import ButtonIcon from "../molecules/ButtonIcon";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -24,12 +24,12 @@ const pageData = [
     "16cm",
     "Row: 2, Rack: B2, No: 29",
     <div className="flex gap-4 justify-center">
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
         onClick={() => alert("Edited")}
       />
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="close"
         onClick={() => alert("Deleted")}
@@ -46,12 +46,12 @@ const pageData = [
     "16cm",
     "Row: 2, Rack: B2, No: 29",
     <div className="flex gap-4 justify-center">
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
         onClick={() => alert("Edited")}
       />
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="close"
         onClick={() => alert("Deleted")}
@@ -68,12 +68,12 @@ const pageData = [
     "16cm",
     "Row: 2, Rack: B2, No: 29",
     <div className="flex gap-4 justify-center">
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
         onClick={() => alert("Edited")}
       />
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="close"
         onClick={() => alert("Deleted")}
@@ -90,12 +90,12 @@ const pageData = [
     "16cm",
     "Row: 2, Rack: B2, No: 29",
     <div className="flex gap-4 justify-center">
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="pencil"
         onClick={() => alert("Edited")}
       />
-      <IconButton
+      <ButtonIcon
         className="text-[#6DA893] hover:text-[#2F6D57]"
         icon="close"
         onClick={() => alert("Deleted")}

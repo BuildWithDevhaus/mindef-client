@@ -4,7 +4,7 @@ import IconPencil from '../atoms/IconPencil';
 import clsx from 'clsx';
 
 
-const IconButton: React.FC<ButtonIconProps> = ({ icon, onClick, className }) => {
+const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, onClick, className }) => {
   const renderIcon = () => {
     switch (icon) {
       case 'close':
@@ -25,4 +25,4 @@ const IconButton: React.FC<ButtonIconProps> = ({ icon, onClick, className }) => 
   );
 };
 
-export default IconButton;
+export default ButtonIcon;
