@@ -8,9 +8,10 @@ import { useStep } from '../../hooks/useStep'
 import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import ButtonBack from '../../components/atoms/ButtonBack'
 
-const StepPants: React.FC<ManualMeasurementStepProps> = ({
+const StepPants: React.FC<ManualMeasurementStepProps & { onSubmit: () => void }> = ({
   manualMeasurementInput,
   onConfirm,
+  onSubmit,
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
   const { setStep } = useStep();
@@ -21,15 +22,7 @@ const StepPants: React.FC<ManualMeasurementStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm({ ...manualMeasurementInput, ...inputValue });
-
-    // TODO: Change this into real logic
-    let resultFound = true;
-
-    if (resultFound) {
-      setStep("activity-manual-measurement-result");
-    } else {
-      setStep("activity-manual-measurement-notfound");
-    }
+    onSubmit();
   };
 
   const handleBack = () => {

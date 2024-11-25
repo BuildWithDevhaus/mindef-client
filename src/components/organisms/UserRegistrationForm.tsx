@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import StepName from "../../features/UserRegistration/StepName";
 import StepGender from "../../features/UserRegistration/StepGender";
@@ -12,7 +12,6 @@ const UserRegistrationForm: React.FC = () => {
   });
 
   const { step, setStep } = useStep();
-  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (userDetails: UserDetails) => {
     setUserDetails(userDetails);
@@ -31,7 +30,6 @@ const UserRegistrationForm: React.FC = () => {
     <>
       {step.includes("user-registration") && (
         <form
-          ref={formRef}
           name="user-registration-form"
           id="user-registration-form"
           className="h-full"
@@ -47,7 +45,7 @@ const UserRegistrationForm: React.FC = () => {
             <StepGender
               userDetails={userDetails}
               onConfirm={handleChange}
-              onSubmit={() => formRef.current?.requestSubmit()}
+              onSubmit={() => handleSubmit}
             />
           )}
         </form>

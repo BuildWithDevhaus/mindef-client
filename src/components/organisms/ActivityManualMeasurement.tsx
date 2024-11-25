@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import SelectUniformType from "./SelectUniformType";
 import StepShirt from "../../features/ManualMeasurement/StepShirt";
@@ -9,35 +9,40 @@ import NotFound from "./NotFound";
 const ActivityManualMeasurement: React.FC = () => {
   const [manualMeasurementInput, setManualMeasurementInput] = useState<ManualMeasurementForm>({
     uniformType: "",
-    shoulderLen: 0,
-    sleeve: 0,
-    collarLen: 0,
-    waist: 0,
-    length: 0
+    shoulderLen: 16,
+    sleeve: 16,
+    collarLen: 16,
+    waist: 16,
+    length: 16
   });
 
   const { step, setStep } = useStep();
 
-  const formRef = useRef<HTMLFormElement>(null);
-
   const handleChange = (manualMeasurementInput: ManualMeasurementForm) => {
     setManualMeasurementInput(manualMeasurementInput);
-    console.log(step);
   };
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    let resultFound = true;
+    console.log(manualMeasurementInput);
+    
     // TODO: Change this into real logic
-    setStep("select-activity");
+    
+    if (resultFound) {
+      setStep("activity-manual-measurement-result");
+    } else {
+      setStep("activity-manual-measurement-notfound");
+    }
 
     setManualMeasurementInput({
       uniformType: "",
-      shoulderLen: 0,
-      sleeve: 0,
-      collarLen: 0,
-      waist: 0,
-      length: 0
+      shoulderLen: 16,
+      sleeve: 16,
+      collarLen: 16,
+      waist: 16,
+      length: 16
     });
   };
 
@@ -45,7 +50,6 @@ const ActivityManualMeasurement: React.FC = () => {
     <>
       {step.includes("activity-manual-measurement") && (
         <form
-          ref={formRef}
           name="manual-measurement-form"
           id="manual-measurement-form"
           className="h-full w-full justify-between"
@@ -58,7 +62,7 @@ const ActivityManualMeasurement: React.FC = () => {
             <StepShirt manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} />
           )}
           {step === "activity-manual-measurement-pants" && (
-            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} />
+            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit}/>
           )}
           {step === "activity-manual-measurement-result" && (
             <StepResult />
