@@ -27,7 +27,7 @@ const StepName: React.FC<UserRegistrationStepProps> = ({
         value={inputValue.name}
         onChange={handleChange}
       />
-      <ButtonPrimary onClick={() => handleConfirm()}>Confirm</ButtonPrimary>
+      <ButtonPrimary onClick={() => handleConfirm()} variant="large">Confirm</ButtonPrimary>
     </div>
   );
 };
