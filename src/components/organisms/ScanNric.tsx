@@ -16,8 +16,8 @@ const ScanNric: React.FC = () => {
 
     const staff = checkStaff(nricNo); // TODO: Change this into real logic
 
-    if (staff && step !== "select-activity") {
-      setStep("select-activity");
+    if (staff && step !== "user-confirmation") {
+      setStep("user-confirmation");
       setNricNo("");
     } else if (!staff && step !== "user-registration-name") {
       setStep("user-registration-name");
@@ -32,7 +32,7 @@ const ScanNric: React.FC = () => {
   // TODO: Change this into real logic
   const checkStaff = (nricNo: string) => {
     let staff: Staff | null = null;
-    let isFound = false;
+    let isFound = true;
 
     if (isFound) {
       staff = {
