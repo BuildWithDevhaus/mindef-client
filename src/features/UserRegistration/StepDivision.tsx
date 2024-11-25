@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
-import ButtonSecondary from "../../components/atoms/ButtonSecondary";
 import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary";
 import SelectOptionItem from "../../components/atoms/SelectOptionItem";
+import ButtonBack from "../../components/atoms/ButtonBack";
 
 const StepDivision: React.FC<UserRegistrationStepProps> = ({
   userDetails,
@@ -33,10 +33,8 @@ const StepDivision: React.FC<UserRegistrationStepProps> = ({
         <SelectOptionItem value="Charlie" text="Charlie" />
         <SelectOptionItem value="Gamma" text="Gamma" />
       </SelectOptionPrimary>
-      <div className="flex gap-10">
-        <ButtonPrimary onClick={() => handleConfirm()}>Confirm</ButtonPrimary>
-        <ButtonSecondary onClick={() => handleBack()}>Back</ButtonSecondary>
-      </div>
+      <ButtonPrimary onClick={() => handleConfirm()}>Confirm</ButtonPrimary>
+      <ButtonBack onClick={handleBack} />
     </div>
   );
 };

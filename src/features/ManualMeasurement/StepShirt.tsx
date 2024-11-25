@@ -6,6 +6,7 @@ import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary"
 import SelectOptionItem from "../../components/atoms/SelectOptionItem";
 import InputContainerLayout from "../../components/templates/InputContainerLayout";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
+import ButtonBack from "../../components/atoms/ButtonBack";
 
 const StepShirt: React.FC<ManualMeasurementStepProps> = ({
   manualMeasurementInput,
@@ -21,6 +22,10 @@ const StepShirt: React.FC<ManualMeasurementStepProps> = ({
   const handleConfirm = () => {
     onConfirm({ ...manualMeasurementInput, ...inputValue });
     setStep("activity-manual-measurement-pants");
+  };
+
+  const handleBack = () => {
+    setStep("activity-manual-measurement-uniform-type");
   };
 
   return (
@@ -72,6 +77,7 @@ const StepShirt: React.FC<ManualMeasurementStepProps> = ({
         </InputContainerLayout>
         <ButtonPrimary className="py-5 text-xl" onClick={handleConfirm}>Submit</ButtonPrimary>
       </ContainerLayout>
+      <ButtonBack onClick={handleBack} />
     </div>
   );
 };

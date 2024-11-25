@@ -6,6 +6,7 @@ import SelectOptionPrimary from '../../components/molecules/SelectOptionPrimary'
 import pantsMaleNo1 from '../../assets/images/Measure Pants (Male - No. 1).png'
 import { useStep } from '../../hooks/useStep'
 import ButtonPrimary from '../../components/atoms/ButtonPrimary'
+import ButtonBack from '../../components/atoms/ButtonBack'
 
 const StepPants: React.FC<ManualMeasurementStepProps> = ({
   manualMeasurementInput,
@@ -29,6 +30,10 @@ const StepPants: React.FC<ManualMeasurementStepProps> = ({
     } else {
       setStep("activity-manual-measurement-notfound");
     }
+  };
+
+  const handleBack = () => {
+    setStep("activity-manual-measurement-shirt");
   };
 
   return (
@@ -66,6 +71,7 @@ const StepPants: React.FC<ManualMeasurementStepProps> = ({
         </InputContainerLayout>
         <ButtonPrimary className="py-5 text-xl" onClick={handleConfirm}>Submit</ButtonPrimary>
       </ContainerLayout>
+      <ButtonBack onClick={handleBack} />
     </div>
   )
 }

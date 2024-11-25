@@ -11,3 +11,8 @@ interface ButtonIconProps {
   disabled?: boolean;
   className?: string;
 }
+
+interface BackButtonProps {
+  onClick: () => void;
+  className?: string;
+}
