@@ -75,7 +75,7 @@ const StepShirt: React.FC<ManualMeasurementStepProps> = ({
             <SelectOptionItem value="20" text="20" />
           </SelectOptionPrimary>
         </InputContainerLayout>
-        <ButtonPrimary className="py-5 text-xl" onClick={handleConfirm}>Submit</ButtonPrimary>
+        <ButtonPrimary variant="large" onClick={handleConfirm}>Submit</ButtonPrimary>
       </ContainerLayout>
       <ButtonBack onClick={handleBack} />
     </div>

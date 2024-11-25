@@ -3,6 +3,7 @@ interface ButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   className?: string
+  variant?: 'default' | 'large';
 }
 
 interface ButtonIconProps {

@@ -19,7 +19,7 @@ const StepResult: React.FC = () => {
         <div className='flex flex-col items-center gap-[60px]'>
           <ResultContainerLayout title="Shirt Location" image={shirtMaleNo1} row={2} rack="B2" no={25} />
           <ResultContainerLayout title="Pants Location" image={pantsMaleNo1} row={2} rack="B2" no={25} />
-          <ButtonPrimary className='w-full py-5 text-2xl' onClick={handleConfirm}>End Session</ButtonPrimary>
+          <ButtonPrimary variant="large" onClick={handleConfirm}>End Session</ButtonPrimary>
         </div>
       </ContainerLayout>
     </div>

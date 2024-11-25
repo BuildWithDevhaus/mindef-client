@@ -15,7 +15,7 @@ const NotFound: React.FC = () => {
       <ContainerLayout className='p-12'>
         <label className="text-6xl font-bold text-center">Sorry!</label>
         <p className='text-3xl text-center'>We do not have a match for you. Please kindly enquire with your Store Manager.</p>
-        <ButtonPrimary className='w-full py-5 text-2xl' onClick={handleConfirm}>End Session</ButtonPrimary>
+        <ButtonPrimary variant="large" onClick={handleConfirm}>End Session</ButtonPrimary>
       </ContainerLayout>
     </div>
   )

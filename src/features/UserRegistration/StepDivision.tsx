@@ -33,7 +33,7 @@ const StepDivision: React.FC<UserRegistrationStepProps> = ({
         <SelectOptionItem value="Charlie" text="Charlie" />
         <SelectOptionItem value="Gamma" text="Gamma" />
       </SelectOptionPrimary>
-      <ButtonPrimary onClick={() => handleConfirm()}>Confirm</ButtonPrimary>
+      <ButtonPrimary onClick={() => handleConfirm()} variant="large">Confirm</ButtonPrimary>
       <ButtonBack onClick={handleBack} />
     </div>
   );
