@@ -18,8 +18,10 @@ const ScanNric: React.FC = () => {
 
     if (staff && step !== "select-activity") {
       setStep("select-activity");
+      setNricNo("");
     } else if (!staff && step !== "user-registration-name") {
       setStep("user-registration-name");
+      setNricNo("");
     }
   }, [nricNo]);
 

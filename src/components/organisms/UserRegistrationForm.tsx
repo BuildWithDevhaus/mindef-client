@@ -23,6 +23,8 @@ const UserRegistrationForm: React.FC = () => {
 
     // TODO: Change this into real logic
     setStep("select-activity");
+
+    setUserDetails({ name: "", division: "", gender: "" });
   };
 
   return (

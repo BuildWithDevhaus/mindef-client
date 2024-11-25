@@ -30,6 +30,15 @@ const ActivityManualMeasurement: React.FC = () => {
 
     // TODO: Change this into real logic
     setStep("select-activity");
+
+    setManualMeasurementInput({
+      uniformType: "",
+      shoulderLen: 0,
+      sleeve: 0,
+      collarLen: 0,
+      waist: 0,
+      length: 0
+    });
   };
 
   return (
