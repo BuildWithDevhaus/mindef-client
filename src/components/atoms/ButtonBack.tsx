@@ -6,7 +6,7 @@ const ButtonBack: React.FC<BackButtonProps> = ({ onClick, className }) => {
   return (
     <button
       className={clsx(
-        `flex gap-3 items-center font-semibold py-2 px-4 text-2xl fixed top-3 left-3
+        `flex gap-3 items-center font-semibold py-2 px-4 text-2xl fixed top-5 left-5
         }`,
         className
       )}
