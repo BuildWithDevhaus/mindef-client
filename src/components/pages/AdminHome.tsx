@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "../organisms/TableProps";
 import TableAction from "../molecules/TableAction";
 import Sidebar from "../organisms/Sidebar";
 import Breadcrumb from "../atoms/Breadcrumb";
+import SearchBar from "../molecules/SearchBar";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -239,23 +240,38 @@ const pageData = [
 ];
 
 const AdminHome: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div className="mx-auto flex">
       <Sidebar />
       <div className="w-full mt-10 mx-auto px-10">
-        <div>
-          <Breadcrumb
-            items={[
-              { label: "Home", url: "/" },
-              { label: "Dashboard", url: "/dashboard" },
-              { label: "Settings" },
-              { label: "Profile", url: "/dashboard/profile" },
-            ]}
-          />
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Dashboard", url: "/dashboard" },
+            { label: "Settings" },
+            { label: "Profile", url: "/dashboard/profile" },
+          ]}
+        />
 
-          <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
-          </div>
-        <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
+        <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
+        <div className="mb-8">
+          <SearchBar
+            placeholder="Search for something..."
+            onChange={(e) => handleSearchChange(e.target.value)}
+          />
+        </div>
+        <Table
+          headers={pageHeaders}
+          data={pageData}
+          rowsPerPage={5}
+          searchQuery={searchQuery}
+        />
       </div>
     </div>
   );

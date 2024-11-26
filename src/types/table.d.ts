@@ -2,6 +2,7 @@ interface TableProps {
   headers: string[];
   data: Array<(string | number | JSX.Element)[]>;
   rowsPerPage?: number;
+  searchQuery?: string;
 };
 
 interface TableRowProps {
