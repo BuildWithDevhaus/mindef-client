@@ -1,16 +1,6 @@
 import React from "react";
 import clsx from "clsx";
 
-interface BreadcrumbItem {
-  label: string;
-  url?: string;
-}
-
-interface BreadcrumbProps {
-  items: BreadcrumbItem[];
-  className?: string;
-}
-
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className }) => {
   return (
     <div
