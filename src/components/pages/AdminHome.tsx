@@ -3,7 +3,6 @@ import Table from "../organisms/TableProps";
 import TableAction from "../molecules/TableAction";
 import Sidebar from "../organisms/Sidebar";
 import Breadcrumb from "../atoms/Breadcrumb";
-import SearchBar from "../molecules/SearchBar";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -255,7 +254,6 @@ const AdminHome: React.FC = () => {
           />
 
           <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
-          <SearchBar placeholder="Search for something..." />
           </div>
         <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
       </div>
