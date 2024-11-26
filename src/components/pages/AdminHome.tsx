@@ -254,7 +254,7 @@ const AdminHome: React.FC = () => {
           />
 
           <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
-        </div>
+          </div>
         <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
       </div>
     </div>
