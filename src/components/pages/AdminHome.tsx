@@ -262,7 +262,7 @@ const AdminHome: React.FC = () => {
         <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
         <div className="mb-8">
           <SearchBar
-            placeholder="Search for something..."
+            placeholder="Search"
             onChange={(e) => handleSearchChange(e.target.value)}
           />
         </div>
