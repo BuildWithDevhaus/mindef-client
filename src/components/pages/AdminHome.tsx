@@ -2,6 +2,7 @@ import React from "react";
 import Table from "../organisms/TableProps";
 import TableAction from "../molecules/TableAction";
 import Sidebar from "../organisms/Sidebar";
+import Breadcrumb from "../atoms/Breadcrumb";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -241,9 +242,20 @@ const AdminHome: React.FC = () => {
   return (
     <div className="mx-auto flex">
       <Sidebar />
-      <div className="w-full mx-auto px-10">
-      <h1 className="text-2xl font-bold my-4">Page 1 Inventory</h1>
-      <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
+      <div className="w-full mt-10 mx-auto px-10">
+        <div>
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Dashboard", url: "/dashboard" },
+              { label: "Settings" },
+              { label: "Profile", url: "/dashboard/profile" },
+            ]}
+          />
+
+          <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
+        </div>
+        <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
       </div>
     </div>
   );
