@@ -241,9 +241,14 @@ const pageData = [
 
 const AdminHome: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
+  };
+
+  const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRowsPerPage(Number(e.target.value));
   };
 
   return (
@@ -259,17 +264,34 @@ const AdminHome: React.FC = () => {
           ]}
         />
 
-        <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
-        <div className="mb-8">
+        <h1 className="text-2xl font-bold my-4">Shirt Registered</h1>
+        <div className="mb-8 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <label htmlFor="rowsPerPage" className="text-sm">
+              Show
+            </label>
+            <select
+              id="rowsPerPage"
+              value={rowsPerPage}
+              onChange={handleRowsPerPageChange}
+              className="px-2 py-1 border rounded"
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+            </select>
+            <span className="text-sm">Entries</span>
+          </div>
           <SearchBar
-            placeholder="Search for something..."
+            placeholder="Search"
             onChange={(e) => handleSearchChange(e.target.value)}
           />
         </div>
         <Table
           headers={pageHeaders}
           data={pageData}
-          rowsPerPage={5}
+          rowsPerPage={rowsPerPage}
           searchQuery={searchQuery}
         />
       </div>
