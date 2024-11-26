@@ -2,7 +2,7 @@ import React from "react";
 import Table from "../organisms/TableProps";
 import TableAction from "../molecules/TableAction";
 import Sidebar from "../organisms/Sidebar";
-import Breadcrump from "../atoms/Breadcrump";
+import Breadcrumb from "../atoms/Breadcrumb";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -244,7 +244,15 @@ const AdminHome: React.FC = () => {
       <Sidebar />
       <div className="w-full mt-10 mx-auto px-10">
         <div>
-          <Breadcrump menus="Home" menusItem="Register New Inventory" />
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Dashboard", url: "/dashboard" },
+              { label: "Settings" }, // No URL, just plain text
+              { label: "Profile", url: "/dashboard/profile" },
+            ]}
+          />
+
           <h1 className="text-2xl font-bold my-4">Register New Inventory</h1>
         </div>
         <Table headers={pageHeaders} data={pageData} rowsPerPage={5} />
