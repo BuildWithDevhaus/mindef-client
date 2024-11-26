@@ -1,19 +1,24 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
 
 interface BreadcrumbItem {
-  label: string; // Display text
-  url?: string; // Optional link URL
+  label: string;
+  url?: string;
 }
 
 interface BreadcrumbProps {
-  items: BreadcrumbItem[]; 
-  className?: string; 
+  items: BreadcrumbItem[];
+  className?: string;
 }
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className }) => {
   return (
-    <div className={clsx(`flex gap-2 font-semibold text-[#838D95] text-base`, className)}>
+    <div
+      className={clsx(
+        `flex gap-2 font-semibold text-[#838D95] text-base`,
+        className
+      )}
+    >
       {items.map((item, index) => (
         <React.Fragment key={index}>
           {item.url ? (
@@ -23,7 +28,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className }) => {
           ) : (
             <span>{item.label}</span>
           )}
-          {index < items.length - 1 && <span className="font-black text-center">•</span>}
+          {index < items.length - 1 && (
+            <span className="font-black text-center">•</span>
+          )}
         </React.Fragment>
       ))}
     </div>

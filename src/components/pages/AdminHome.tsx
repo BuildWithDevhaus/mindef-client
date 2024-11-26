@@ -248,7 +248,7 @@ const AdminHome: React.FC = () => {
             items={[
               { label: "Home", url: "/" },
               { label: "Dashboard", url: "/dashboard" },
-              { label: "Settings" }, // No URL, just plain text
+              { label: "Settings" },
               { label: "Profile", url: "/dashboard/profile" },
             ]}
           />
