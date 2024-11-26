@@ -40,7 +40,7 @@ const pageData = [
     <TableAction itemId={9388394738} />,
   ],
   [
-    "0083847389",
+    "1183847389",
     "Navy",
     "Female",
     "Color Party",
@@ -48,7 +48,7 @@ const pageData = [
     "16cm",
     "16cm",
     "Row: 8, Rack: B2, No: 22",
-    <TableAction itemId={0083847389} />,
+    <TableAction itemId={1183847389} />,
   ],
   [
     "9983047893",
