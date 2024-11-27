@@ -1,5 +1,4 @@
 import SidebarSection from "../molecules/SidebarSection";
-import Logo from "../atoms/NavLogo";
 import LogoutButton from "../molecules/LogoutButton";
 
 
@@ -25,9 +24,9 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-80 h-screen bg-white border-r border-gray-300 flex flex-col justify-between">
+    <div className="w-80 h-screen bg-sidebar-bg bg-cover border-r border-gray-300 flex flex-col justify-between fixed top-0 left-0">
       <div>
-      <Logo />
+      <div className="h-[15%]"></div>
       <SidebarSection title="Home" items={homeMenuItems} />
       <SidebarSection title="Admin Menu" items={adminMenuItems} />
       <SidebarSection title="User Menu" items={userMenuItems} />

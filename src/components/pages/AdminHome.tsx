@@ -236,7 +236,7 @@ const pageData = [
     "12cm",
     "21cm",
     "Row: 3, Rack: B4, No: 91",
-    <TableAction itemId={9903040389} showEdit={true} showDelete={true} />,
+    <TableAction itemId={9903040389} showEdit showDelete />,
   ],
 ];
 
@@ -254,7 +254,7 @@ const AdminHome: React.FC = () => {
   return (
     <div className="mx-auto flex">
       <Sidebar />
-      <div className="w-full mt-10 mx-auto px-10">
+      <div className="w-full mt-10 mx-auto px-10 ml-80">
         <Breadcrumb
           items={[
             { label: "Home", url: "/" },
