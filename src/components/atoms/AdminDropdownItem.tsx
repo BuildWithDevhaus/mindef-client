@@ -9,7 +9,7 @@ interface DropdownItemProps {
 const DropdownItem: React.FC<DropdownItemProps> = ({ icon, label, onClick }) => (
   <button
     onClick={onClick}
-    className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-md w-full text-left"
+    className="flex font-semibold text-[#667085] items-center gap-3 p-4 hover:bg-gray-100 rounded-md w-full text-left"
   >
     {icon && <span>{icon}</span>}
     <span>{label}</span>
