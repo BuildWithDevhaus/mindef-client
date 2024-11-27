@@ -53,7 +53,6 @@ const ActivityManualMeasurement: React.FC = () => {
           name="manual-measurement-form"
           id="manual-measurement-form"
           className="h-full w-full justify-between"
-          onSubmit={handleSubmit}
         >
           {step === "activity-manual-measurement-uniform-type" && (
             <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} />
