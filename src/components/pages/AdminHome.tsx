@@ -4,6 +4,7 @@ import TableAction from "../molecules/TableAction";
 import Sidebar from "../organisms/Sidebar";
 import Breadcrumb from "../atoms/Breadcrumb";
 import SearchBar from "../molecules/SearchBar";
+import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -241,14 +242,13 @@ const pageData = [
 
 const AdminHome: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const [rowsPerPage, setRowsPerPage] = useState(5); 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
   };
 
-  const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setRowsPerPage(Number(e.target.value));
+  const handleRowsPerPageChange = (value: number) => {
+    setRowsPerPage(value);
   };
 
   return (
@@ -266,25 +266,12 @@ const AdminHome: React.FC = () => {
 
         <h1 className="text-2xl font-bold my-4">Shirt Registered</h1>
         <div className="mb-8 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <label htmlFor="rowsPerPage" className="text-sm">
-              Show
-            </label>
-            <select
-              id="rowsPerPage"
-              value={rowsPerPage}
-              onChange={handleRowsPerPageChange}
-              className="px-2 py-1 border rounded"
-            >
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-            </select>
-            <span className="text-sm">Entries</span>
-          </div>
+          <RowsPerPageDropdown
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleRowsPerPageChange}
+          />
           <SearchBar
-            placeholder="Search"
+            placeholder="Search for something..."
             onChange={(e) => handleSearchChange(e.target.value)}
           />
         </div>
