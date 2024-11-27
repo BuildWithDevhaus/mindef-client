@@ -5,6 +5,7 @@ import Sidebar from "../organisms/Sidebar";
 import Breadcrumb from "../atoms/Breadcrumb";
 import SearchBar from "../molecules/SearchBar";
 import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
+import AdminDropdownMenu from "../molecules/AdminDropdownMenu";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -27,7 +28,7 @@ const pageData = [
     "16cm",
     "39cm",
     "Row: 2, Rack: B1, No: 30",
-    <TableAction itemId={9983747389} showEdit={true} showDelete={true}/>,
+    <TableAction itemId={9983747389} showEdit={true} showDelete={true} />,
   ],
   [
     "9388394738",
@@ -181,7 +182,7 @@ const pageData = [
     "16cm",
     "13cm",
     "Row: 5, Rack: B2, No: 29",
-    <TableAction itemId={9839477389} showEdit={true} showDelete={true}  />,
+    <TableAction itemId={9839477389} showEdit={true} showDelete={true} />,
   ],
   [
     "9189315738",
@@ -242,7 +243,7 @@ const pageData = [
 
 const AdminHome: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5); 
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
   };
@@ -255,14 +256,17 @@ const AdminHome: React.FC = () => {
     <div className="mx-auto flex">
       <Sidebar />
       <div className="w-full mt-10 mx-auto px-10 ml-80">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Dashboard", url: "/dashboard" },
-            { label: "Settings" },
-            { label: "Profile", url: "/dashboard/profile" },
-          ]}
-        />
+        <div className="flex items-center justify-between">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Dashboard", url: "/dashboard" },
+              { label: "Settings" },
+              { label: "Profile", url: "/dashboard/profile" },
+            ]}
+          />
+          <AdminDropdownMenu userName="John Doe" />
+        </div>
 
         <h1 className="text-2xl font-bold my-4">Shirt Registered</h1>
         <div className="mb-8 flex items-center justify-between">
