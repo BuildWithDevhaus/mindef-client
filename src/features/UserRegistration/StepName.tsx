@@ -6,6 +6,7 @@ import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 const StepName: React.FC<UserRegistrationStepProps> = ({
   userDetails,
   onConfirm,
+  nextStepDestination
 }) => {
   const [inputValue, setInputValue] = useState(userDetails);
   const { nextStep } = useStep();
@@ -16,7 +17,7 @@ const StepName: React.FC<UserRegistrationStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm(inputValue);
-    nextStep("user-registration-division");
+    nextStep(nextStepDestination);
   };
 
   return (
