@@ -11,9 +11,10 @@ import ButtonBack from "../../components/atoms/ButtonBack";
 const StepShirt: React.FC<ManualMeasurementStepProps> = ({
   manualMeasurementInput,
   onConfirm,
+  nextStepDirection
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
-  const { setStep } = useStep();
+  const { nextStep, backStep } = useStep();
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });
@@ -21,11 +22,11 @@ const StepShirt: React.FC<ManualMeasurementStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm({ ...manualMeasurementInput, ...inputValue });
-    setStep("activity-manual-measurement-pants");
+    nextStep(nextStepDirection);
   };
 
   const handleBack = () => {
-    setStep("activity-manual-measurement-uniform-type");
+    backStep();
   };
 
   return (

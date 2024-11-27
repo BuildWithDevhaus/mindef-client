@@ -9,7 +9,7 @@ interface Staff {
 
 const ScanNric: React.FC = () => {
   const [nricNo, setNricNo] = useState("");
-  const { step, setStep } = useStep();
+  const { step, nextStep } = useStep();
 
   useEffect(() => {
     if (!nricNo) return;
@@ -17,10 +17,10 @@ const ScanNric: React.FC = () => {
     const staff = checkStaff(nricNo); // TODO: Change this into real logic
 
     if (staff && step !== "user-confirmation") {
-      setStep("user-confirmation");
+      nextStep("user-confirmation");
       setNricNo("");
     } else if (!staff && step !== "user-registration-name") {
-      setStep("user-registration-name");
+      nextStep("user-registration-name");
       setNricNo("");
     }
   }, [nricNo]);
@@ -32,7 +32,7 @@ const ScanNric: React.FC = () => {
   // TODO: Change this into real logic
   const checkStaff = (nricNo: string) => {
     let staff: Staff | null = null;
-    let isFound = true;
+    let isFound = false;
 
     if (isFound) {
       staff = {

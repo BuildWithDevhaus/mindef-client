@@ -16,7 +16,7 @@ const ActivityManualMeasurement: React.FC = () => {
     length: 16
   });
 
-  const { step, setStep } = useStep();
+  const { step, nextStep } = useStep();
 
   const handleChange = (manualMeasurementInput: ManualMeasurementForm) => {
     setManualMeasurementInput(manualMeasurementInput);
@@ -31,9 +31,9 @@ const ActivityManualMeasurement: React.FC = () => {
     // TODO: Change this into real logic
     
     if (resultFound) {
-      setStep("activity-manual-measurement-result");
+      nextStep("activity-manual-measurement-result");
     } else {
-      setStep("activity-manual-measurement-notfound");
+      nextStep("activity-manual-measurement-notfound");
     }
 
     setManualMeasurementInput({
@@ -53,16 +53,15 @@ const ActivityManualMeasurement: React.FC = () => {
           name="manual-measurement-form"
           id="manual-measurement-form"
           className="h-full w-full justify-between"
-          onSubmit={handleSubmit}
         >
           {step === "activity-manual-measurement-uniform-type" && (
-            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} />
+            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-shirt" />
           )}
           {step === "activity-manual-measurement-shirt" && (
-            <StepShirt manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} />
+            <StepShirt manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-pants" />
           )}
           {step === "activity-manual-measurement-pants" && (
-            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit}/>
+            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit} />
           )}
           {step === "activity-manual-measurement-result" && (
             <StepResult />

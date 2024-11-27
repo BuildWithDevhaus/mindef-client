@@ -8,9 +8,10 @@ import ButtonBack from "../../components/atoms/ButtonBack";
 const StepDivision: React.FC<UserRegistrationStepProps> = ({
   userDetails,
   onConfirm,
+  nextStepDestination
 }) => {
   const [inputValue, setInputValue] = useState(userDetails);
-  const { setStep } = useStep();
+  const { nextStep, backStep } = useStep();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInputValue({ ...inputValue, division: e.target.value });
@@ -18,11 +19,11 @@ const StepDivision: React.FC<UserRegistrationStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm(inputValue);
-    setStep("user-registration-gender");
+    nextStep(nextStepDestination);
   };
 
   const handleBack = () => {
-    setStep("user-registration-name");
+    backStep();
   };
 
   return (

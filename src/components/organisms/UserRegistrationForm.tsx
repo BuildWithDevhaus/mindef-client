@@ -11,7 +11,7 @@ const UserRegistrationForm: React.FC = () => {
     gender: "",
   });
 
-  const { step, setStep } = useStep();
+  const { step, nextStep } = useStep();
 
   const handleChange = (userDetails: UserDetails) => {
     setUserDetails(userDetails);
@@ -21,7 +21,7 @@ const UserRegistrationForm: React.FC = () => {
     e.preventDefault();
 
     // TODO: Change this into real logic
-    setStep("select-activity");
+    nextStep("select-activity");
 
     setUserDetails({ name: "", division: "", gender: "" });
   };
@@ -36,10 +36,10 @@ const UserRegistrationForm: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {step === "user-registration-name" && (
-            <StepName userDetails={userDetails} onConfirm={handleChange} />
+            <StepName userDetails={userDetails} onConfirm={handleChange} nextStepDestination="user-registration-division" />
           )}
           {step === "user-registration-division" && (
-            <StepDivision userDetails={userDetails} onConfirm={handleChange} />
+            <StepDivision userDetails={userDetails} onConfirm={handleChange} nextStepDestination="user-registration-gender" />
           )}
           {step === "user-registration-gender" && (
             <StepGender

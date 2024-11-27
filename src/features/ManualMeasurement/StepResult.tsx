@@ -7,10 +7,10 @@ import ResultContainerLayout from '../../components/templates/ResultContainerLay
 import ButtonPrimary from '../../components/atoms/ButtonPrimary';
 
 const StepResult: React.FC = () => {
-  const { setStep } = useStep();
+  const { resetStep } = useStep();
 
   const handleConfirm = () => {
-    setStep("scan-nric");
+    resetStep();
   };
 
   return (

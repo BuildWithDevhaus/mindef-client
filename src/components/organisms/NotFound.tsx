@@ -4,10 +4,10 @@ import ButtonPrimary from '../atoms/ButtonPrimary'
 import { useStep } from '../../hooks/useStep'
 
 const NotFound: React.FC = () => {
-  const { setStep } = useStep();
+  const { resetStep } = useStep();
 
   const handleConfirm = () => {
-    setStep("scan-nric");
+    resetStep();
   };
 
   return (

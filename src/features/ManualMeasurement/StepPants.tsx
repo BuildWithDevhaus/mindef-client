@@ -8,13 +8,13 @@ import { useStep } from '../../hooks/useStep'
 import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import ButtonBack from '../../components/atoms/ButtonBack'
 
-const StepPants: React.FC<ManualMeasurementStepProps & { onSubmit: () => void }> = ({
+const StepPants: React.FC<ManualMeasurementFormProps> = ({
   manualMeasurementInput,
   onConfirm,
   onSubmit,
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
-  const { setStep } = useStep();
+  const { backStep } = useStep();
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });
@@ -26,7 +26,7 @@ const StepPants: React.FC<ManualMeasurementStepProps & { onSubmit: () => void }>
   };
 
   const handleBack = () => {
-    setStep("activity-manual-measurement-shirt");
+    backStep();
   };
 
   return (

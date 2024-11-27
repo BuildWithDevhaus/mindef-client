@@ -3,12 +3,12 @@ import ButtonCircle from "../../components/atoms/ButtonCircle";
 import { useStep } from "../../hooks/useStep";
 import ButtonBack from "../../components/atoms/ButtonBack";
 
-const StepGender: React.FC<UserRegistrationStepProps & { onSubmit: () => void }> = ({
+const StepGender: React.FC<UserRegistrationFormProps> = ({
   userDetails,
   onConfirm,
   onSubmit,
 }) => {
-  const { setStep } = useStep();
+  const { backStep } = useStep();
 
   const handleConfirm = (gender: string) => {
     onConfirm({ ...userDetails, gender });
@@ -16,7 +16,7 @@ const StepGender: React.FC<UserRegistrationStepProps & { onSubmit: () => void }>
   };
 
   const handleBack = () => {
-    setStep("user-registration-division");
+    backStep();
   };
 
   return (
