@@ -16,7 +16,7 @@ const ActivityManualMeasurement: React.FC = () => {
     length: 16
   });
 
-  const { step, setStep } = useStep();
+  const { step, nextStep } = useStep();
 
   const handleChange = (manualMeasurementInput: ManualMeasurementForm) => {
     setManualMeasurementInput(manualMeasurementInput);
@@ -31,9 +31,9 @@ const ActivityManualMeasurement: React.FC = () => {
     // TODO: Change this into real logic
     
     if (resultFound) {
-      setStep("activity-manual-measurement-result");
+      nextStep("activity-manual-measurement-result");
     } else {
-      setStep("activity-manual-measurement-notfound");
+      nextStep("activity-manual-measurement-notfound");
     }
 
     setManualMeasurementInput({

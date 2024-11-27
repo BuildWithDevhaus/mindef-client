@@ -13,7 +13,7 @@ const StepShirt: React.FC<ManualMeasurementStepProps> = ({
   onConfirm,
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
-  const { setStep } = useStep();
+  const { nextStep, backStep } = useStep();
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });
@@ -21,11 +21,11 @@ const StepShirt: React.FC<ManualMeasurementStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm({ ...manualMeasurementInput, ...inputValue });
-    setStep("activity-manual-measurement-pants");
+    nextStep("activity-manual-measurement-pants");
   };
 
   const handleBack = () => {
-    setStep("activity-manual-measurement-uniform-type");
+    backStep();
   };
 
   return (

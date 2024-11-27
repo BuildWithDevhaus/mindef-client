@@ -4,10 +4,10 @@ import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import { useStep } from '../../hooks/useStep'
 
 const ThankYouScreen: React.FC = () => {
-  const { setStep } = useStep();
+  const { resetStep } = useStep();
 
   const handleConfirm = () => {
-    setStep('scan-nric');
+    resetStep();
   }
 
   return (

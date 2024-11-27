@@ -8,7 +8,7 @@ const StepName: React.FC<UserRegistrationStepProps> = ({
   onConfirm,
 }) => {
   const [inputValue, setInputValue] = useState(userDetails);
-  const { setStep } = useStep();
+  const { nextStep } = useStep();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({ ...inputValue, name: e.target.value });
@@ -16,7 +16,7 @@ const StepName: React.FC<UserRegistrationStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm(inputValue);
-    setStep("user-registration-division");
+    nextStep("user-registration-division");
   };
 
   return (

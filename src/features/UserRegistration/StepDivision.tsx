@@ -10,7 +10,7 @@ const StepDivision: React.FC<UserRegistrationStepProps> = ({
   onConfirm,
 }) => {
   const [inputValue, setInputValue] = useState(userDetails);
-  const { setStep } = useStep();
+  const { nextStep, backStep } = useStep();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInputValue({ ...inputValue, division: e.target.value });
@@ -18,11 +18,11 @@ const StepDivision: React.FC<UserRegistrationStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm(inputValue);
-    setStep("user-registration-gender");
+    nextStep("user-registration-gender");
   };
 
   const handleBack = () => {
-    setStep("user-registration-name");
+    backStep();
   };
 
   return (

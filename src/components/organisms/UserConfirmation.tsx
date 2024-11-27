@@ -4,10 +4,10 @@ import ContainerLayout from "../templates/ContainerLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 
 const UserConfirmation: React.FC = () => {
-  const { step, setStep } = useStep();
+  const { step, nextStep } = useStep();
 
   const handleConfirm = () => {
-    setStep("select-activity");
+    nextStep("select-activity");
   };
 
   return (

@@ -8,7 +8,7 @@ const StepGender: React.FC<UserRegistrationStepProps & { onSubmit: () => void }>
   onConfirm,
   onSubmit,
 }) => {
-  const { setStep } = useStep();
+  const { backStep } = useStep();
 
   const handleConfirm = (gender: string) => {
     onConfirm({ ...userDetails, gender });
@@ -16,7 +16,7 @@ const StepGender: React.FC<UserRegistrationStepProps & { onSubmit: () => void }>
   };
 
   const handleBack = () => {
-    setStep("user-registration-division");
+    backStep();
   };
 
   return (

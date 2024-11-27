@@ -6,7 +6,7 @@ const ScanRfidUser: React.FC = () => {
   const [shirt, setShirt] = useState<Shirt | null>(null);
   const [pants, setPants] = useState<Pants | null>(null);
   const [scanCount, setScanCount] = useState(0);
-  const { step, setStep } = useStep();
+  const { step, nextStep } = useStep();
 
   useEffect(() => {
     if (!rfidNo) return;
@@ -25,7 +25,7 @@ const ScanRfidUser: React.FC = () => {
       if (shirt && pants && step !== "activity-draw-uniform-form") {
         // TODO: Actual saving to database
 
-        setStep("activity-draw-uniform-form");
+        nextStep("activity-draw-uniform-form");
       } else {
         alert("Shirt or pants not found, please try again.");
       }
