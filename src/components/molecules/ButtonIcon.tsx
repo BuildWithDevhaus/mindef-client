@@ -2,6 +2,7 @@ import React from "react";
 import IconCloseBox from "../atoms/IconCloseBox";
 import IconPencil from "../atoms/IconPencil";
 import clsx from "clsx";
+import IconTrash from "../atoms/IconTrash";
 
 
 const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, onClick, className }) => {
@@ -11,6 +12,8 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ icon, onClick, className }) => 
         return <IconCloseBox />;
       case "pencil":
         return <IconPencil />;
+      case "trash": 
+        return <IconTrash />
       default:
         return null;
     }

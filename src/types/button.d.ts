@@ -7,7 +7,7 @@ interface ButtonProps {
 }
 
 interface ButtonIconProps {
-  icon: 'close' | 'pencil';
+  icon: 'close' | 'pencil' | 'trash';
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
