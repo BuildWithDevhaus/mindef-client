@@ -8,6 +8,7 @@ import ButtonBack from "../../components/atoms/ButtonBack";
 const StepDivision: React.FC<UserRegistrationStepProps> = ({
   userDetails,
   onConfirm,
+  nextStepDestination
 }) => {
   const [inputValue, setInputValue] = useState(userDetails);
   const { nextStep, backStep } = useStep();
@@ -18,7 +19,7 @@ const StepDivision: React.FC<UserRegistrationStepProps> = ({
 
   const handleConfirm = () => {
     onConfirm(inputValue);
-    nextStep("user-registration-gender");
+    nextStep(nextStepDestination);
   };
 
   const handleBack = () => {

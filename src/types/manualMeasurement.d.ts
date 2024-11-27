@@ -10,4 +10,11 @@ interface ManualMeasurementForm {
 interface ManualMeasurementStepProps {
   manualMeasurementInput: ManualMeasurementForm
   onConfirm: (manualMeasurementInput: ManualMeasurementForm) => void
+  nextStepDirection: string
+}
+
+interface ManualMeasurementFormProps {
+  manualMeasurementInput: ManualMeasurementForm
+  onConfirm: (manualMeasurementInput: ManualMeasurementForm) => void
+  onSubmit: () => void
 }

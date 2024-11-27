@@ -56,13 +56,13 @@ const ActivityManualMeasurement: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {step === "activity-manual-measurement-uniform-type" && (
-            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} />
+            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-shirt" />
           )}
           {step === "activity-manual-measurement-shirt" && (
-            <StepShirt manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} />
+            <StepShirt manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-pants" />
           )}
           {step === "activity-manual-measurement-pants" && (
-            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit}/>
+            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit} />
           )}
           {step === "activity-manual-measurement-result" && (
             <StepResult />

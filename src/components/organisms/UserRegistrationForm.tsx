@@ -36,10 +36,10 @@ const UserRegistrationForm: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {step === "user-registration-name" && (
-            <StepName userDetails={userDetails} onConfirm={handleChange} />
+            <StepName userDetails={userDetails} onConfirm={handleChange} nextStepDestination="user-registration-division" />
           )}
           {step === "user-registration-division" && (
-            <StepDivision userDetails={userDetails} onConfirm={handleChange} />
+            <StepDivision userDetails={userDetails} onConfirm={handleChange} nextStepDestination="user-registration-gender" />
           )}
           {step === "user-registration-gender" && (
             <StepGender

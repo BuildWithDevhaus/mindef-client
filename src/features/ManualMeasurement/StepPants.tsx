@@ -8,7 +8,7 @@ import { useStep } from '../../hooks/useStep'
 import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import ButtonBack from '../../components/atoms/ButtonBack'
 
-const StepPants: React.FC<ManualMeasurementStepProps & { onSubmit: () => void }> = ({
+const StepPants: React.FC<ManualMeasurementFormProps> = ({
   manualMeasurementInput,
   onConfirm,
   onSubmit,
