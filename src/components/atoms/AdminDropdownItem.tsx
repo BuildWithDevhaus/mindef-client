@@ -1,11 +1,5 @@
 import React from "react";
 
-interface DropdownItemProps {
-  icon?: React.ReactNode;
-  label: string;       
-  onClick: () => void;    
-}
-
 const DropdownItem: React.FC<DropdownItemProps> = ({ icon, label, onClick }) => (
   <button
     onClick={onClick}

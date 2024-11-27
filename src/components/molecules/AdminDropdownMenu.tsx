@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import DropdownItem from "../atoms/AdminDropdownItem";
-import IconGear from "../atoms/IconGear"; // Import the gear icon
-import IconKey from "../atoms/IconKey"; // Import the key icon
+import IconGear from "../atoms/IconGear"; 
+import IconKey from "../atoms/IconKey";
 
-interface DropdownMenuProps {
-  userName: string;
-}
-
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ userName }) => {
+const AdminDropdownMenu: React.FC<AdminDropdownMenuProps> = ({ userName }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
@@ -40,4 +36,4 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ userName }) => {
   );
 };
 
-export default DropdownMenu;
+export default AdminDropdownMenu;
