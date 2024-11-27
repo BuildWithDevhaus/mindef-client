@@ -4,15 +4,15 @@ import { useStep } from '../../hooks/useStep';
 import ButtonBack from '../atoms/ButtonBack';
 
 const SelectUniformType: React.FC<ManualMeasurementStepProps> = ({ manualMeasurementInput, onConfirm }) => {
-  const { setStep } = useStep();
+  const { nextStep, backStep } = useStep();
 
   const handleConfirm = (uniformType: string) => {
     onConfirm({ ...manualMeasurementInput, uniformType });
-    setStep("activity-manual-measurement-shirt");
+    nextStep("activity-manual-measurement-shirt");
   };
 
   const handleBack = () => {
-    setStep("select-activity");
+    backStep();
   };
 
   return (

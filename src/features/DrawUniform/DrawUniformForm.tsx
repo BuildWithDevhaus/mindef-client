@@ -7,16 +7,16 @@ import ButtonSecondary from '../../components/atoms/ButtonSecondary';
 import { useStep } from '../../hooks/useStep';
 
 const DrawUniformForm: React.FC = () => {
-  const { setStep } = useStep();
+  const { nextStep } = useStep();
 
   const handleConfirm = () => {
     // TODO: Change this into real logic
 
-    setStep('activity-draw-uniform-thank-you');
+    nextStep('activity-draw-uniform-thank-you');
   }
 
   const handleReselect = () => {
-    setStep('activity-draw-uniform-reselect');
+    nextStep('activity-draw-uniform-reselect');
   }
 
   return (
