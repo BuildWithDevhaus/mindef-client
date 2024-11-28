@@ -1,260 +1,41 @@
 import React, { useState } from "react";
 import Table from "../organisms/TableProps";
-import TableAction from "../molecules/TableAction";
 import SearchBar from "../molecules/SearchBar";
 import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import AdminLayout from "../templates/AdminLayout";
+import { pantsData, pantsHeaders, shirtData, shirtHeaders } from "../../dummy/AdminDummy";
 
-const pageHeaders = [
-  "Shirt ID:",
-  "Belongs To:",
-  "Gender:",
-  "Uniform Type:",
-  "Shoulder Length",
-  "Sleeves Length",
-  "Collar Length",
-  "Shirt Location:",
-  "Action:",
-];
-const pageData = [
-  [
-    "9983747389",
-    "Airforce",
-    "Male",
-    "No.1",
-    "16cm",
-    "16cm",
-    "39cm",
-    "Row: 2, Rack: B1, No: 30",
-    <TableAction itemId={9983747389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9388394738",
-    "Navy",
-    "Female",
-    "Color Party",
-    "16cm",
-    "12cm",
-    "16cm",
-    "Row: 2, Rack: B5, No: 12",
-    <TableAction itemId={9388394738} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "1183847389",
-    "Navy",
-    "Female",
-    "Color Party",
-    "19cm",
-    "16cm",
-    "16cm",
-    "Row: 8, Rack: B2, No: 22",
-    <TableAction itemId={1183847389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9983047893",
-    "Navy",
-    "Female",
-    "Color Party",
-    "1cm",
-    "27cm",
-    "16cm",
-    "Row: 4, Rack: B9, No: 26",
-    <TableAction itemId={9983047893} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9988847389",
-    "Airforce",
-    "Male",
-    "No.1",
-    "16cm",
-    "19cm",
-    "18cm",
-    "Row: 8, Rack: B2, No: 29",
-    <TableAction itemId={9988847389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9498387389",
-    "Navy",
-    "Female",
-    "Color Party",
-    "16cm",
-    "29cm",
-    "16cm",
-    "Row: 5, Rack: B5, No: 29",
-    <TableAction itemId={9498387389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9838373899",
-    "Navy",
-    "Female",
-    "Color Party",
-    "16cm",
-    "12cm",
-    "16cm",
-    "Row: 6, Rack: B2, No: 16",
-    <TableAction itemId={9838373899} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9960847389",
-    "Navy",
-    "Female",
-    "Color Party",
-    "1cm",
-    "16cm",
-    "27cm",
-    "Row: 2, Rack: B2, No: 27",
-    <TableAction itemId={9960847389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "7998384389",
-    "Airforce",
-    "Male",
-    "No.1",
-    "16cm",
-    "16cm",
-    "13cm",
-    "Row: 2, Rack: B6, No: 29",
-    <TableAction itemId={7998384389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "8298387389",
-    "Navy",
-    "Female",
-    "Color Party",
-    "29cm",
-    "16cm",
-    "16cm",
-    "Row: 6, Rack: B3, No: 29",
-    <TableAction itemId={8298387389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9983473779",
-    "Navy",
-    "Female",
-    "Color Party",
-    "25cm",
-    "19cm",
-    "16cm",
-    "Row: 9, Rack: B1, No: 01",
-    <TableAction itemId={9983473779} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9934737889",
-    "Navy",
-    "Female",
-    "Color Party",
-    "1cm",
-    "16cm",
-    "16cm",
-    "Row: 2, Rack: B2, No: 02",
-    <TableAction itemId={9934737889} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "2980827089",
-    "Airforce",
-    "Male",
-    "No.1",
-    "16cm",
-    "12cm",
-    "16cm",
-    "Row: 2, Rack: B2, No: 11",
-    <TableAction itemId={2980827089} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9999384738",
-    "Navy",
-    "Female",
-    "Color Party",
-    "16cm",
-    "13cm",
-    "16cm",
-    "Row: 11, Rack: B8, No: 17",
-    <TableAction itemId={9999384738} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9839477389",
-    "Navy",
-    "Female",
-    "Color Party",
-    "16cm",
-    "16cm",
-    "13cm",
-    "Row: 5, Rack: B2, No: 29",
-    <TableAction itemId={9839477389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9189315738",
-    "Navy",
-    "Female",
-    "Color Party",
-    "1cm",
-    "16cm",
-    "17cm",
-    "Row: 2, Rack: B2, No: 29",
-    <TableAction itemId={9189315738} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9083847389",
-    "Airforce",
-    "Male",
-    "No.1",
-    "16cm",
-    "18cm",
-    "16cm",
-    "Row: 9, Rack: B9, No: 10",
-    <TableAction itemId={9083847389} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9983840089",
-    "Navy",
-    "Female",
-    "Color Party",
-    "16cm",
-    "29cm",
-    "16cm",
-    "Row: 4, Rack: B4, No: 32",
-    <TableAction itemId={9983840089} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9323438383",
-    "Navy",
-    "Female",
-    "Color Party",
-    "16cm",
-    "16cm",
-    "16cm",
-    "Row: 4, Rack: B2, No: 29",
-    <TableAction itemId={9323438383} showEdit={true} showDelete={true} />,
-  ],
-  [
-    "9903040389",
-    "Navy",
-    "male",
-    "Color Party",
-    "1cm",
-    "12cm",
-    "21cm",
-    "Row: 3, Rack: B4, No: 91",
-    <TableAction itemId={9903040389} showEdit showDelete />,
-  ],
-];
+
 
 const AdminHome: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const handleSearchChange = (query: string) => {
-    setSearchQuery(query);
+  const [shirtSearchQuery, setShirtSearchQuery] = useState("");
+  const [shirtRowsPerPage, setShirtRowsPerPage] = useState(5);
+
+  const handleShirtSearchChange = (query: string) => {
+    setShirtSearchQuery(query);
   };
 
-  const handleRowsPerPageChange = (value: number) => {
-    setRowsPerPage(value);
+  const handleShirtRowsPerPageChange = (value: number) => {
+    setShirtRowsPerPage(value);
+  };
+
+  // State for the second table (pants)
+  const [pantsSearchQuery, setPantsSearchQuery] = useState("");
+  const [pantsRowsPerPage, setPantsRowsPerPage] = useState(5);
+
+  const handlePantsSearchChange = (query: string) => {
+    setPantsSearchQuery(query);
+  };
+
+  const handlePantsRowsPerPageChange = (value: number) => {
+    setPantsRowsPerPage(value);
   };
 
   const breadcrumbItems = [
     { label: "Home", url: "/" },
     { label: "Inventory", url: "/inventory" },
-    { label: "Shirt Registered" },
+    { label: "Clothing Registered" },
   ];
 
   return (
@@ -265,23 +46,43 @@ const AdminHome: React.FC = () => {
       </div>
       <div className="mb-8 flex items-center justify-between">
         <RowsPerPageDropdown
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleRowsPerPageChange}
+          rowsPerPage={shirtRowsPerPage}
+          onRowsPerPageChange={handleShirtRowsPerPageChange}
         />
         <SearchBar
-          placeholder="Search for something..."
-          onChange={(e) => handleSearchChange(e.target.value)}
+          placeholder="Search shirts..."
+          onChange={(e) => handleShirtSearchChange(e.target.value)}
         />
       </div>
       <Table
-        headers={pageHeaders}
-        data={pageData}
-        rowsPerPage={rowsPerPage}
-        searchQuery={searchQuery}
+        headers={shirtHeaders}
+        data={shirtData}
+        rowsPerPage={shirtRowsPerPage}
+        searchQuery={shirtSearchQuery}
+      />
+
+      <div className="my-8">
+        <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
+        <ButtonPrimary>Register New Pants</ButtonPrimary>
+      </div>
+      <div className="mb-8 flex items-center justify-between">
+        <RowsPerPageDropdown
+          rowsPerPage={pantsRowsPerPage}
+          onRowsPerPageChange={handlePantsRowsPerPageChange}
+        />
+        <SearchBar
+          placeholder="Search pants..."
+          onChange={(e) => handlePantsSearchChange(e.target.value)}
+        />
+      </div>
+      <Table
+        headers={pantsHeaders}
+        data={pantsData}
+        rowsPerPage={pantsRowsPerPage}
+        searchQuery={pantsSearchQuery}
       />
     </AdminLayout>
   );
 };
 
 export default AdminHome;
-
