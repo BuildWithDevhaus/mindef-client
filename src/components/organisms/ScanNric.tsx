@@ -32,7 +32,7 @@ const ScanNric: React.FC = () => {
   // TODO: Change this into real logic
   const checkStaff = (nricNo: string) => {
     let staff: Staff | null = null;
-    let isFound = false;
+    let isFound = true;
 
     if (isFound) {
       staff = {

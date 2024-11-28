@@ -1,6 +1,6 @@
 interface InputFieldProps {
   placeholder: string;
-  value?: string;
+  value?: string | number;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 }
