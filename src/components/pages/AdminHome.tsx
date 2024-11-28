@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Table from "../organisms/TableProps";
 import TableAction from "../molecules/TableAction";
-import Sidebar from "../organisms/Sidebar";
-import Breadcrumb from "../atoms/Breadcrumb";
 import SearchBar from "../molecules/SearchBar";
 import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
-import AdminDropdownMenu from "../molecules/AdminDropdownMenu";
+import ButtonPrimary from "../atoms/ButtonPrimary";
+import AdminLayout from "../templates/AdminLayout";
 
 const pageHeaders = [
   "Shirt ID:",
@@ -252,42 +251,37 @@ const AdminHome: React.FC = () => {
     setRowsPerPage(value);
   };
 
-  return (
-    <div className="mx-auto flex">
-      <Sidebar />
-      <div className="w-full mt-10 mx-auto px-10 ml-80">
-        <div className="flex items-center justify-between">
-          <Breadcrumb
-            items={[
-              { label: "Home", url: "/" },
-              { label: "Dashboard", url: "/dashboard" },
-              { label: "Settings" },
-              { label: "Profile", url: "/dashboard/profile" },
-            ]}
-          />
-          <AdminDropdownMenu userName="John Doe" />
-        </div>
+  const breadcrumbItems = [
+    { label: "Home", url: "/" },
+    { label: "Inventory", url: "/inventory" },
+    { label: "Shirt Registered" },
+  ];
 
-        <h1 className="text-2xl font-bold my-4">Shirt Registered</h1>
-        <div className="mb-8 flex items-center justify-between">
-          <RowsPerPageDropdown
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleRowsPerPageChange}
-          />
-          <SearchBar
-            placeholder="Search for something..."
-            onChange={(e) => handleSearchChange(e.target.value)}
-          />
-        </div>
-        <Table
-          headers={pageHeaders}
-          data={pageData}
+  return (
+    <AdminLayout headingText="Register New Inventory" breadcrumbItems={breadcrumbItems}>
+      <div className="mb-8 flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
+        <ButtonPrimary>Register New Shirt</ButtonPrimary>
+      </div>
+      <div className="mb-8 flex items-center justify-between">
+        <RowsPerPageDropdown
           rowsPerPage={rowsPerPage}
-          searchQuery={searchQuery}
+          onRowsPerPageChange={handleRowsPerPageChange}
+        />
+        <SearchBar
+          placeholder="Search for something..."
+          onChange={(e) => handleSearchChange(e.target.value)}
         />
       </div>
-    </div>
+      <Table
+        headers={pageHeaders}
+        data={pageData}
+        rowsPerPage={rowsPerPage}
+        searchQuery={searchQuery}
+      />
+    </AdminLayout>
   );
 };
 
 export default AdminHome;
+
