@@ -4,36 +4,48 @@ import Breadcrumb from "../atoms/Breadcrumb";
 import AdminDropdownMenu from "../molecules/AdminDropdownMenu";
 
 interface BreadcrumbItem {
-    label: string;
-    url?: string; 
-  }
+  label: string;
+  url?: string;
+}
 
 interface AdminTemplateProps {
   children: React.ReactNode;
   headingText: string;
+  subText?: string;
   breadcrumbItems: BreadcrumbItem[];
 }
 
-const AdminLayout: React.FC<AdminTemplateProps> = ({ children, headingText, breadcrumbItems }) => {
+const AdminLayout: React.FC<AdminTemplateProps> = ({
+  children,
+  headingText,
+  subText,
+  breadcrumbItems,
+}) => {
   return (
-    <div className="mx-auto flex">
+    <div className="flex h-screen">
       <Sidebar />
-      <div className="w-full mt-10 mx-auto px-10 ml-80">
-        <div className="sticky top-0 bg-white z-10">
-          <div className="flex items-center justify-between py-2">
-            <Breadcrumb
-              items={breadcrumbItems}
-            />
+      <div className="flex flex-col w-full ml-80">
+        <header className="sticky top-0 bg-white z-10 py-8">
+          <div className="flex items-center justify-between py-6 px-10"> 
+            <Breadcrumb items={breadcrumbItems} />
             <AdminDropdownMenu userName="John Doe" />
           </div>
-        </div>
-        <div className="mb-8 mt-8">
-          <h1 className="text-3xl font-bold text-[#101828] mb-5">
-            {headingText}
-          </h1>
-          <div className="border-b border-[#EAECF0]"></div>
-        </div>
-        {children}
+        </header>
+        <main className="flex flex-col flex-grow px-10 overflow-y-auto">
+          <div className="mb-8">
+            <div className="mb-5 flex flex-col gap-2">
+              <h1 className="text-3xl font-bold text-[#101828]">{headingText}</h1>
+              {subText && (
+                <p
+                  className="text-[#667085] text-lg"
+                  dangerouslySetInnerHTML={{ __html: subText }}
+                ></p>
+              )}
+            </div>
+            <div className="border-b border-[#EAECF0]"></div>
+          </div>
+          <div className="flex-grow">{children}</div>
+        </main>
       </div>
     </div>
   );
