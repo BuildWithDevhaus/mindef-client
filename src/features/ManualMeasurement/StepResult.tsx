@@ -17,6 +17,9 @@ const StepResult: React.FC = () => {
     <div className='flex justify-center items-center h-full'>
       <ContainerLayout>
         <div className='flex flex-col items-center gap-[60px]'>
+          <div className='w-[652px] text-center'>
+            <h1 className='font-bold text-[36px]'>We found a match! You may proceed to try the uniform.</h1>
+          </div>
           <ResultContainerLayout title="Shirt Location" image={shirtMaleNo1} row={2} rack="B2" no={25} />
           <ResultContainerLayout title="Pants Location" image={pantsMaleNo1} row={2} rack="B2" no={25} />
         </div>
