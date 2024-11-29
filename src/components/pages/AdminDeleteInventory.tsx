@@ -3,11 +3,12 @@ import Table from "../organisms/TableProps";
 import SearchBar from "../molecules/SearchBar";
 import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
-import { pantsInventoryData, pantsInventoryHeaders, shirtInventoryData, shirtInventoryHeaders } from "../../dummy/OverviewDummy";
+import { pantsDeleteData, pantsDeleteHeaders, shirtDeleteData, shirtDeleteHeaders } from "../../dummy/DeleteInventoryDummy";
+import ButtonPrimary from "../atoms/ButtonPrimary";
 
 
 
-const AdminHome: React.FC = () => {
+const AdminDeleteInventory: React.FC = () => {
   const [shirtSearchQuery, setShirtSearchQuery] = useState("");
   const [shirtRowsPerPage, setShirtRowsPerPage] = useState(5);
 
@@ -31,14 +32,15 @@ const AdminHome: React.FC = () => {
   };
 
   const breadcrumbItems = [
-    { label: "Home"},
-    { label: "Overview", url: "/admin" },
+    { label: "Admin Menu",},
+    { label: "Delete Inventory", url: "/admin/delete-inventory" },
   ];
 
   return (
-    <AdminLayout headingText="Overview Dashboard" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout headingText="Delete Inventory" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Inventory</h2>
+        <ButtonPrimary>Delete Items</ButtonPrimary>
       </div>
       <div className="mb-8 flex items-center justify-between">
         <RowsPerPageDropdown
@@ -51,14 +53,15 @@ const AdminHome: React.FC = () => {
         />
       </div>
       <Table
-        headers={shirtInventoryHeaders}
-        data={shirtInventoryData}
+        headers={shirtDeleteHeaders}
+        data={shirtDeleteData}
         rowsPerPage={shirtRowsPerPage}
         searchQuery={shirtSearchQuery}
       />
 
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Inventory</h2>
+        <ButtonPrimary>Delete Items</ButtonPrimary>
       </div>
       <div className="mb-8 flex items-center justify-between">
         <RowsPerPageDropdown
@@ -71,8 +74,8 @@ const AdminHome: React.FC = () => {
         />
       </div>
       <Table
-        headers={pantsInventoryHeaders}
-        data={pantsInventoryData}
+        headers={pantsDeleteHeaders}
+        data={pantsDeleteData}
         rowsPerPage={pantsRowsPerPage}
         searchQuery={pantsSearchQuery}
       />
@@ -80,4 +83,4 @@ const AdminHome: React.FC = () => {
   );
 };
 
-export default AdminHome;
+export default AdminDeleteInventory;

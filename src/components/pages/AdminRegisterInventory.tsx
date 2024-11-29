@@ -3,11 +3,15 @@ import Table from "../organisms/TableProps";
 import SearchBar from "../molecules/SearchBar";
 import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
-import { pantsInventoryData, pantsInventoryHeaders, shirtInventoryData, shirtInventoryHeaders } from "../../dummy/OverviewDummy";
+import {
+  pantsRegisterData,
+  pantsRegisterHeaders,
+  shirtRegisterData,
+  shirtRegisterHeaders,
+} from "../../dummy/RegisterInventoryDummy";
+import ButtonPrimary from "../atoms/ButtonPrimary";
 
-
-
-const AdminHome: React.FC = () => {
+const AdminRegisterInventory: React.FC = () => {
   const [shirtSearchQuery, setShirtSearchQuery] = useState("");
   const [shirtRowsPerPage, setShirtRowsPerPage] = useState(5);
 
@@ -31,14 +35,17 @@ const AdminHome: React.FC = () => {
   };
 
   const breadcrumbItems = [
-    { label: "Home"},
-    { label: "Overview", url: "/admin" },
+    { label: "Admin Menu"},
+    { label: "Register New Inventory", url: "/admin/register-inventory" },
   ];
 
   return (
-    <AdminLayout headingText="Overview Dashboard" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout
+      headingText="Register New Inventory"
+      breadcrumbItems={breadcrumbItems}
+    >
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Shirt Inventory</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
       </div>
       <div className="mb-8 flex items-center justify-between">
         <RowsPerPageDropdown
@@ -51,14 +58,15 @@ const AdminHome: React.FC = () => {
         />
       </div>
       <Table
-        headers={shirtInventoryHeaders}
-        data={shirtInventoryData}
+        headers={shirtRegisterHeaders}
+        data={shirtRegisterData}
         rowsPerPage={shirtRowsPerPage}
         searchQuery={shirtSearchQuery}
       />
 
       <div className="my-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Pants Inventory</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
+        <ButtonPrimary>Register New Pants</ButtonPrimary>
       </div>
       <div className="mb-8 flex items-center justify-between">
         <RowsPerPageDropdown
@@ -71,8 +79,8 @@ const AdminHome: React.FC = () => {
         />
       </div>
       <Table
-        headers={pantsInventoryHeaders}
-        data={pantsInventoryData}
+        headers={pantsRegisterHeaders}
+        data={pantsRegisterData}
         rowsPerPage={pantsRowsPerPage}
         searchQuery={pantsSearchQuery}
       />
@@ -80,4 +88,4 @@ const AdminHome: React.FC = () => {
   );
 };
 
-export default AdminHome;
+export default AdminRegisterInventory;
