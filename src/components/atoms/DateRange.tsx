@@ -9,7 +9,8 @@ interface DateRangeProps {
 const DateRange: React.FC<DateRangeProps> = ({ value, onChange }) => {
   return (
     <Datepicker
-      useRange={true} 
+      primaryColor={"teal"}
+      useRange={true}
       value={value}
       onChange={onChange}
     />

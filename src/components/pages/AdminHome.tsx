@@ -3,9 +3,13 @@ import Table from "../organisms/TableProps";
 import SearchBar from "../molecules/SearchBar";
 import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
-import { pantsInventoryData, pantsInventoryHeaders, shirtInventoryData, shirtInventoryHeaders } from "../../dummy/OverviewDummy";
-
-
+import {
+  pantsInventoryData,
+  pantsInventoryHeaders,
+  shirtInventoryData,
+  shirtInventoryHeaders,
+} from "../../dummy/OverviewDummy";
+import DateRange from "../atoms/DateRange";
 
 const AdminHome: React.FC = () => {
   const [shirtSearchQuery, setShirtSearchQuery] = useState("");
@@ -30,13 +34,60 @@ const AdminHome: React.FC = () => {
     setPantsRowsPerPage(value);
   };
 
+  const [shirtDateRange, setShirtDateRange] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [pantsDateRange, setPantsDateRange] = useState({
+    startDate: null,
+    endDate: null,
+  });
+
+  const handleShirtDateChange = (value: any) => {
+    setShirtDateRange(value);
+  };
+
+  const handlePantsDateChange = (value: any) => {
+    setPantsDateRange(value);
+  };
+
+  const filterDataByDateRange = (
+    data: any[],
+    dateRange: { startDate: string | null; endDate: string | null }
+  ) => {
+    return data.filter((row) => {
+      const lastDrawnDate = new Date(row[5]);
+      const startDate = dateRange.startDate
+        ? new Date(dateRange.startDate)
+        : null;
+      const endDate = dateRange.endDate ? new Date(dateRange.endDate) : null;
+
+      if (startDate && lastDrawnDate < startDate) return false;
+      if (endDate && lastDrawnDate > endDate) return false;
+
+      return true;
+    });
+  };
+
+  const filteredShirtData = filterDataByDateRange(
+    shirtInventoryData,
+    shirtDateRange
+  );
+  const filteredPantsData = filterDataByDateRange(
+    pantsInventoryData,
+    pantsDateRange
+  );
+
   const breadcrumbItems = [
-    { label: "Home"},
+    { label: "Home" },
     { label: "Overview", url: "/admin" },
   ];
 
   return (
-    <AdminLayout headingText="Overview Dashboard" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout
+      headingText="Overview Dashboard"
+      breadcrumbItems={breadcrumbItems}
+    >
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Inventory</h2>
       </div>
@@ -45,14 +96,17 @@ const AdminHome: React.FC = () => {
           rowsPerPage={shirtRowsPerPage}
           onRowsPerPageChange={handleShirtRowsPerPageChange}
         />
-        <SearchBar
-          placeholder="Search shirts..."
-          onChange={(e) => handleShirtSearchChange(e.target.value)}
-        />
+        <div className="flex items-center gap-8">
+          <DateRange value={shirtDateRange} onChange={handleShirtDateChange} />
+          <SearchBar
+            placeholder="Search shirts..."
+            onChange={(e) => handleShirtSearchChange(e.target.value)}
+          />
+        </div>
       </div>
       <Table
         headers={shirtInventoryHeaders}
-        data={shirtInventoryData}
+        data={filteredShirtData}
         rowsPerPage={shirtRowsPerPage}
         searchQuery={shirtSearchQuery}
       />
@@ -65,14 +119,17 @@ const AdminHome: React.FC = () => {
           rowsPerPage={pantsRowsPerPage}
           onRowsPerPageChange={handlePantsRowsPerPageChange}
         />
-        <SearchBar
-          placeholder="Search pants..."
-          onChange={(e) => handlePantsSearchChange(e.target.value)}
-        />
+        <div className="flex items-center gap-8">
+          <DateRange value={pantsDateRange} onChange={handlePantsDateChange} />
+          <SearchBar
+            placeholder="Search pants..."
+            onChange={(e) => handlePantsSearchChange(e.target.value)}
+          />
+        </div>
       </div>
       <Table
         headers={pantsInventoryHeaders}
-        data={pantsInventoryData}
+        data={filteredPantsData}
         rowsPerPage={pantsRowsPerPage}
         searchQuery={pantsSearchQuery}
       />
