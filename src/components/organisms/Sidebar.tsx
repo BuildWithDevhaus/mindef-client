@@ -56,9 +56,9 @@ const Sidebar = () => {
   ];
 
   const userMenuItems = [
-    { label: "Auto Measurement", onClick: () => {}, isActive: false },
-    { label: "Manual Measurement Entry", onClick: () => {}, isActive: false },
-    { label: "Draw Uniform", onClick: () => {}, isActive: false },
+    { label: "Auto Measurement", onClick: () => navigate("/admin/auto-measurement"), isActive: location.pathname === "/admin/auto-measurement" },
+    { label: "Manual Measurement Entry", onClick: () => navigate("/admin/manual-measurement"), isActive: location.pathname === "/admin/manual-measurement" },
+    { label: "Draw Uniform", onClick: () => navigate("/admin/draw-uniform"), isActive: location.pathname === "/admin/draw-uniform" },
   ];
 
   return (

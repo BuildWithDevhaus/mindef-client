@@ -10,6 +10,9 @@ import AdminReports from './components/pages/AdminReports';
 import UserHome from './components/pages/UserHome';
 import AdminMonthlyReport from './components/pages/AdminMonthlyReport';
 import AdminYearlyReport from './components/pages/AdminYearlyReport';
+import AdminAutoMeasurement from './components/pages/AdminAutoMeasurement';
+import AdminManualMeasurement from './components/pages/AdminManualMeasurement';
+import AdminDrawUniform from './components/pages/AdminDrawUniform';
 
 const App = () => {
   return (
@@ -26,6 +29,9 @@ const App = () => {
         <Route path='/admin/configure-data-rentention' element={<AdminConfigureDataRetention/>} />
         <Route path="/admin/reports/monthly-report" element={<AdminMonthlyReport />} />
         <Route path='/admin/reports/yearly-report' element={<AdminYearlyReport />} />
+        <Route path="/admin/auto-measurement" element={<AdminAutoMeasurement />} />
+        <Route path="/admin/manual-measurement" element={<AdminManualMeasurement/>} />
+        <Route path="/admin/draw-uniform" element={<AdminDrawUniform/>} />
       </Routes>
     </Router>
   );
