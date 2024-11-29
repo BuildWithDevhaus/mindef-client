@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import Table from "../organisms/TableProps";
 import SearchBar from "../molecules/SearchBar";
 import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
-import ButtonPrimary from "../atoms/ButtonPrimary";
 import AdminLayout from "../templates/AdminLayout";
-import { pantsData, pantsHeaders, shirtData, shirtHeaders } from "../../dummy/AdminDummy";
+import { pantsInventoryData, pantsInventoryHeaders, shirtInventoryData, shirtInventoryHeaders } from "../../dummy/OverviewDummy";
 
 
 
@@ -20,7 +19,6 @@ const AdminHome: React.FC = () => {
     setShirtRowsPerPage(value);
   };
 
-  // State for the second table (pants)
   const [pantsSearchQuery, setPantsSearchQuery] = useState("");
   const [pantsRowsPerPage, setPantsRowsPerPage] = useState(5);
 
@@ -33,16 +31,14 @@ const AdminHome: React.FC = () => {
   };
 
   const breadcrumbItems = [
-    { label: "Home", url: "/" },
-    { label: "Inventory", url: "/inventory" },
-    { label: "Clothing Registered" },
+    { label: "Home"},
+    { label: "Overview", url: "/admin" },
   ];
 
   return (
-    <AdminLayout headingText="Register New Inventory" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout headingText="Overview Dashboard" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
-        <ButtonPrimary>Register New Shirt</ButtonPrimary>
+        <h2 className="text-2xl font-bold text-[#101828]">Shirt Inventory</h2>
       </div>
       <div className="mb-8 flex items-center justify-between">
         <RowsPerPageDropdown
@@ -55,15 +51,14 @@ const AdminHome: React.FC = () => {
         />
       </div>
       <Table
-        headers={shirtHeaders}
-        data={shirtData}
+        headers={shirtInventoryHeaders}
+        data={shirtInventoryData}
         rowsPerPage={shirtRowsPerPage}
         searchQuery={shirtSearchQuery}
       />
 
-      <div className="my-8">
-        <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
-        <ButtonPrimary>Register New Pants</ButtonPrimary>
+      <div className="my-8 flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#101828]">Pants Inventory</h2>
       </div>
       <div className="mb-8 flex items-center justify-between">
         <RowsPerPageDropdown
@@ -76,8 +71,8 @@ const AdminHome: React.FC = () => {
         />
       </div>
       <Table
-        headers={pantsHeaders}
-        data={pantsData}
+        headers={pantsInventoryHeaders}
+        data={pantsInventoryData}
         rowsPerPage={pantsRowsPerPage}
         searchQuery={pantsSearchQuery}
       />
