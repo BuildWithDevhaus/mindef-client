@@ -10,14 +10,15 @@ const ScanNric: React.FC = () => {
   useEffect(() => {
     if (!nricNo) return;
 
-    staffLogin(nricNo, true);
+    staffLogin(nricNo, false);
 
     if (!isCheckingStaff) {
-      if (staff && step !== "user-confirmation") {
-        nextStep("user-confirmation");
+      if (staff && step !== "existing-user-confirmation") {
+        nextStep("existing-user-confirmation");
       } else if (!staff && step !== "user-registration-name") {
         nextStep("user-registration-name");
       }
+      setNricNo("");
     }
   }, [nricNo, isCheckingStaff]);
 

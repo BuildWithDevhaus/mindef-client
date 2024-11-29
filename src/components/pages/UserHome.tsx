@@ -6,14 +6,14 @@ import SelectActivity from "../organisms/SelectActivity"
 import ActivityManualMeasurement from "../organisms/ActivityManualMeasurement"
 import ActivityAutoMeasurement from "../organisms/ActivityAutoMeasurement"
 import ActivityDrawUniform from "../organisms/ActivityDrawUniform"
-import UserConfirmation from "../organisms/UserConfirmation"
+import UserExisting from "../organisms/UserExisting"
 
 const UserHome: React.FC = () => {
   return (
     <UserLayout>
       <ScanNric />
       <UserRegistrationForm />
-      <UserConfirmation />
+      <UserExisting />
       <SelectActivity />
       <ActivityManualMeasurement />
       <ActivityAutoMeasurement />

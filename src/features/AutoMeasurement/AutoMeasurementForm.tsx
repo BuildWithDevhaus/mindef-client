@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ContainerLayout from '../../components/templates/ContainerLayout'
 import shirtMaleNo1 from "../../assets/images/Shirt (Male - No. 1).png";
-import pantsMaleNo1 from '../../assets/images/Pants (Male - No. 1).png'
+import pantsMaleNo1 from '../../assets/images/Pants (Male - No. 1).png';
 import ButtonPrimary from '../../components/atoms/ButtonPrimary';
 import { useStep } from '../../hooks/useStep';
 import InputFieldSecondary from '../../components/atoms/InputFieldSecondary';
