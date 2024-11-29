@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep'
+import ButtonBack from '../../components/atoms/ButtonBack';
 
 const ScanRfidUser: React.FC = () => {
   const [rfidNo, setRfidNo] = useState("");
   const [shirt, setShirt] = useState<Shirt | null>(null);
   const [pants, setPants] = useState<Pants | null>(null);
   const [scanCount, setScanCount] = useState(0);
-  const { step, nextStep } = useStep();
+  const { step, nextStep, backStep } = useStep();
 
   useEffect(() => {
     if (!rfidNo) return;
@@ -39,6 +40,10 @@ const ScanRfidUser: React.FC = () => {
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRfidNo(e.target.value);
+  };
+
+  const handleBack = () => {
+    backStep();
   };
 
   // TODO: Change this into real logic
@@ -75,6 +80,7 @@ const ScanRfidUser: React.FC = () => {
           onChange={handleScan}
         />
       </form>
+      <ButtonBack onClick={handleBack} />
     </div>
   )
 }

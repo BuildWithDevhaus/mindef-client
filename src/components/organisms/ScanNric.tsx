@@ -1,48 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useStep } from "../../hooks/useStep";
-
-interface Staff {
-  name: string;
-  division: string;
-  gender: string;
-}
+import { useStaff } from "../../hooks/useStaff";
 
 const ScanNric: React.FC = () => {
   const [nricNo, setNricNo] = useState("");
   const { step, nextStep } = useStep();
+  const { staff, isCheckingStaff, staffLogin } = useStaff();
 
   useEffect(() => {
     if (!nricNo) return;
 
-    const staff = checkStaff(nricNo); // TODO: Change this into real logic
+    staffLogin(nricNo, false);
 
-    if (staff && step !== "user-confirmation") {
-      nextStep("user-confirmation");
-      setNricNo("");
-    } else if (!staff && step !== "user-registration-name") {
-      nextStep("user-registration-name");
+    if (!isCheckingStaff) {
+      if (staff && step !== "existing-user-confirmation") {
+        nextStep("existing-user-confirmation");
+      } else if (!staff && step !== "user-registration-name") {
+        nextStep("user-registration-name");
+      }
       setNricNo("");
     }
-  }, [nricNo]);
+  }, [nricNo, isCheckingStaff]);
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNricNo(e.target.value);
-  };
-
-  // TODO: Change this into real logic
-  const checkStaff = (nricNo: string) => {
-    let staff: Staff | null = null;
-    let isFound = true;
-
-    if (isFound) {
-      staff = {
-        name: "John Doe",
-        division: "Sales",
-        gender: "Male",
-      };
-    }
-
-    return isFound ? staff : null;
   };
 
   return (

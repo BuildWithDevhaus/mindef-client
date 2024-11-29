@@ -1,19 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import StepName from "../../features/UserRegistration/StepName";
 import StepGender from "../../features/UserRegistration/StepGender";
 import StepDivision from "../../features/UserRegistration/StepDivision";
+import { useStaff } from "../../hooks/useStaff";
+import { StaffSchema } from "../../zod/staff";
 
 const UserRegistrationForm: React.FC = () => {
-  const [userDetails, setUserDetails] = useState<UserDetails>({
+  const [userDetails, setUserDetails] = useState<StaffSchema>({
+    nricNo: "",
     name: "",
     division: "",
     gender: "",
   });
 
   const { step, nextStep } = useStep();
+  const { nricNo, staffRegister } = useStaff();
 
-  const handleChange = (userDetails: UserDetails) => {
+  useEffect(() => {
+    if (nricNo) {
+      setUserDetails({ nricNo: nricNo, name: "", division: "", gender: "" });
+    }
+  }, [nricNo]);
+
+  const handleChange = (userDetails: StaffSchema) => {
     setUserDetails(userDetails);
   };
 
@@ -23,7 +33,8 @@ const UserRegistrationForm: React.FC = () => {
     // TODO: Change this into real logic
     nextStep("select-activity");
 
-    setUserDetails({ name: "", division: "", gender: "" });
+    staffRegister(userDetails);
+    setUserDetails({ nricNo: "", name: "", division: "", gender: "" });
   };
 
   return (
