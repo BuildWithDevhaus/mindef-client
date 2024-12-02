@@ -12,7 +12,7 @@ const SelectActivity: React.FC = () => {
 
   return (
     <>
-      {(step === "select-activity" || step === "activity-draw-uniform-reselect" || step === "existing-user-reselect") && (
+      {(step === "select-activity" || step === "activity-draw-uniform-reselect" || step === "existing-user-reselect" || step === "existing-user-select-activity") && (
         <div className='flex flex-col items-center justify-center gap-32 h-full'>
           <div className='flex gap-72'>
             <ButtonCircle onClick={() => nextStep("activity-auto-measurement-uniform-type")}>Auto Measurement</ButtonCircle>

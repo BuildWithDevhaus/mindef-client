@@ -11,7 +11,11 @@ const UserConfirmation: React.FC = () => {
   const { staff } = useStaff();
 
   const handleConfirm = () => {
-    nextStep("existing-user-select-action");
+    if (staff?.collarLen && staff.sleeve && staff.shoulderLen && staff.waist && staff.length) {
+      nextStep("existing-user-select-action");
+    } else {
+      nextStep("existing-user-select-activity");
+    }
   };
 
   const handleEdit = () => {
