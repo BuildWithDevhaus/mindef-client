@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
+import ActivityManualMeasurement from "../organisms/ActivityManualMeasurement";
+import { useStep } from "../../hooks/useStep";
 
 const AdminManualMeasurement: React.FC = () => {
   const breadcrumbItems = [
@@ -7,11 +9,16 @@ const AdminManualMeasurement: React.FC = () => {
     { label: "Manual Measurement", url: "/admin/manual-measurement" },
   ];
 
+  const { nextStep } = useStep();
+
+  useEffect(() => {
+    nextStep('activity-manual-measurement-uniform-type')
+  }, []);
+
   return (
     <AdminLayout headingText="Manual Measurement" breadcrumbItems={breadcrumbItems}>
-      <div className="flex flex-col justify-center items-center h-full gap-5">
-        <h1 className="text-6xl font-bold">Place Holder</h1>
-        <h2 className="text-3xl">Lorem Ipsum naga bonar tsuba duragon :</h2>
+      <div className="py-10 h-full">
+        <ActivityManualMeasurement />
       </div>
     </AdminLayout>
   );

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
+import ActivityDrawUniform from "../organisms/ActivityDrawUniform";
+import { useStep } from "../../hooks/useStep";
 
 const AdminDrawUniform: React.FC = () => {
   const breadcrumbItems = [
@@ -7,11 +9,16 @@ const AdminDrawUniform: React.FC = () => {
     { label: "Draw Uniform", url: "/admin/draw-uniform" },
   ];
 
+  const { nextStep } = useStep();
+
+  useEffect(() => {
+    nextStep('activity-draw-uniform-scan-rfid')
+  }, []);
+
   return (
     <AdminLayout headingText="Draw Uniform" breadcrumbItems={breadcrumbItems}>
-      <div className="flex flex-col justify-center items-center h-full gap-5">
-        <h1 className="text-6xl font-bold">Place Holder</h1>
-        <h2 className="text-3xl">Lorem Ipsum naga bonar tsuba duragon :</h2>
+      <div className="py-10 h-full">
+        <ActivityDrawUniform />
       </div>
     </AdminLayout>
   );

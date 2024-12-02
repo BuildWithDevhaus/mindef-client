@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
+import ActivityAutoMeasurement from "../organisms/ActivityAutoMeasurement";
+import { useStep } from "../../hooks/useStep";
 
 const AdminAutoMeasurement: React.FC = () => {
   const breadcrumbItems = [
@@ -7,11 +9,16 @@ const AdminAutoMeasurement: React.FC = () => {
     { label: "Auto Measurement", url: "/admin/auto-measurement" },
   ];
 
+  const { nextStep } = useStep();
+
+  useEffect(() => {
+    nextStep('activity-auto-measurement-uniform-type')
+  }, []);
+
   return (
     <AdminLayout headingText="Auto Measurement" breadcrumbItems={breadcrumbItems}>
-      <div className="flex flex-col justify-center items-center h-full gap-5">
-        <h1 className="text-6xl font-bold">Place Holder</h1>
-        <h2 className="text-3xl">Lorem Ipsum naga bonar tsuba duragon :</h2>
+      <div className="py-10 h-full">
+        <ActivityAutoMeasurement />
       </div>
     </AdminLayout>
   );

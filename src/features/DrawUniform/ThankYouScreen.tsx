@@ -4,11 +4,17 @@ import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import { useStep } from '../../hooks/useStep'
 
 const ThankYouScreen: React.FC = () => {
-  const { resetStep } = useStep();
+  const { resetStep, nextStep } = useStep();
 
   const handleConfirm = () => {
-    resetStep();
-  }
+    const isAdmin = window.location.href.includes("admin");
+    
+    if (isAdmin) {
+      nextStep('activity-draw-uniform-scan-rfid');
+    } else {
+      resetStep();
+    }
+  };
 
   return (
     <div className='flex h-full justify-center items-center'>

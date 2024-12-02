@@ -7,10 +7,20 @@ import ResultContainerLayout from '../../components/templates/ResultContainerLay
 import ButtonPrimary from '../../components/atoms/ButtonPrimary';
 
 const StepResult: React.FC = () => {
-  const { resetStep } = useStep();
+  const { step, resetStep, nextStep } = useStep();
 
   const handleConfirm = () => {
-    resetStep();
+    const isAdmin = window.location.href.includes("admin");
+    
+    if (isAdmin) {
+      if (step.includes('auto-measurement')) {
+        nextStep('activity-auto-measurement-uniform-type');
+      } else if (step.includes('manual-measurement')) {
+        nextStep('activity-manual-measurement-uniform-type');
+      }
+    } else {
+      resetStep();
+    }
   };
 
   return (

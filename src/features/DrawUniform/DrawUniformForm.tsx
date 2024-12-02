@@ -72,7 +72,9 @@ const DrawUniformForm: React.FC = () => {
           </div>
           <div className='flex flex-col gap-6'>
             <ButtonPrimary variant='large' onClick={handleConfirm}>Confirm</ButtonPrimary>
-            <ButtonSecondary variant='large' onClick={handleReselect}>Reselect your uniform</ButtonSecondary>
+            {(!window.location.href.includes('admin')) && (
+              <ButtonSecondary variant='large' onClick={handleReselect}>Reselect your uniform</ButtonSecondary>
+            )}
           </div>
         </div>
       </ContainerLayout>
