@@ -3,18 +3,6 @@ import Sidebar from "../organisms/Sidebar";
 import Breadcrumb from "../atoms/Breadcrumb";
 import AdminDropdownMenu from "../molecules/AdminDropdownMenu";
 
-interface BreadcrumbItem {
-  label: string;
-  url?: string;
-}
-
-interface AdminTemplateProps {
-  children: React.ReactNode;
-  headingText: string;
-  subText?: string;
-  breadcrumbItems: BreadcrumbItem[];
-}
-
 const AdminLayout: React.FC<AdminTemplateProps> = ({
   children,
   headingText,

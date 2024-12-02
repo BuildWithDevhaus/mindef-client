@@ -14,7 +14,7 @@ const AdminYearlyReport: React.FC = () => {
     dateRange: yearlyReportDateRange,
     setDateRange: setYearlyReportDateRange,
     filterDataByDateRange: filterYearlyReportDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, [2, 3]);
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, 8);
   
   const filteredYearlyReportData = filterYearlyReportDataByDateRange(YearlyReportData);
   const breadcrumbItems = [

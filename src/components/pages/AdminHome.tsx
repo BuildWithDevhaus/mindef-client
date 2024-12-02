@@ -3,7 +3,6 @@ import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
 import { pantsInventoryData, pantsInventoryHeaders, shirtInventoryData, shirtInventoryHeaders } from "../../dummy/OverviewDummy";
 import useTableFilter from "../../hooks/useTableFilter";
-import ButtonPrimary from "../atoms/ButtonPrimary";
 
 const AdminHome: React.FC = () => {
   const {
@@ -14,7 +13,7 @@ const AdminHome: React.FC = () => {
     dateRange: shirtDateRange,
     setDateRange: setShirtDateRange,
     filterDataByDateRange: filterShirtDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, [5]);  
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, [5]);
   const {
     searchQuery: pantsSearchQuery,
     setSearchQuery: setPantsSearchQuery,
@@ -23,7 +22,7 @@ const AdminHome: React.FC = () => {
     dateRange: pantsDateRange,
     setDateRange: setPantsDateRange,
     filterDataByDateRange: filterPantsDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);  
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
 
   const filteredShirtData = filterShirtDataByDateRange(shirtInventoryData);
   const filteredPantsData = filterPantsDataByDateRange(pantsInventoryData);
@@ -34,10 +33,12 @@ const AdminHome: React.FC = () => {
   ];
 
   return (
-    <AdminLayout headingText="Overview Dashboard" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout
+      headingText="Overview Dashboard"
+      breadcrumbItems={breadcrumbItems}
+    >
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Shirt Inventory</h2>
-        <ButtonPrimary>Export</ButtonPrimary>
+        <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
       </div>
       <Table
         headers={shirtInventoryHeaders}
@@ -54,8 +55,8 @@ const AdminHome: React.FC = () => {
         dateRange={shirtDateRange}
       />
 
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Pants Inventory</h2>
+      <div className="my-8 flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
       </div>
       <Table
         headers={pantsInventoryHeaders}
@@ -69,7 +70,7 @@ const AdminHome: React.FC = () => {
         onSearchChange={setPantsSearchQuery}
         onRowsPerPageChange={setPantsRowsPerPage}
         onDateRangeChange={setPantsDateRange}
-        dateRange={pantsDateRange} 
+        dateRange={pantsDateRange}
       />
     </AdminLayout>
   );
