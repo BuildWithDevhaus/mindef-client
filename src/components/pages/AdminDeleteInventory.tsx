@@ -1,38 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "../organisms/TableProps";
-import SearchBar from "../molecules/SearchBar";
-import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
 import { pantsDeleteData, pantsDeleteHeaders, shirtDeleteData, shirtDeleteHeaders } from "../../dummy/DeleteInventoryDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
-
-
+import useTableFilter from "../../hooks/useTableFilter";
 
 const AdminDeleteInventory: React.FC = () => {
-  const [shirtSearchQuery, setShirtSearchQuery] = useState("");
-  const [shirtRowsPerPage, setShirtRowsPerPage] = useState(5);
+  const {
+    searchQuery: shirtSearchQuery,
+    setSearchQuery: setShirtSearchQuery,
+    rowsPerPage: shirtRowsPerPage,
+    setRowsPerPage: setShirtRowsPerPage,
+    dateRange: shirtDateRange,
+    setDateRange: setShirtDateRange,
+    filterDataByDateRange: filterShirtDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
+  const {
+    searchQuery: pantsSearchQuery,
+    setSearchQuery: setPantsSearchQuery,
+    rowsPerPage: pantsRowsPerPage,
+    setRowsPerPage: setPantsRowsPerPage,
+    dateRange: pantsDateRange,
+    setDateRange: setPantsDateRange,
+    filterDataByDateRange: filterPantsDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
 
-  const handleShirtSearchChange = (query: string) => {
-    setShirtSearchQuery(query);
-  };
-
-  const handleShirtRowsPerPageChange = (value: number) => {
-    setShirtRowsPerPage(value);
-  };
-
-  const [pantsSearchQuery, setPantsSearchQuery] = useState("");
-  const [pantsRowsPerPage, setPantsRowsPerPage] = useState(5);
-
-  const handlePantsSearchChange = (query: string) => {
-    setPantsSearchQuery(query);
-  };
-
-  const handlePantsRowsPerPageChange = (value: number) => {
-    setPantsRowsPerPage(value);
-  };
+  const filteredShirtData = filterShirtDataByDateRange(shirtDeleteData);
+  const filteredPantsData = filterPantsDataByDateRange(pantsDeleteData);
 
   const breadcrumbItems = [
-    { label: "Admin Menu",},
+    { label: "Admin Menu" },
     { label: "Delete Inventory", url: "/admin/delete-inventory" },
   ];
 
@@ -42,42 +39,38 @@ const AdminDeleteInventory: React.FC = () => {
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Inventory</h2>
         <ButtonPrimary>Delete Items</ButtonPrimary>
       </div>
-      <div className="mb-8 flex items-center justify-between">
-        <RowsPerPageDropdown
-          rowsPerPage={shirtRowsPerPage}
-          onRowsPerPageChange={handleShirtRowsPerPageChange}
-        />
-        <SearchBar
-          placeholder="Search shirts..."
-          onChange={(e) => handleShirtSearchChange(e.target.value)}
-        />
-      </div>
       <Table
         headers={shirtDeleteHeaders}
-        data={shirtDeleteData}
+        data={filteredShirtData}
         rowsPerPage={shirtRowsPerPage}
-        searchQuery={shirtSearchQuery}
+        enablePagination={true}
+        enableSearch={true}
+        enableRowsPerPage={true}
+        enableDateRange={true}
+        initialSearchQuery={shirtSearchQuery}
+        onSearchChange={setShirtSearchQuery}
+        onRowsPerPageChange={setShirtRowsPerPage}
+        onDateRangeChange={setShirtDateRange}
+        dateRange={shirtDateRange}
       />
 
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Inventory</h2>
         <ButtonPrimary>Delete Items</ButtonPrimary>
       </div>
-      <div className="mb-8 flex items-center justify-between">
-        <RowsPerPageDropdown
-          rowsPerPage={pantsRowsPerPage}
-          onRowsPerPageChange={handlePantsRowsPerPageChange}
-        />
-        <SearchBar
-          placeholder="Search pants..."
-          onChange={(e) => handlePantsSearchChange(e.target.value)}
-        />
-      </div>
       <Table
         headers={pantsDeleteHeaders}
-        data={pantsDeleteData}
+        data={filteredPantsData}
         rowsPerPage={pantsRowsPerPage}
-        searchQuery={pantsSearchQuery}
+        enablePagination={true}
+        enableSearch={true}
+        enableRowsPerPage={true}
+        enableDateRange={true}
+        initialSearchQuery={pantsSearchQuery}
+        onSearchChange={setPantsSearchQuery}
+        onRowsPerPageChange={setPantsRowsPerPage}
+        onDateRangeChange={setPantsDateRange}
+        dateRange={pantsDateRange}
       />
     </AdminLayout>
   );
