@@ -111,7 +111,7 @@ const Table: React.FC<TableProps> = ({
             {headers.map((header, index) => (
               <th
                 key={index}
-                className="text-[12px] border-x-2 border-t-2 px-4 py-2 font-semibold"
+                className="text-[12px] border-x-2 border-t-2 px-4 py-3 font-semibold"
               >
                 {header}
               </th>
