@@ -67,7 +67,7 @@ const ScanRfidUser: React.FC = () => {
   return (
     <div className="flex flex-col justify-center items-center h-full gap-5">
       <h1 className="text-6xl font-bold">Scan RFID Code</h1>
-      <h2 className="text-3xl">
+      <h2 className="text-3xl text-center">
         Please scan the RDIF code in your shirt and pants using the barcode Scanner:
       </h2>
       <form name="rfid-form" id="rfid-form">
