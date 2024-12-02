@@ -2,12 +2,20 @@ import React from "react";
 import { useStep } from "../../hooks/useStep";
 import ContainerLayout from "../../components/templates/ContainerLayout";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
+import ButtonSecondary from "../../components/atoms/ButtonSecondary";
+import { useStaff } from "../../hooks/useStaff";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 
 const UserConfirmation: React.FC = () => {
   const { nextStep } = useStep();
+  const { staff } = useStaff();
 
   const handleConfirm = () => {
     nextStep("existing-user-select-action");
+  };
+
+  const handleEdit = () => {
+    nextStep("existing-user-edit-name");
   };
 
   return (
@@ -21,23 +29,28 @@ const UserConfirmation: React.FC = () => {
               <label className="text-[#A3A3A3] text-2xl font-semibold">
                 Full Name
               </label>
-              <p className="text-2xl font-semibold">Daniel Chow</p>
+              <p className="text-2xl font-semibold">{staff?.name}</p>
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-[#A3A3A3] text-2xl font-semibold">
                 Unit/Wing
               </label>
-              <p className="text-2xl font-semibold">9th Singapore Division</p>
+              <p className="text-2xl font-semibold">{staff?.division}</p>
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-[#A3A3A3] text-2xl font-semibold">
                 Gender
               </label>
-              <p className="text-2xl font-semibold">Male</p>
+              <p className="text-2xl font-semibold">{staff ? capitalizeFirstLetter(staff.gender) : ""}</p>
             </div>
-            <ButtonPrimary variant="large" onClick={handleConfirm}>
-              Confirm
-            </ButtonPrimary>
+            <div className="flex flex-col gap-6">
+              <ButtonPrimary variant="large" onClick={handleConfirm}>
+                Confirm
+              </ButtonPrimary>
+              <ButtonSecondary variant="large" onClick={handleEdit}>
+                Edit
+              </ButtonSecondary>
+            </div>
           </div>
         </ContainerLayout>
       </div>
