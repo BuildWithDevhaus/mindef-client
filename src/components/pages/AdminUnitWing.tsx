@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "../organisms/TableProps";
-import SearchBar from "../molecules/SearchBar";
-import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
 import { unitWingData, unitWingHeaders } from "../../dummy/UnitWingDummy";
+import useTableFilter from "../../hooks/useTableFilter";
 
 
 const AdminUnitWing: React.FC = () => {
-  const [unitWinghQuery, setunitWinghQuery] = useState("");
-  const [shirtRowsPerPage, setShirtRowsPerPage] = useState(5);
+  const {
+    searchQuery: unitWingSearchQuery,
+    setSearchQuery: setUnitWingSearchQuery,
+    rowsPerPage: unitWingRowsPerPage,
+    setRowsPerPage: setUnitWingRowsPerPage,
+    dateRange: unitWingDateRange,
+    setDateRange: setUnitWingDateRange,
+    filterDataByDateRange: filterUnitWingDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, [2,3]);
 
-  const handleunitWinghChange = (query: string) => {
-    setunitWinghQuery(query);
-  };
-
-  const handleShirtRowsPerPageChange = (value: number) => {
-    setShirtRowsPerPage(value);
-  };
+  const filteredUnitWingData = filterUnitWingDataByDateRange(unitWingData);
   const breadcrumbItems = [
     { label: "Admin Menu"},
     { label: "Unit/Wing", url: "/admin/unit-wing" },
@@ -27,21 +27,19 @@ const AdminUnitWing: React.FC = () => {
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">List of Unit/Wing</h2>
       </div>
-      <div className="mb-8 flex items-center justify-between">
-        <RowsPerPageDropdown
-          rowsPerPage={shirtRowsPerPage}
-          onRowsPerPageChange={handleShirtRowsPerPageChange}
-        />
-        <SearchBar
-          placeholder="Search shirts..."
-          onChange={(e) => handleunitWinghChange(e.target.value)}
-        />
-      </div>
       <Table
         headers={unitWingHeaders}
-        data={unitWingData}
-        rowsPerPage={shirtRowsPerPage}
-        searchQuery={unitWinghQuery}
+        data={filteredUnitWingData}
+        rowsPerPage={unitWingRowsPerPage}
+        enablePagination={true}
+        enableSearch={true}
+        enableRowsPerPage={true}
+        enableDateRange={false}
+        initialSearchQuery={unitWingSearchQuery}
+        onSearchChange={setUnitWingSearchQuery}
+        onRowsPerPageChange={setUnitWingRowsPerPage}
+        onDateRangeChange={setUnitWingDateRange}
+        dateRange={unitWingDateRange}
       />
     </AdminLayout>
   );

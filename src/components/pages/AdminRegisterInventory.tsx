@@ -1,88 +1,76 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "../organisms/TableProps";
-import SearchBar from "../molecules/SearchBar";
-import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
-import {
-  pantsRegisterData,
-  pantsRegisterHeaders,
-  shirtRegisterData,
-  shirtRegisterHeaders,
-} from "../../dummy/RegisterInventoryDummy";
+import { pantsRegisterData, pantsRegisterHeaders, shirtRegisterData, shirtRegisterHeaders } from "../../dummy/RegisterInventoryDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
+import useTableFilter from "../../hooks/useTableFilter";
 
 const AdminRegisterInventory: React.FC = () => {
-  const [shirtSearchQuery, setShirtSearchQuery] = useState("");
-  const [shirtRowsPerPage, setShirtRowsPerPage] = useState(5);
+  const {
+    searchQuery: shirtSearchQuery,
+    setSearchQuery: setShirtSearchQuery,
+    rowsPerPage: shirtRowsPerPage,
+    setRowsPerPage: setShirtRowsPerPage,
+    dateRange: shirtDateRange,
+    setDateRange: setShirtDateRange,
+    filterDataByDateRange: filterShirtDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
+  const {
+    searchQuery: pantsSearchQuery,
+    setSearchQuery: setPantsSearchQuery,
+    rowsPerPage: pantsRowsPerPage,
+    setRowsPerPage: setPantsRowsPerPage,
+    dateRange: pantsDateRange,
+    setDateRange: setPantsDateRange,
+    filterDataByDateRange: filterPantsDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
 
-  const handleShirtSearchChange = (query: string) => {
-    setShirtSearchQuery(query);
-  };
-
-  const handleShirtRowsPerPageChange = (value: number) => {
-    setShirtRowsPerPage(value);
-  };
-
-  const [pantsSearchQuery, setPantsSearchQuery] = useState("");
-  const [pantsRowsPerPage, setPantsRowsPerPage] = useState(5);
-
-  const handlePantsSearchChange = (query: string) => {
-    setPantsSearchQuery(query);
-  };
-
-  const handlePantsRowsPerPageChange = (value: number) => {
-    setPantsRowsPerPage(value);
-  };
+  const filteredShirtData = filterShirtDataByDateRange(shirtRegisterData);
+  const filteredPantsData = filterPantsDataByDateRange(pantsRegisterData);
 
   const breadcrumbItems = [
-    { label: "Admin Menu"},
-    { label: "Register New Inventory", url: "/admin/register-inventory" },
+    { label: "Home" },
+    { label: "Overview", url: "/admin" },
   ];
 
   return (
-    <AdminLayout
-      headingText="Register New Inventory"
-      breadcrumbItems={breadcrumbItems}
-    >
+    <AdminLayout headingText="Register New Inventory" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
-      </div>
-      <div className="mb-8 flex items-center justify-between">
-        <RowsPerPageDropdown
-          rowsPerPage={shirtRowsPerPage}
-          onRowsPerPageChange={handleShirtRowsPerPageChange}
-        />
-        <SearchBar
-          placeholder="Search shirts..."
-          onChange={(e) => handleShirtSearchChange(e.target.value)}
-        />
+        <ButtonPrimary>Register New Shirt</ButtonPrimary>
       </div>
       <Table
         headers={shirtRegisterHeaders}
-        data={shirtRegisterData}
+        data={filteredShirtData}
         rowsPerPage={shirtRowsPerPage}
-        searchQuery={shirtSearchQuery}
+        enablePagination={true}
+        enableSearch={true}
+        enableRowsPerPage={true}
+        enableDateRange={true}
+        initialSearchQuery={shirtSearchQuery}
+        onSearchChange={setShirtSearchQuery}
+        onRowsPerPageChange={setShirtRowsPerPage}
+        onDateRangeChange={setShirtDateRange}
+        dateRange={shirtDateRange}
       />
 
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
         <ButtonPrimary>Register New Pants</ButtonPrimary>
       </div>
-      <div className="mb-8 flex items-center justify-between">
-        <RowsPerPageDropdown
-          rowsPerPage={pantsRowsPerPage}
-          onRowsPerPageChange={handlePantsRowsPerPageChange}
-        />
-        <SearchBar
-          placeholder="Search pants..."
-          onChange={(e) => handlePantsSearchChange(e.target.value)}
-        />
-      </div>
       <Table
         headers={pantsRegisterHeaders}
-        data={pantsRegisterData}
+        data={filteredPantsData}
         rowsPerPage={pantsRowsPerPage}
-        searchQuery={pantsSearchQuery}
+        enablePagination={true}
+        enableSearch={true}
+        enableRowsPerPage={true}
+        enableDateRange={true}
+        initialSearchQuery={pantsSearchQuery}
+        onSearchChange={setPantsSearchQuery}
+        onRowsPerPageChange={setPantsRowsPerPage}
+        onDateRangeChange={setPantsDateRange}
+        dateRange={pantsDateRange}
       />
     </AdminLayout>
   );

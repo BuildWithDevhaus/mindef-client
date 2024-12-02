@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "../organisms/TableProps";
-import SearchBar from "../molecules/SearchBar";
-import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
 import { deleteReasonData, deleteReasonHeaders } from "../../dummy/DeleteReasonDummy";
-
+import useTableFilter from "../../hooks/useTableFilter";
 
 const AdminDeleteReasons: React.FC = () => {
-  const [reasonSearchQuery, setreasonSearchQuery] = useState("");
-  const [reasonRowsPerPage, setreasonRowsPerPage] = useState(5);
+  const {
+    searchQuery: reasonSearchQuery,
+    setSearchQuery: setReasonSearchQuery,
+    rowsPerPage: reasonRowsPerPage,
+    setRowsPerPage: setReasonRowsPerPage,
+    dateRange: reasonDateRange,
+    setDateRange: setReasonDateRange,
+    filterDataByDateRange: filterReasonDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, [2,3]);
 
-  const handlereasonSearchChange = (query: string) => {
-    setreasonSearchQuery(query);
-  };
+  const filteredReasonData = filterReasonDataByDateRange(deleteReasonData);
 
-  const handlereasonRowsPerPageChange = (value: number) => {
-    setreasonRowsPerPage(value);
-  };
   const breadcrumbItems = [
     { label: "Admin Menu"},
     { label: "Delete Reasons", url: "/admin/delete-reasons" },
@@ -27,21 +27,19 @@ const AdminDeleteReasons: React.FC = () => {
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">reason Inventory</h2>
       </div>
-      <div className="mb-8 flex items-center justify-between">
-        <RowsPerPageDropdown
-          rowsPerPage={reasonRowsPerPage}
-          onRowsPerPageChange={handlereasonRowsPerPageChange}
-        />
-        <SearchBar
-          placeholder="Search reasons..."
-          onChange={(e) => handlereasonSearchChange(e.target.value)}
-        />
-      </div>
       <Table
         headers={deleteReasonHeaders}
-        data={deleteReasonData}
+        data={filteredReasonData}
         rowsPerPage={reasonRowsPerPage}
-        searchQuery={reasonSearchQuery}
+        enablePagination={true}
+        enableSearch={true}
+        enableRowsPerPage={true}
+        enableDateRange={false}
+        initialSearchQuery={reasonSearchQuery}
+        onSearchChange={setReasonSearchQuery}
+        onRowsPerPageChange={setReasonRowsPerPage}
+        onDateRangeChange={setReasonDateRange}
+        dateRange={reasonDateRange}
       />
     </AdminLayout>
   );
