@@ -29,7 +29,7 @@ export const shirtInventoryData = [
     <StatusTag content="Loaned" variant="danger"></StatusTag>,
   ],
   [
-    "2347891111",
+    "23478911113",
     "Army",
     "Male",
     "Combat",
@@ -182,7 +182,7 @@ export const shirtInventoryData = [
     <StatusTag content="Available" variant="success"></StatusTag>,
   ],
   [
-    "1112348392",
+    "1211234392",
     "Navy",
     "Female",
     "Ceremonial",
@@ -222,7 +222,7 @@ export const pantsInventoryData = [
         <StatusTag content="Loaned" variant="danger"></StatusTag>,
     ],
     [
-        "P2347891111",
+        "P23478911113",
         "Army",
         "Male",
         "Combat",

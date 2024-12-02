@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "../organisms/TableProps";
-import SearchBar from "../molecules/SearchBar";
-import RowsPerPageDropdown from "../atoms/RowsPerPageDropdown";
 import AdminLayout from "../templates/AdminLayout";
 import { MonthlyReportData, MonthlyReportHeaders } from "../../dummy/MonthlyReportDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
-
+import useTableFilter from "../../hooks/useTableFilter";
 
 const AdminMonthlyReport: React.FC = () => {
-  const [monthlyReportSearchQuery, setMonthlyReportSearchQuery] = useState("");
-  const [monthlyReportRowsPerPage, setMonthlyReportRowsPerPage] = useState(5);
+  const {
+    searchQuery: monthlyReportSearchQuery,
+    setSearchQuery: setMonthlyReportSearchQuery,
+    rowsPerPage: monthlyReportRowsPerPage,
+    setRowsPerPage: setMonthlyReportRowsPerPage,
+    dateRange: monthlyReportDateRange,
+    setDateRange: setMonthlyReportDateRange,
+    filterDataByDateRange: filterMonthlyReportDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, [7, 8]);
 
-  const handleMonthlySearchChange = (query: string) => {
-    setMonthlyReportSearchQuery(query);
-  };
-
-  const handleMonthlyRowsPerPageChange = (value: number) => {
-    setMonthlyReportRowsPerPage(value);
-  };
+  const filteredMonthlyReportData = filterMonthlyReportDataByDateRange(MonthlyReportData);
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Reports", url: "/admin/Reports" },
@@ -30,21 +29,19 @@ const AdminMonthlyReport: React.FC = () => {
         <h2 className="text-2xl font-bold text-[#101828]">Inventory List</h2>
         <ButtonPrimary>Download Full Report</ButtonPrimary>
       </div>
-      <div className="mb-8 flex items-center justify-between">
-        <RowsPerPageDropdown
-          rowsPerPage={monthlyReportRowsPerPage}
-          onRowsPerPageChange={handleMonthlyRowsPerPageChange}
-        />
-        <SearchBar
-          placeholder="Search Monthlys..."
-          onChange={(e) => handleMonthlySearchChange(e.target.value)}
-        />
-      </div>
       <Table
         headers={MonthlyReportHeaders}
-        data={MonthlyReportData}
+        data={filteredMonthlyReportData}
         rowsPerPage={monthlyReportRowsPerPage}
-        searchQuery={monthlyReportSearchQuery}
+        enablePagination={true}
+        enableSearch={true}
+        enableRowsPerPage={true}
+        enableDateRange={true}
+        initialSearchQuery={monthlyReportSearchQuery}
+        onSearchChange={setMonthlyReportSearchQuery}
+        onRowsPerPageChange={setMonthlyReportRowsPerPage}
+        onDateRangeChange={setMonthlyReportDateRange}
+        dateRange={monthlyReportDateRange}
       />
     </AdminLayout>
   );

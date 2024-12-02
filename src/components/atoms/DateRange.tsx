@@ -9,6 +9,9 @@ interface DateRangeProps {
 const DateRange: React.FC<DateRangeProps> = ({ value, onChange }) => {
   return (
     <Datepicker
+      showShortcuts={true}
+      showFooter={true}
+      displayFormat="DD/MM/YYYY"
       primaryColor={"teal"}
       useRange={true}
       value={value}
