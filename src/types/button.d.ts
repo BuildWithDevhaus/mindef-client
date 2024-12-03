@@ -17,3 +17,9 @@ interface BackButtonProps {
   onClick: () => void;
   className?: string;
 }
+
+interface LogoutButtonProps {
+  children: React.ReactNode;
+  onClick: () => void;
+  className?: string;
+}
