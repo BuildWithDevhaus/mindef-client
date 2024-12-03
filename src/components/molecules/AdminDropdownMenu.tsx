@@ -13,6 +13,7 @@ const AdminDropdownMenu: React.FC<AdminDropdownMenuProps> = ({ userName }) => {
 
   const handleLogout = () => {
     navigate("/admin/login");
+    window.location.reload();
   };
 
   return (
