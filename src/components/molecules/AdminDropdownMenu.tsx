@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DropdownItem from "../atoms/AdminDropdownItem";
 import IconGear from "../atoms/IconGear"; 
 import IconKey from "../atoms/IconKey";
 
+
 const AdminDropdownMenu: React.FC<AdminDropdownMenuProps> = ({ userName }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
+
+  const handleLogout = () => {
+    navigate("/admin/login");
+    window.location.reload();
+  };
 
   return (
     <div className="relative">
@@ -28,7 +36,7 @@ const AdminDropdownMenu: React.FC<AdminDropdownMenuProps> = ({ userName }) => {
           <DropdownItem
             icon={<IconKey />}
             label="Logout"
-            onClick={() => console.log("Logout Clicked")}
+            onClick={handleLogout}
           />
         </div>
       )}
