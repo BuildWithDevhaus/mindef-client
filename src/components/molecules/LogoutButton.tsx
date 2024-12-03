@@ -1,13 +1,7 @@
 import React from "react";
 import IconLogout from "../atoms/IconLogout";
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick: () => void;
-  className?: string;
-}
-
-const LogoutButton: React.FC<ButtonProps> = ({ children, onClick, className }) => {
+const LogoutButton: React.FC<LogoutButtonProps> = ({ children, onClick, className }) => {
   return (
     <div className="w-full border-t border-[#344054] pt-4">
       <button
