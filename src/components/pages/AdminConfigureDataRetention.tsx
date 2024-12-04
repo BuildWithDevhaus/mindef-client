@@ -1,10 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../templates/AdminLayout";
 import SelectOptionPrimary from "../molecules/SelectOptionPrimary";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import SelectOptionItem from "../atoms/SelectOptionItem";
 import ContainerLayout from "../templates/ContainerLayout";
 import ButtonSecondary from "../atoms/ButtonSecondary";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 
 const AddminConfigureDataRetention: React.FC = () => {
   const breadcrumbItems = [
@@ -14,6 +17,15 @@ const AddminConfigureDataRetention: React.FC = () => {
       url: "/admin/configure-data-rentention",
     },
   ];
+  
+  const navigate = useNavigate();
+  const handleBackToAdminMenu = () => {
+    navigate("/admin");
+  };
+
+  const handleSaveChanges = () => {
+    toast.success("Changes Saved Successfully!");
+  };
 
   return (
     <AdminLayout
@@ -39,12 +51,26 @@ const AddminConfigureDataRetention: React.FC = () => {
               </SelectOptionPrimary>
             </div>
             <div className="flex gap-4">
-              <ButtonPrimary variant="large">Save Changes</ButtonPrimary>
-              <ButtonSecondary variant="large">Back to Main</ButtonSecondary>
+              <ButtonPrimary variant="large" onClick={handleSaveChanges}>
+                Save Changes
+              </ButtonPrimary>
+              <ButtonSecondary variant="large" onClick={handleBackToAdminMenu}>Back to Main</ButtonSecondary>
             </div>
           </div>
         </ContainerLayout>
       </div>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000} 
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </AdminLayout>
   );
 };
