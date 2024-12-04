@@ -16,6 +16,7 @@ import AdminAutoMeasurement from "./components/pages/AdminAutoMeasurement";
 import AdminManualMeasurement from "./components/pages/AdminManualMeasurement";
 import AdminDrawUniform from "./components/pages/AdminDrawUniform";
 import AdminLogin from "./components/pages/AdminLogin";
+import AdminAddDeleteReason from "./components/pages/AdminAddDeleteReason";
 
 const App = () => {
   const { isAuthenticated, login } = useAuth();
@@ -47,6 +48,10 @@ const App = () => {
         <Route
           path="/admin/delete-reasons"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminDeleteReasons />} />}
+        />
+        <Route
+          path="/admin/delete-reasons/add"
+          element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddDeleteReason />} />}
         />
         <Route
           path="/admin/reports"

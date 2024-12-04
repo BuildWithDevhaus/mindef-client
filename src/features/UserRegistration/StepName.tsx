@@ -24,6 +24,7 @@ const StepName: React.FC<UserRegistrationStepProps> = ({
     <div className="flex flex-col items-center justify-between h-full">
       <label className="text-6xl font-bold">Enter Your Name</label>
       <InputFieldPrimary
+        className="text-center"
         placeholder="John Doe"
         value={inputValue.name}
         onChange={handleChange}
