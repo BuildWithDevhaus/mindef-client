@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
 import { unitWingData, unitWingHeaders } from "../../dummy/UnitWingDummy";
@@ -6,7 +7,11 @@ import useTableFilter from "../../hooks/useTableFilter";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 
 
+
 const AdminUnitWing: React.FC = () => {
+
+  const navigate = useNavigate();
+
   const {
     searchQuery: unitWingSearchQuery,
     setSearchQuery: setUnitWingSearchQuery,
@@ -27,7 +32,7 @@ const AdminUnitWing: React.FC = () => {
     <AdminLayout headingText="Unit/Wing" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">List of Unit/Wing</h2>
-        <ButtonPrimary>Add Unit/Wing</ButtonPrimary>
+        <ButtonPrimary onClick={() => {navigate('/admin/unit-wing/add')}}>Add Unit/Wing</ButtonPrimary>
       </div>
       <Table
         headers={unitWingHeaders}

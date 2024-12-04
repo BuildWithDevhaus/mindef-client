@@ -5,7 +5,7 @@ import InputFieldPrimary from "../atoms/InputFieldPrimary";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AdminAddDeleteReason: React.FC = () => {
+const AdminAddUnitWing: React.FC = () => {
   const [reason, setReason] = useState<string>("");
 
   const breadcrumbItems = [
@@ -15,7 +15,7 @@ const AdminAddDeleteReason: React.FC = () => {
 
   const handleButtonClick = () => {
     if (reason.trim()) {
-      toast.success(`Reason added: ${reason}`, {
+      toast.success(`Unit/wing added: ${reason}`, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -25,7 +25,7 @@ const AdminAddDeleteReason: React.FC = () => {
         progress: undefined,
       });
     } else {
-      toast.error("Please enter a reason", {
+      toast.error("Please enter a unit/wing", {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -38,14 +38,14 @@ const AdminAddDeleteReason: React.FC = () => {
   };
 
   return (
-    <AdminLayout headingText="Delete Reasons" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout headingText="Unit/Wing" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Add Reason for Delete Inventory</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">Add Unit/Wing</h2>
       </div>
       <div className="flex flex-col items-end gap-8">
         <InputFieldPrimary
           className="text-lg text-left"
-          placeholder="(Write new reason for deletion here)"
+          placeholder="(Write new Unit/Wing)"
           value={reason}
           onChange={(e) => setReason(e.target.value)}
         />
@@ -56,4 +56,4 @@ const AdminAddDeleteReason: React.FC = () => {
   );
 };
 
-export default AdminAddDeleteReason;
+export default AdminAddUnitWing;
