@@ -1,7 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
+
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className }) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className={clsx(
@@ -12,9 +16,16 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className }) => {
       {items.map((item, index) => (
         <React.Fragment key={index}>
           {item.url ? (
-            <a href={item.url} className="hover:underline">
+            <button
+              onClick={() => {
+                if (item.url) {
+                  navigate(item.url);
+                }
+              }}
+              className="hover:underline"
+            >
               {item.label}
-            </a>
+            </button>
           ) : (
             <span>{item.label}</span>
           )}
