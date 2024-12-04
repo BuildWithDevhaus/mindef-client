@@ -17,6 +17,7 @@ import AdminManualMeasurement from "./components/pages/AdminManualMeasurement";
 import AdminDrawUniform from "./components/pages/AdminDrawUniform";
 import AdminLogin from "./components/pages/AdminLogin";
 import AdminAddDeleteReason from "./components/pages/AdminAddDeleteReason";
+import AdminAddUnitWing from "./components/pages/AdminAddUnitWing";
 
 const App = () => {
   const { isAuthenticated, login } = useAuth();
@@ -60,6 +61,10 @@ const App = () => {
         <Route
           path="/admin/unit-wing"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminUnitWing />} />}
+        />
+        <Route
+          path="/admin/unit-wing/add"
+          element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddUnitWing />} />}
         />
         <Route
           path="/admin/configure-data-retention"
