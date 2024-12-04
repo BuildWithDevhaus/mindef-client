@@ -1,7 +1,7 @@
 interface SidebarItemProps {
-      label: string; // The label for the sidebar item
-      onClick?: () => void; // Optional click handler for the item
-      isActive?: boolean; // Determines if the item is active
+      label: string; 
+      onClick?: () => void; 
+      isActive?: boolean;
     }
 
 interface SidebarSectionProps {
