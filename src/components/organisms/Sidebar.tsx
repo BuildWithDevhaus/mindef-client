@@ -55,7 +55,7 @@ const Sidebar = () => {
     },
     {
       label: "Configure Data Retention Period",
-      onClick: () => navigate("/admin/configure-data-rentention"),
+      onClick: () => navigate("/admin/configure-data-retention"),
       isActive: location.pathname === "/admin/configure-data-rentention",
     },
   ];
