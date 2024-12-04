@@ -19,7 +19,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key >= '0' && event.key <= '9') {
-        setActiveKey(event.key); // Highlight the button
+        setActiveKey(event.key); 
         handleNumberInput(event.key);
       } else if (event.key === 'Backspace') {
         setPin((prev) => prev.slice(0, -1));
@@ -27,7 +27,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
     };
 
     const handleKeyUp = () => {
-      setActiveKey(null); // Remove highlight after key press
+      setActiveKey(null); 
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -46,7 +46,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
     } else {
       alert('Invalid PIN');
       setPin('');
-      setActiveKey(null); // Clear the active key after failed login
+      setActiveKey(null); 
     }
   };
 
@@ -57,7 +57,9 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   };
 
   const handleNumberClick = (number: string) => {
+    setActiveKey(number); 
     handleNumberInput(number);
+    setTimeout(() => setActiveKey(null), 200);
   };
 
   return (
@@ -80,8 +82,10 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
         {Array.from({ length: 9 }, (_, i) => i + 1).map((num) => (
           <button
             key={num}
-            className={`w-16 h-16 rounded-full bg-gray-100 text-lg font-semibold hover:bg-[#90D7BE] active:bg-[#75B897] focus:outline-none ${
-              activeKey === num.toString() ? 'bg-[#90D7BE]' : ''
+            className={`w-16 h-16 rounded-full text-lg font-semibold focus:outline-none transition-transform duration-200 ${
+              activeKey === num.toString()
+                ? 'bg-[#2F6D57] text-white scale-105'
+                : 'bg-gray-100 hover:bg-[#90D7BE]'
             }`}
             onClick={() => handleNumberClick(num.toString())}
           >
@@ -90,8 +94,10 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
         ))}
         <div></div>
         <button
-          className={`w-16 h-16 rounded-full bg-gray-100 text-lg font-semibold hover:bg-[#90D7BE] active:bg-[#75B897] focus:outline-none ${
-            activeKey === '0' ? 'bg-[#90D7BE]' : ''
+          className={`w-16 h-16 rounded-full text-lg font-semibold focus:outline-none transition-transform duration-200 ${
+            activeKey === '0'
+              ? 'bg-[#2F6D57] text-white scale-105'
+              : 'bg-gray-100 hover:bg-[#90D7BE]'
           }`}
           onClick={() => handleNumberClick('0')}
         >
