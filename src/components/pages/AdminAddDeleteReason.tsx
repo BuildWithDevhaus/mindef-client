@@ -16,7 +16,7 @@ const AdminAddDeleteReason: React.FC = () => {
   const handleButtonClick = () => {
     if (reason.trim()) {
       toast.success(`Reason added: ${reason}`, {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -26,7 +26,7 @@ const AdminAddDeleteReason: React.FC = () => {
       });
     } else {
       toast.error("Please enter a reason", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
