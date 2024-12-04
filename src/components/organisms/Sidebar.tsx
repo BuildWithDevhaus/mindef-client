@@ -6,6 +6,11 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleLogout = () => {
+    navigate("/admin/login");
+    window.location.reload();
+  };
+
   const homeMenuItems = [
     {
       label: "Overview",
@@ -70,7 +75,7 @@ const Sidebar = () => {
         <SidebarSection title="User Menu" items={userMenuItems} />
       </div>
       <div className="flex items-center justify-around bottom-0 p-4">
-        <LogoutButton onClick={() => alert("Log out")}> Log Out </LogoutButton>
+        <LogoutButton onClick={handleLogout}> Log Out </LogoutButton>
       </div>
     </div>
   );
