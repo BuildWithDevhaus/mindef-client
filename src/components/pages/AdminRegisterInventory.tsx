@@ -29,8 +29,8 @@ const AdminRegisterInventory: React.FC = () => {
   const filteredPantsData = filterPantsDataByDateRange(pantsRegisterData);
 
   const breadcrumbItems = [
-    { label: "Home" },
-    { label: "Overview", url: "/admin" },
+    { label: "Admin Menu" },
+    { label: "Register New Inventory", url: "/admin/register-inventory" },
   ];
 
   return (
