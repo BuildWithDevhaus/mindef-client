@@ -38,9 +38,9 @@ const AdminAddDeleteReason: React.FC = () => {
   };
 
   return (
-    <AdminLayout headingText="Overview Dashboard" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout headingText="Delete Reasons" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Reason Inventory</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">Add Reason for Delete Inventory</h2>
       </div>
       <div className="flex flex-col items-end gap-8">
         <InputFieldPrimary
