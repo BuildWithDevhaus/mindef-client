@@ -17,7 +17,7 @@ export const shirtInventoryData = [
     "No. 1",
     "Row: 2, Rack: B1, No: 30",
     "2024-10-10",
-    <StatusTag content="Loaned" variant="danger"></StatusTag>,
+    <StatusTag content="Remarked" variant="warning"></StatusTag>,
   ],
   [
     "9388394738",
@@ -44,7 +44,7 @@ export const shirtInventoryData = [
     "No. 2",
     "Row: 1, Rack: A3, No: 18",
     "2023-05-17",
-    <StatusTag content="Loaned" variant="danger"></StatusTag>,
+    <StatusTag content="Remarked" variant="warning"></StatusTag>,
   ],
   [
     "3482748290",
@@ -62,7 +62,7 @@ export const shirtInventoryData = [
     "Service Dress",
     "Row: 5, Rack: E4, No: 20",
     "2026-03-11",
-    <StatusTag content="Loaned" variant="danger"></StatusTag>,
+    <StatusTag content="Remarked" variant="warning"></StatusTag>,
   ],
   [
     "9283748394",
@@ -116,7 +116,7 @@ export const shirtInventoryData = [
     "Ceremonial",
     "Row: 7, Rack: G4, No: 14",
     "2024-02-27",
-    <StatusTag content="Loaned" variant="danger"></StatusTag>,
+    <StatusTag content="Remarked" variant="warning"></StatusTag>,
   ],
   [
     "9384757382",
@@ -134,7 +134,7 @@ export const shirtInventoryData = [
     "Color Party",
     "Row: 2, Rack: B3, No: 4",
     "2027-08-22",
-    <StatusTag content="Loaned" variant="danger"></StatusTag>,
+    <StatusTag content="Remarked" variant="warning"></StatusTag>,
   ],
   [
     "3482748273",
@@ -143,7 +143,7 @@ export const shirtInventoryData = [
     "Combat",
     "Row: 6, Rack: F2, No: 11",
     "2024-03-19",
-    <StatusTag content="Available" variant="success"></StatusTag>,
+    <StatusTag content="Remarked" variant="warning"></StatusTag>,
   ],
   [
     "9847392837",
@@ -179,7 +179,7 @@ export const shirtInventoryData = [
     "No. 2",
     "Row: 2, Rack: B2, No: 16",
     "2025-01-10",
-    <StatusTag content="Available" variant="success"></StatusTag>,
+    <StatusTag content="Remarked" variant="warning"></StatusTag>,
   ],
   [
     "1211234392",
@@ -237,8 +237,8 @@ export const pantsInventoryData = [
         "No. 2",
         "Row: 1, Rack: A3, No: 18",
         "2023-05-17",
-        <StatusTag content="Loaned" variant="danger"></StatusTag>,
-    ],
+        <StatusTag content="Remarked" variant="warning"></StatusTag>,
+      ],
     [
         "P3482748290",
         "Navy",
@@ -318,8 +318,8 @@ export const pantsInventoryData = [
         "No. 1",
         "Row: 1, Rack: A5, No: 6",
         "2025-04-16",
-        <StatusTag content="Available" variant="success"></StatusTag>,
-    ],
+        <StatusTag content="Remarked" variant="warning"></StatusTag>,
+      ],
     [
         "P1293847382",
         "Navy",

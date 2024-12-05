@@ -1,5 +1,3 @@
-// Table.tsx
-
 import React, { useState } from "react";
 import TableCell from "../atoms/TableCell";
 import ButtonPrimary from "../atoms/ButtonPrimary";

@@ -5,7 +5,7 @@ const StatusTag: React.FC<StatusTagProps> = ({ content, variant = 'success', cla
   
   const variantStyles: Record<typeof variant, string> = {
     success: 'bg-[#D6F7F4] text-[#145650]',
-    warning: 'bg-[#FEF0C7] text-[#DC6803]',
+    warning: 'bg-[#FDC37A] text-[#1C1C1C]',
     danger: 'bg-[#FEE4E2] text-[#D92D20]',
   };
 
