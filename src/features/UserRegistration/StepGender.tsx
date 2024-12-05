@@ -2,8 +2,9 @@ import React from "react";
 import ButtonCircle from "../../components/atoms/ButtonCircle";
 import { useStep } from "../../hooks/useStep";
 import ButtonBack from "../../components/atoms/ButtonBack";
+import { UserRegistrationStepSubmitProps } from "../../types/userRegistration";
 
-const StepGender: React.FC<UserRegistrationFormProps> = ({
+const StepGender: React.FC<UserRegistrationStepSubmitProps> = ({
   userDetails,
   onConfirm,
   onSubmit,

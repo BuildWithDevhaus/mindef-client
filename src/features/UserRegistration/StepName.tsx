@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import InputFieldPrimary from "../../components/atoms/InputFieldPrimary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
+import { UserRegistrationStepNextProps } from "../../types/userRegistration";
 
-const StepName: React.FC<UserRegistrationStepProps> = ({
+const StepName: React.FC<UserRegistrationStepNextProps> = ({
   userDetails,
   onConfirm,
   nextStepDestination

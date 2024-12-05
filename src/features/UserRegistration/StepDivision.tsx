@@ -4,8 +4,9 @@ import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary";
 import SelectOptionItem from "../../components/atoms/SelectOptionItem";
 import ButtonBack from "../../components/atoms/ButtonBack";
+import { UserRegistrationStepNextProps } from "../../types/userRegistration";
 
-const StepDivision: React.FC<UserRegistrationStepProps> = ({
+const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
   userDetails,
   onConfirm,
   nextStepDestination
