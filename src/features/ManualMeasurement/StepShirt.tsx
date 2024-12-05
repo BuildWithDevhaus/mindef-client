@@ -8,7 +8,7 @@ import InputContainerLayout from "../../components/templates/InputContainerLayou
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import ButtonBack from "../../components/atoms/ButtonBack";
 
-const StepShirt: React.FC<ManualMeasurementStepProps> = ({
+const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
   manualMeasurementInput,
   onConfirm,
   nextStepDirection

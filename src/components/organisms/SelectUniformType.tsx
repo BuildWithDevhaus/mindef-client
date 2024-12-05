@@ -3,7 +3,7 @@ import ButtonCircle from '../atoms/ButtonCircle'
 import { useStep } from '../../hooks/useStep';
 import ButtonBack from '../atoms/ButtonBack';
 
-const SelectUniformType: React.FC<ManualMeasurementStepProps> = ({ manualMeasurementInput, onConfirm, nextStepDirection }) => {
+const SelectUniformType: React.FC<ManualMeasurementFormStepNextProps> = ({ manualMeasurementInput, onConfirm, nextStepDirection }) => {
   const { nextStep, backStep } = useStep();
 
   const handleConfirm = (uniformType: string) => {

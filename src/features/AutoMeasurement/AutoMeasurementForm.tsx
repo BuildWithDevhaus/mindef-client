@@ -8,7 +8,7 @@ import InputFieldSecondary from '../../components/atoms/InputFieldSecondary';
 import InputContainerLayout from '../../components/templates/InputContainerLayout';
 import ButtonBack from '../../components/atoms/ButtonBack';
 
-const AutoMeasurementForm: React.FC<ManualMeasurementFormProps> = ({ manualMeasurementInput, onConfirm, onSubmit }) => {
+const AutoMeasurementForm: React.FC<ManualMeasurementFormStepSubmitProps> = ({ manualMeasurementInput, onConfirm, onSubmit }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
   const { backStep } = useStep();
 
