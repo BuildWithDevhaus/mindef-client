@@ -1,8 +1,11 @@
 import clsx from "clsx";
 import React from "react";
 import IconBack from "./IconBack";
+import { useStep } from "../../hooks/useStep";
 
-const ButtonBack: React.FC<BackButtonProps> = ({ onClick, className }) => {
+const ButtonBack: React.FC<BackButtonProps> = ({ className }) => {
+  const { backStep } = useStep();
+
   return (
     <button
       className={clsx(
@@ -10,7 +13,7 @@ const ButtonBack: React.FC<BackButtonProps> = ({ onClick, className }) => {
         }`,
         className
       )}
-      onClick={onClick}
+      onClick={() => backStep()}
     >
       <IconBack />
       Back

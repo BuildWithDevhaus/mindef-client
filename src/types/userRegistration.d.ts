@@ -1,11 +1,14 @@
-interface UserRegistrationStepProps {
-  userDetails: UserDetails;
-  onConfirm: (userDetails: UserDetails) => void;
+import { StaffSchema } from "../zod/staff";
+
+interface UserRegistrationStepProps extends StepProps {
+  userDetails: StaffSchema;
+  onConfirm: (userDetails: StaffSchema) => void;
+}
+
+interface UserRegistrationStepNextProps extends UserRegistrationStepProps {
   nextStepDestination: string;
 }
 
-interface UserRegistrationFormProps {
-  userDetails: UserDetails;
-  onConfirm: (userDetails: UserDetails) => void;
+interface UserRegistrationStepSubmitProps extends UserRegistrationStepProps {
   onSubmit: () => void;
 }
