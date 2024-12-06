@@ -32,7 +32,7 @@ const UserRegistrationForm: React.FC = () => {
     e.preventDefault();
 
     // TODO: Change this into real logic
-    nextStep("select-activity");
+    nextStep("user-registration-select-activity");
 
     staffRegister(userDetails);
     setUserDetails({ nricNo: "", name: "", division: "", gender: "" });
@@ -51,16 +51,17 @@ const UserRegistrationForm: React.FC = () => {
             <StepName userDetails={userDetails} onConfirm={handleChange} nextStepDestination="user-registration-division" />
           )}
           {step === "user-registration-division" && (
-            <StepDivision userDetails={userDetails} onConfirm={handleChange} nextStepDestination="user-registration-gender" />
+            <StepDivision userDetails={userDetails} onConfirm={handleChange} nextStepDestination="user-registration-gender" backOption />
           )}
           {step === "user-registration-gender" && (
             <StepGender
               userDetails={userDetails}
               onConfirm={handleChange}
               onSubmit={() => handleSubmit}
+              backOption
             />
           )}
-          {step === "select-activity" && (
+          {step === "user-registration-select-activity" && (
             <SelectActivity />
           )}
         </form>

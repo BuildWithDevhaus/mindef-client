@@ -4,6 +4,7 @@ import SelectUniformType from "./SelectUniformType";
 import AutoMeasurementForm from "../../features/AutoMeasurement/AutoMeasurementForm";
 import StepResult from "../../features/ManualMeasurement/StepResult";
 import NotFound from "./NotFound";
+import { disableBackOptionWhenAdmin } from "../../helpers/adminConditions";
 
 const ActivityAutoMeasurement: React.FC = () => {
   const [manualMeasurementInput, setManualMeasurementInput] = useState<ManualMeasurementForm>({
@@ -55,10 +56,10 @@ const ActivityAutoMeasurement: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {step === "activity-auto-measurement-uniform-type" && (
-            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-auto-measurement-form" />
+            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-auto-measurement-form" backOption={disableBackOptionWhenAdmin()} />
           )}
           {step === "activity-auto-measurement-form" && (
-            <AutoMeasurementForm manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit} />
+            <AutoMeasurementForm manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit} backOption={disableBackOptionWhenAdmin()} />
           )}
           {step === "activity-auto-measurement-result" && (
             <StepResult />

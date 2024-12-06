@@ -3,7 +3,7 @@ import { useStep } from '../../hooks/useStep';
 import ButtonCircle from '../atoms/ButtonCircle';
 import ButtonBack from '../atoms/ButtonBack';
 
-const SelectActivity: React.FC<StepActivityProps> = ({ backOption, drawUniform }) => {
+const SelectActivity: React.FC<StepActivityProps> = ({ backOption, drawUniform = true }) => {
   const { nextStep } = useStep();
 
   return (

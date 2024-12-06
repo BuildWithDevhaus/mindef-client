@@ -5,6 +5,7 @@ import StepShirt from "../../features/ManualMeasurement/StepShirt";
 import StepPants from "../../features/ManualMeasurement/StepPants";
 import StepResult from "../../features/ManualMeasurement/StepResult";
 import NotFound from "./NotFound";
+import { disableBackOptionWhenAdmin } from "../../helpers/adminConditions";
 
 const ActivityManualMeasurement: React.FC = () => {
   const [manualMeasurementInput, setManualMeasurementInput] = useState<ManualMeasurementForm>({
@@ -56,13 +57,13 @@ const ActivityManualMeasurement: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {step === "activity-manual-measurement-uniform-type" && (
-            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-shirt" />
+            <SelectUniformType manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-shirt" backOption={disableBackOptionWhenAdmin()} />
           )}
           {step === "activity-manual-measurement-shirt" && (
-            <StepShirt manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-pants" />
+            <StepShirt manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} nextStepDirection="activity-manual-measurement-pants" backOption={disableBackOptionWhenAdmin()} />
           )}
           {step === "activity-manual-measurement-pants" && (
-            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit} />
+            <StepPants manualMeasurementInput={manualMeasurementInput} onConfirm={handleChange} onSubmit={() => handleSubmit} backOption={disableBackOptionWhenAdmin()} />
           )}
           {step === "activity-manual-measurement-result" && (
             <StepResult />

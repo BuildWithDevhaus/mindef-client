@@ -58,27 +58,27 @@ const UserExisting: React.FC = () => {
               onSubmit={handleSubmit}
             >
               {step === "existing-user-edit-name" && (
-                <StepName userDetails={userDetails} onConfirm={handleChange} nextStepDestination='existing-user-edit-division' />
+                <StepName userDetails={userDetails} onConfirm={handleChange} nextStepDestination='existing-user-edit-division' backOption />
               )}
               {step === "existing-user-edit-division" && (
-                <StepDivision userDetails={userDetails} onConfirm={handleChange} nextStepDestination='existing-user-edit-gender' />
+                <StepDivision userDetails={userDetails} onConfirm={handleChange} nextStepDestination='existing-user-edit-gender' backOption />
               )}
               {step === "existing-user-edit-gender" && (
-                <StepGender userDetails={userDetails} onConfirm={handleChange} onSubmit={() => handleSubmit} />
+                <StepGender userDetails={userDetails} onConfirm={handleChange} onSubmit={() => handleSubmit} backOption />
               )}
             </form>
           )}
           {step === "existing-user-select-action" && (
-            <UserSelectAction />
+            <UserSelectAction backOption />
           )}
           {step === "existing-user-check-dimensions" && (
-            <UserCheckDimensions />
+            <UserCheckDimensions backOption />
           )}
           {step === "existing-user-reselect" && (
-            <SelectActivity drawUniform={false} />
+            <SelectActivity drawUniform={false} backOption />
           )}
           {step === "existing-user-select-activity" && (
-            <SelectActivity />
+            <SelectActivity backOption />
           )}
           {step === "existing-user-result" && (
             <StepResult />
