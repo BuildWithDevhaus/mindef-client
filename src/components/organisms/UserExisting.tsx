@@ -10,6 +10,7 @@ import { useStaff } from '../../hooks/useStaff'
 import { StaffSchema } from '../../zod/staff'
 import StepDivision from '../../features/UserRegistration/StepDivision'
 import StepGender from '../../features/UserRegistration/StepGender'
+import SelectActivity from './SelectActivity'
 
 const UserExisting: React.FC = () => {
   const [userDetails, setUserDetails] = useState<StaffSchema>({
@@ -72,6 +73,12 @@ const UserExisting: React.FC = () => {
           )}
           {step === "existing-user-check-dimensions" && (
             <UserCheckDimensions />
+          )}
+          {step === "existing-user-reselect" && (
+            <SelectActivity drawUniform={false} />
+          )}
+          {step === "existing-user-select-activity" && (
+            <SelectActivity />
           )}
           {step === "existing-user-result" && (
             <StepResult />

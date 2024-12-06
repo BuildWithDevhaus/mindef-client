@@ -5,6 +5,7 @@ import StepGender from "../../features/UserRegistration/StepGender";
 import StepDivision from "../../features/UserRegistration/StepDivision";
 import { useStaff } from "../../hooks/useStaff";
 import { StaffSchema } from "../../zod/staff";
+import SelectActivity from "./SelectActivity";
 
 const UserRegistrationForm: React.FC = () => {
   const [userDetails, setUserDetails] = useState<StaffSchema>({
@@ -58,6 +59,9 @@ const UserRegistrationForm: React.FC = () => {
               onConfirm={handleChange}
               onSubmit={() => handleSubmit}
             />
+          )}
+          {step === "select-activity" && (
+            <SelectActivity />
           )}
         </form>
       )}

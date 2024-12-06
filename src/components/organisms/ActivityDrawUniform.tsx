@@ -3,6 +3,7 @@ import { useStep } from "../../hooks/useStep";
 import ScanRfidUser from "../../features/DrawUniform/ScanRfidUser";
 import DrawUniformForm from "../../features/DrawUniform/DrawUniformForm";
 import ThankYouScreen from "../../features/DrawUniform/ThankYouScreen";
+import SelectActivity from "./SelectActivity";
 
 const ActivityDrawUniform: React.FC = () => {
   const { step } = useStep();
@@ -16,6 +17,9 @@ const ActivityDrawUniform: React.FC = () => {
           )}
           {step === "activity-draw-uniform-form" && (
             <DrawUniformForm />
+          )}
+          {step === "activity-draw-uniform-reselect" && (
+            <SelectActivity drawUniform={false} />
           )}
           {step === "activity-draw-uniform-thank-you" && (
             <ThankYouScreen />

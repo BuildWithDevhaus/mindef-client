@@ -11,6 +11,10 @@ interface StepProps {
   backOption?: boolean
 }
 
+interface StepActivityProps extends StepProps {
+  drawUniform?: boolean = true
+}
+
 interface ManualMeasurementFormStepProps extends StepProps {
   manualMeasurementInput: ManualMeasurementForm
   onConfirm: (manualMeasurementInput: ManualMeasurementForm) => void
