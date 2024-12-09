@@ -10,7 +10,7 @@ const AdminAddUnitWing: React.FC = () => {
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
-    { label: "Delete Reasons", url: "/admin/delete-reasons" },
+    { label: "Unit/Wing", url: "/admin/unit-wing" },
   ];
 
   const handleButtonClick = () => {
