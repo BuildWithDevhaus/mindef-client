@@ -1,12 +1,20 @@
 interface Shirt {
   id: number;
-  collarLen: number;
-  sleeve: number;
-  shoulderLen: number;
+  belongsTo?: string;
+  gender?: string;
+  uniformType?: string;
+  shoulderLength?: number;
+  sleevesLength?: number;
+  collarLength?: number;
+  shirtLocation?: { Row: number; Rack: string; No: number };
 };
 
 interface Pants {
   id: number;
-  waist: number;
-  length: number;
+  belongsTo?: string;
+  gender?: string;
+  uniformType?: string;
+  pantsLength?: number;
+  waistLength?: number;
+  pantsLocation?: { Row: number; Rack: string; No: number };
 };
