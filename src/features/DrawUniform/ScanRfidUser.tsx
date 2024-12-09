@@ -47,15 +47,15 @@ const ScanRfidUser: React.FC<StepProps> = ({ backOption }) => {
     if (rfidNo === "shirt") {
       setShirt({
         id: 1,
-        collarLen: 10,
-        sleeve: 10,
-        shoulderLen: 10
+        collarLength: 10,
+        sleevesLength: 10,
+        shoulderLength: 10
       })
     } else {
       setPants({
         id: 1,
-        waist: 10,
-        length: 10
+        waistLength: 10,
+        pantsLength: 10
       })
     }
   };

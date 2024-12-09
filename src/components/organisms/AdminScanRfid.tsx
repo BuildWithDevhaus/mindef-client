@@ -9,7 +9,7 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
     if (!rfidNo) return;
 
     // TODO: Check if user scan the same item
-    checkInventory("Pants");
+    checkInventory("Shirt");
 
     nextStep("admin-return-uniform-form-check");
 
@@ -22,18 +22,34 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
 
   // TODO: Change this into real logic
   const checkInventory = (rfidNo: string) => {
-    if (rfidNo === "shirt") {
+    if (rfidNo === "Shirt") {
       setShirtData({
         id: 9983843733,
-        collarLen: 10,
-        sleeve: 10,
-        shoulderLen: 10
+        belongsTo: "Infantry",
+        gender: "Female",
+        uniformType: "No. 1",
+        shoulderLength: 16,
+        sleevesLength: 34,
+        collarLength: 18,
+        shirtLocation: {
+          Row: 8,
+          Rack: "T3",
+          No: 12
+        }
       })
     } else {
       setPantsData({
         id: 8983843734,
-        waist: 10,
-        length: 10
+        belongsTo: "Army",
+        gender: "Male",
+        uniformType: "Colour Party",
+        pantsLength: 16,
+        waistLength: 34,
+        pantsLocation: {
+          Row: 1,
+          Rack: "B3",
+          No: 27
+        }
       })
     }
   };
