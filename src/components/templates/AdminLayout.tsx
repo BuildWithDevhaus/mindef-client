@@ -19,7 +19,7 @@ const AdminLayout: React.FC<AdminTemplateProps> = ({
             <AdminDropdownMenu userName="John Doe" />
           </div>
         </header>
-        <main className="flex flex-col flex-grow px-10 overflow-y-auto">
+        <main className="flex flex-col flex-grow px-10 overflow-y-auto pb-14">
           <div className="mb-8">
             <div className="mb-5 flex flex-col gap-2">
               <h1 className="text-3xl font-bold text-[#101828]">{headingText}</h1>

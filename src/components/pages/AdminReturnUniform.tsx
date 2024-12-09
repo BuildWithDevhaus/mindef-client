@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
+import AdminReturnUniformForm from "../organisms/AdminReturnUniformForm";
+import { useStep } from "../../hooks/useStep";
+
 
 const AdminReturn: React.FC = () => {
   const breadcrumbItems = [
@@ -7,12 +10,16 @@ const AdminReturn: React.FC = () => {
     { label: "Return Uniform", url: "/admin/return-uniform" },
   ];
 
+  const { nextStep } = useStep();
+
+  useEffect(() => {
+    nextStep("admin-return-uniform-scan-rfid");
+  }, [])
+  
+
   return (
     <AdminLayout headingText="Return Uniform" breadcrumbItems={breadcrumbItems}>
-      <div className="flex flex-col justify-center items-center h-full gap-5">
-        <h1 className="text-6xl font-bold">Scan RFID</h1>
-        <h2 className="text-3xl">Please scan using the RFID Scanner :</h2>
-      </div>
+      <AdminReturnUniformForm />
     </AdminLayout>
   );
 };
