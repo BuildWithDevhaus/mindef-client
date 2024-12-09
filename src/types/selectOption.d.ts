@@ -3,7 +3,8 @@ interface SelectOptionProps {
   value?: string | number;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
   className?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
+  disabled?: boolean;
 }
 
 interface SelectOptionItemProps {
