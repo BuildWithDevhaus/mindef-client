@@ -38,7 +38,9 @@ const Sidebar = () => {
     {
       label: "Delete Reasons",
       onClick: () => navigate("/admin/delete-reasons"),
-      isActive: location.pathname === "/admin/delete-reasons",
+      isActive: 
+        location.pathname === "/admin/delete-reasons" ||
+        location.pathname === "/admin/delete-reasons/add",
     },
     {
       label: "Reports",
@@ -51,7 +53,7 @@ const Sidebar = () => {
     {
       label: "Unit/Wing",
       onClick: () => navigate("/admin/unit-wing"),
-      isActive: location.pathname === "/admin/unit-wing",
+      isActive: location.pathname === "/admin/unit-wing" || location.pathname === "/admin/unit-wing/add",
     },
     {
       label: "Configure Data Retention Period",
