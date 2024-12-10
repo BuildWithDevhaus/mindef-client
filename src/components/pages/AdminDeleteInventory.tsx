@@ -4,8 +4,12 @@ import AdminLayout from "../templates/AdminLayout";
 import { pantsDeleteData, pantsDeleteHeaders, shirtDeleteData, shirtDeleteHeaders } from "../../dummy/DeleteInventoryDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import useTableFilter from "../../hooks/useTableFilter";
+import { useNavigate } from "react-router-dom";
 
 const AdminDeleteInventory: React.FC = () => {
+
+  const navigate = useNavigate();
+
   const {
     searchQuery: shirtSearchQuery,
     setSearchQuery: setShirtSearchQuery,
@@ -28,6 +32,11 @@ const AdminDeleteInventory: React.FC = () => {
   const filteredShirtData = filterShirtDataByDateRange(shirtDeleteData);
   const filteredPantsData = filterPantsDataByDateRange(pantsDeleteData);
 
+  const handleDeleteItems = () => {
+    navigate("/admin/delete-inventory/add");
+  }
+
+
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Delete Inventory", url: "/admin/delete-inventory" },
@@ -37,7 +46,7 @@ const AdminDeleteInventory: React.FC = () => {
     <AdminLayout headingText="Delete Inventory" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Inventory</h2>
-        <ButtonPrimary>Delete Items</ButtonPrimary>
+        <ButtonPrimary onClick={handleDeleteItems}>Delete Items</ButtonPrimary>
       </div>
       <Table
         headers={shirtDeleteHeaders}
@@ -56,7 +65,7 @@ const AdminDeleteInventory: React.FC = () => {
 
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Inventory</h2>
-        <ButtonPrimary>Delete Items</ButtonPrimary>
+        <ButtonPrimary onClick={handleDeleteItems}>Delete Items</ButtonPrimary>
       </div>
       <Table
         headers={pantsDeleteHeaders}
