@@ -2,14 +2,25 @@ import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ActivityAutoMeasurement from "../organisms/ActivityAutoMeasurement";
 import { useStep } from "../../hooks/useStep";
+import { useNavigate } from "react-router-dom";
 
 const AdminAutoMeasurement: React.FC = () => {
+
+  const navigate = useNavigate();
+  const { resetStep, nextStep } = useStep();
+
+
+  const handleAutoMeasurementBreadcrumb = () => {
+    navigate("/admin/auto-measurement");
+    resetStep();
+    nextStep("activity-auto-measurement-uniform-type");
+  };
+
   const breadcrumbItems = [
     { label: "User Menu"},
-    { label: "Auto Measurement", url: "/admin/auto-measurement" },
+    { label: "Auto Measurement", onClick: handleAutoMeasurementBreadcrumb },
   ];
 
-  const { nextStep } = useStep();
 
   useEffect(() => {
     nextStep('activity-auto-measurement-uniform-type')

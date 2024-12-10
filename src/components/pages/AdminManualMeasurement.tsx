@@ -2,14 +2,24 @@ import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ActivityManualMeasurement from "../organisms/ActivityManualMeasurement";
 import { useStep } from "../../hooks/useStep";
+import { useNavigate } from "react-router-dom";
 
 const AdminManualMeasurement: React.FC = () => {
+
+  const navigate = useNavigate();
+  const { resetStep, nextStep } = useStep();
+
+  const handleManualMeasurementBreadcrumb = () => {
+    navigate("/admin/manual-measurement");
+    resetStep();
+    nextStep("activity-manual-measurement-uniform-type");
+  };
+
   const breadcrumbItems = [
     { label: "User Menu"},
-    { label: "Manual Measurement", url: "/admin/manual-measurement" },
+    { label: "Manual Measurement", onClick: handleManualMeasurementBreadcrumb },
   ];
 
-  const { nextStep } = useStep();
 
   useEffect(() => {
     nextStep('activity-manual-measurement-uniform-type')
