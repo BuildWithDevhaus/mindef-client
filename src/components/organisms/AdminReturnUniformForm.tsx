@@ -15,7 +15,7 @@ const AdminReturnUniformForm: React.FC  = () => {
       {step.includes("admin-return-uniform") && (
         <>
           {step === "admin-return-uniform-scan-rfid" && (
-            <AdminScanRfid setShirtData={setShirt} setPantsData={setPants} />
+            <AdminScanRfid nextStepDestination="admin-return-uniform-form-check" setShirtData={setShirt} setPantsData={setPants} />
           )}
           {step === "admin-return-uniform-form-check" && (
             <AdminReturnUniformCheck shirtData={shirt} pantsData={pants} />
