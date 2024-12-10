@@ -19,8 +19,8 @@ const AdminLayout: React.FC<AdminTemplateProps> = ({
             <AdminDropdownMenu userName="John Doe" />
           </div>
         </header>
-        <main className="flex flex-col flex-grow px-10 overflow-y-auto pb-14">
-          <div className="mb-8">
+        <main className="flex flex-col flex-grow px-10 overflow-y-auto">
+          <div>
             <div className="mb-5 flex flex-col gap-2">
               <h1 className="text-3xl font-bold text-[#101828]">{headingText}</h1>
               {subText && (
@@ -32,7 +32,7 @@ const AdminLayout: React.FC<AdminTemplateProps> = ({
             </div>
             <div className="border-b border-[#EAECF0]"></div>
           </div>
-          <div className="flex-grow">{children}</div>
+          <div className="my-8 flex-grow">{children}</div>
         </main>
       </div>
     </div>

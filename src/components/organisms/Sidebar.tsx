@@ -1,10 +1,37 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import SidebarSection from "../molecules/SidebarSection";
 import LogoutButton from "../molecules/LogoutButton";
+import { useStep } from "../../hooks/useStep";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { nextStep, resetStep } = useStep();
+
+  const handleReturnUniform = () => {
+    navigate("/admin/return-uniform");
+    resetStep();
+    nextStep("admin-return-uniform-scan-rfid");
+  };
+
+  const handleAutoMeasurement = () => {
+    navigate("/admin/auto-measurement");
+    resetStep();
+    nextStep("activity-auto-measurement-uniform-type");
+  };
+
+  const handleManualMeasurement = () => {
+    navigate("/admin/manual-measurement");
+    resetStep();
+    nextStep("activity-manual-measurement-uniform-type");
+  }
+
+  const handleDrawUniform = () => {
+    navigate("/admin/draw-uniform");
+    resetStep();
+    nextStep("activity-draw-uniform-scan-rfid");
+  }
 
   const handleLogout = () => {
     navigate("/admin/login");
@@ -22,7 +49,7 @@ const Sidebar = () => {
   const adminMenuItems = [
     {
       label: "Return Uniform",
-      onClick: () => navigate("/admin/return-uniform"),
+      onClick: () => (handleReturnUniform()),
       isActive: location.pathname === "/admin/return-uniform",
     },
     {
@@ -38,7 +65,9 @@ const Sidebar = () => {
     {
       label: "Delete Reasons",
       onClick: () => navigate("/admin/delete-reasons"),
-      isActive: location.pathname === "/admin/delete-reasons",
+      isActive: 
+        location.pathname === "/admin/delete-reasons" ||
+        location.pathname === "/admin/delete-reasons/add",
     },
     {
       label: "Reports",
@@ -51,7 +80,7 @@ const Sidebar = () => {
     {
       label: "Unit/Wing",
       onClick: () => navigate("/admin/unit-wing"),
-      isActive: location.pathname === "/admin/unit-wing",
+      isActive: location.pathname === "/admin/unit-wing" || location.pathname === "/admin/unit-wing/add",
     },
     {
       label: "Configure Data Retention Period",
@@ -61,9 +90,9 @@ const Sidebar = () => {
   ];
 
   const userMenuItems = [
-    { label: "Auto Measurement", onClick: () => navigate("/admin/auto-measurement"), isActive: location.pathname === "/admin/auto-measurement" },
-    { label: "Manual Measurement Entry", onClick: () => navigate("/admin/manual-measurement"), isActive: location.pathname === "/admin/manual-measurement" },
-    { label: "Draw Uniform", onClick: () => navigate("/admin/draw-uniform"), isActive: location.pathname === "/admin/draw-uniform" },
+    { label: "Auto Measurement", onClick: () => {handleAutoMeasurement()}, isActive: location.pathname === "/admin/auto-measurement" },
+    { label: "Manual Measurement Entry", onClick: () => {handleManualMeasurement()}, isActive: location.pathname === "/admin/manual-measurement" },
+    { label: "Draw Uniform", onClick: () => {handleDrawUniform()}, isActive: location.pathname === "/admin/draw-uniform" },
   ];
 
   return (

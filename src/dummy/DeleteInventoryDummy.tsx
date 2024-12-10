@@ -7,7 +7,7 @@ export const shirtDeleteHeaders = [
   "Gender:",
   "Uniform Type:",
   "Shirt Location:",
-  "Last drawn date:",
+  "Disposal date:",
   "Reason for Delete Inventory:",
   "Remove from delete Inventory:",
 ];
@@ -20,7 +20,7 @@ export const shirtDeleteData = [
     "Row: 5, Rack: A5, No: 10",
     "2024-11-10",
     <StatusTag content="Soiled beyond repair" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334455} showTrash />,
+    <TableAction itemId={1234567890} showEdit showTrash />,
   ],
   [
     "1234567891",
@@ -30,7 +30,7 @@ export const shirtDeleteData = [
     "Row: 3, Rack: B6, No: 7",
     "2024-10-22",
     <StatusTag content="Irreparable tears" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334456} showTrash />,
+    <TableAction itemId={1234567891} showEdit showTrash />,
   ],
   [
     "1234567892",
@@ -40,7 +40,7 @@ export const shirtDeleteData = [
     "Row: 8, Rack: C3, No: 14",
     "2024-09-18",
     <StatusTag content="Color fading" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334457} showTrash />,
+    <TableAction itemId={1234567892} showEdit showTrash />,
   ],
   [
     "1234567893",
@@ -50,7 +50,7 @@ export const shirtDeleteData = [
     "Row: 1, Rack: D2, No: 6",
     "2024-08-30",
     <StatusTag content="Excess inventory" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334458} showTrash />,
+    <TableAction itemId={1234567893} showEdit showTrash />,
   ],
   [
     "1234567894",
@@ -60,7 +60,7 @@ export const shirtDeleteData = [
     "Row: 6, Rack: E4, No: 3",
     "2024-07-21",
     <StatusTag content="Damaged collars" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334459} showTrash />,
+    <TableAction itemId={1234567894} showEdit showTrash />,
   ],
   [
     "1234567895",
@@ -70,7 +70,7 @@ export const shirtDeleteData = [
     "Row: 4, Rack: A6, No: 8",
     "2024-11-05",
     <StatusTag content="Severe stains" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334460} showTrash />,
+    <TableAction itemId={1234567895} showEdit showTrash />,
   ],
   [
     "1234567896",
@@ -80,7 +80,7 @@ export const shirtDeleteData = [
     "Row: 7, Rack: B8, No: 13",
     "2024-10-03",
     <StatusTag content="Old model discontinued" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334461} showTrash />,
+    <TableAction itemId={1234567896} showEdit showTrash />,
   ],
   [
     "1234567897",
@@ -90,7 +90,7 @@ export const shirtDeleteData = [
     "Row: 2, Rack: C9, No: 5",
     "2024-09-11",
     <StatusTag content="Damaged fabric" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334462} showTrash />,
+    <TableAction itemId={1234567897} showEdit showTrash />,
   ],
   [
     "1234567898",
@@ -100,7 +100,7 @@ export const shirtDeleteData = [
     "Row: 9, Rack: A1, No: 11",
     "2024-08-14",
     <StatusTag content="Color fading" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334463} showTrash />,
+    <TableAction itemId={1234567898} showEdit showTrash />,
   ],
   [
     "1234567899",
@@ -110,7 +110,7 @@ export const shirtDeleteData = [
     "Row: 5, Rack: D7, No: 4",
     "2024-07-25",
     <StatusTag content="Soiled beyond repair" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334464} showTrash />,
+    <TableAction itemId={1234567899} showEdit showTrash />,
   ],
   [
     "1234567900",
@@ -120,7 +120,7 @@ export const shirtDeleteData = [
     "Row: 10, Rack: C5, No: 9",
     "2024-11-17",
     <StatusTag content="Excess inventory" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334465} showTrash />,
+    <TableAction itemId={1234567900} showEdit showTrash />,
   ],
   [
     "1234567901",
@@ -130,7 +130,7 @@ export const shirtDeleteData = [
     "Row: 6, Rack: B2, No: 16",
     "2024-10-09",
     <StatusTag content="Irreparable tears" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334466} showTrash />,
+    <TableAction itemId={1234567901} showEdit showTrash />,
   ],
   [
     "1234567902",
@@ -140,7 +140,7 @@ export const shirtDeleteData = [
     "Row: 3, Rack: E9, No: 19",
     "2024-09-28",
     <StatusTag content="Old model discontinued" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334467} showTrash />,
+    <TableAction itemId={1234567902} showEdit showTrash />,
   ],
   [
     "1234567903",
@@ -150,7 +150,7 @@ export const shirtDeleteData = [
     "Row: 8, Rack: A8, No: 12",
     "2024-08-20",
     <StatusTag content="Severe stains" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334468} showTrash />,
+    <TableAction itemId={1234567903} showEdit showTrash />,
   ],
   [
     "1234567904",
@@ -160,7 +160,7 @@ export const shirtDeleteData = [
     "Row: 4, Rack: C4, No: 15",
     "2024-07-13",
     <StatusTag content="Damaged collars" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334469} showTrash />,
+    <TableAction itemId={1234567904} showEdit showTrash />,
   ],
   [
     "1234567905",
@@ -170,7 +170,7 @@ export const shirtDeleteData = [
     "Row: 7, Rack: D6, No: 20",
     "2024-11-23",
     <StatusTag content="Excess inventory" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334470} showTrash />,
+    <TableAction itemId={1234567905} showEdit showTrash />,
   ],
   [
     "1234567906",
@@ -180,7 +180,7 @@ export const shirtDeleteData = [
     "Row: 2, Rack: B3, No: 2",
     "2024-10-06",
     <StatusTag content="Damaged fabric" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334471} showTrash />,
+    <TableAction itemId={1234567906} showEdit showTrash />,
   ],
   [
     "1234567907",
@@ -190,7 +190,7 @@ export const shirtDeleteData = [
     "Row: 9, Rack: A9, No: 17",
     "2024-09-02",
     <StatusTag content="Color fading" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334472} showTrash />,
+    <TableAction itemId={1234567907} showEdit showTrash />,
   ],
   [
     "1234567908",
@@ -200,7 +200,7 @@ export const shirtDeleteData = [
     "Row: 5, Rack: C7, No: 1",
     "2024-08-10",
     <StatusTag content="Irreparable tears" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334473} showTrash />,
+    <TableAction itemId={1234567908} showEdit showTrash />,
   ],
   [
     "1234567909",
@@ -210,7 +210,7 @@ export const shirtDeleteData = [
     "Row: 1, Rack: E8, No: 18",
     "2024-07-08",
     <StatusTag content="Soiled beyond repair" variant="danger"></StatusTag>,
-    <TableAction itemId={1122334474} showTrash />,
+    <TableAction itemId={1234567909} showEdit showTrash />,
   ],
 ];
 
@@ -221,7 +221,7 @@ export const pantsDeleteHeaders = [
   "Gender:",
   "Uniform Type:",
   "Pants Location:",
-  "Last drawn date:",
+  "Disposal date:",
   "Reason for Delete Inventory:",
   "Remove from delete Inventory:",
 ];
@@ -235,7 +235,7 @@ export const pantsDeleteData = [
     "Row: 9, Rack: B9, No: 10",
     "2024-11-01",
     <StatusTag content="Soiled beyond repair" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040389} showTrash />,
+    <TableAction itemId={9323438383} showEdit showTrash />,
   ],
   [
     "9323438384",
@@ -245,7 +245,7 @@ export const pantsDeleteData = [
     "Row: 4, Rack: C7, No: 15",
     "2024-10-15",
     <StatusTag content="Irreparable tears" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040390} showTrash />,
+    <TableAction itemId={9323438384} showEdit showTrash />,
   ],
   [
     "9323438385",
@@ -255,7 +255,7 @@ export const pantsDeleteData = [
     "Row: 2, Rack: A1, No: 5",
     "2024-09-20",
     <StatusTag content="Color fading" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040391} showTrash />,
+    <TableAction itemId={9323438385} showEdit showTrash />,
   ],
   [
     "9323438386",
@@ -265,7 +265,7 @@ export const pantsDeleteData = [
     "Row: 8, Rack: D5, No: 12",
     "2024-08-12",
     <StatusTag content="Excess inventory" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040392} showTrash />,
+    <TableAction itemId={9323438386} showEdit showTrash />,
   ],
   [
     "9323438387",
@@ -275,7 +275,7 @@ export const pantsDeleteData = [
     "Row: 6, Rack: E3, No: 7",
     "2024-07-30",
     <StatusTag content="Old model discontinued" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040393} showTrash />,
+    <TableAction itemId={9323438387} showEdit showTrash />,
   ],
   [
     "9323438388",
@@ -285,7 +285,7 @@ export const pantsDeleteData = [
     "Row: 3, Rack: B2, No: 8",
     "2024-11-05",
     <StatusTag content="Severe stains" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040394} showTrash />,
+    <TableAction itemId={9323438388} showEdit showTrash />,
   ],
   [
     "9323438389",
@@ -295,7 +295,7 @@ export const pantsDeleteData = [
     "Row: 5, Rack: F4, No: 19",
     "2024-10-02",
     <StatusTag content="Damaged zippers" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040395} showTrash />,
+    <TableAction itemId={9323438389} showEdit showTrash />,
   ],
   [
     "9323438390",
@@ -305,7 +305,7 @@ export const pantsDeleteData = [
     "Row: 7, Rack: C3, No: 14",
     "2024-09-10",
     <StatusTag content="Excess inventory" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040396} showTrash />,
+    <TableAction itemId={9323438390} showEdit showTrash />,
   ],
   [
     "9323438391",
@@ -315,7 +315,7 @@ export const pantsDeleteData = [
     "Row: 10, Rack: B7, No: 3",
     "2024-08-20",
     <StatusTag content="Color fading" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040397} showTrash />,
+    <TableAction itemId={9323438391} showEdit showTrash />,
   ],
   [
     "9323438392",
@@ -325,7 +325,7 @@ export const pantsDeleteData = [
     "Row: 1, Rack: E1, No: 6",
     "2024-07-22",
     <StatusTag content="Soiled beyond repair" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040398} showTrash />,
+    <TableAction itemId={9323438392} showEdit showTrash />,
   ],
   [
     "9323438393",
@@ -335,7 +335,7 @@ export const pantsDeleteData = [
     "Row: 9, Rack: C6, No: 13",
     "2024-11-10",
     <StatusTag content="Excess inventory" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040399} showTrash />,
+    <TableAction itemId={9323438393} showEdit showTrash />,
   ],
   [
     "9323438394",
@@ -345,7 +345,7 @@ export const pantsDeleteData = [
     "Row: 2, Rack: D8, No: 20",
     "2024-10-08",
     <StatusTag content="Damaged fabric" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040400} showTrash />,
+    <TableAction itemId={9323438394} showEdit showTrash />,
   ],
   [
     "9323438395",
@@ -355,7 +355,7 @@ export const pantsDeleteData = [
     "Row: 4, Rack: A4, No: 9",
     "2024-09-15",
     <StatusTag content="Irreparable tears" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040401} showTrash />,
+    <TableAction itemId={9323438395} showEdit showTrash />,
   ],
   [
     "9323438396",
@@ -365,7 +365,7 @@ export const pantsDeleteData = [
     "Row: 6, Rack: B5, No: 11",
     "2024-08-18",
     <StatusTag content="Old model discontinued" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040402} showTrash />,
+    <TableAction itemId={9323438396} showEdit showTrash />,
   ],
   [
     "9323438397",
@@ -375,7 +375,7 @@ export const pantsDeleteData = [
     "Row: 3, Rack: C2, No: 4",
     "2024-07-05",
     <StatusTag content="Severe stains" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040403} showTrash />,
+    <TableAction itemId={9323438397} showEdit showTrash />,
   ],
   [
     "9323438398",
@@ -385,7 +385,7 @@ export const pantsDeleteData = [
     "Row: 5, Rack: E6, No: 16",
     "2024-11-25",
     <StatusTag content="Damaged zippers" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040404} showTrash />,
+    <TableAction itemId={9323438398} showEdit showTrash />,
   ],
   [
     "9323438399",
@@ -395,7 +395,7 @@ export const pantsDeleteData = [
     "Row: 8, Rack: A7, No: 2",
     "2024-10-19",
     <StatusTag content="Color fading" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040405} showTrash />,
+    <TableAction itemId={9323438399} showEdit showTrash />,
   ],
   [
     "9323438400",
@@ -405,7 +405,7 @@ export const pantsDeleteData = [
     "Row: 7, Rack: B8, No: 17",
     "2024-09-01",
     <StatusTag content="Excess inventory" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040406} showTrash />,
+    <TableAction itemId={9323438400} showEdit showTrash />,
   ],
   [
     "9323438401",
@@ -415,7 +415,7 @@ export const pantsDeleteData = [
     "Row: 9, Rack: C9, No: 18",
     "2024-08-14",
     <StatusTag content="Irreparable tears" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040407} showTrash />,
+    <TableAction itemId={9323438401} showEdit showTrash />,
   ],
   [
     "9323438402",
@@ -425,7 +425,7 @@ export const pantsDeleteData = [
     "Row: 10, Rack: D10, No: 1",
     "2024-07-25",
     <StatusTag content="Old model discontinued" variant="danger"></StatusTag>,
-    <TableAction itemId={9903040408} showTrash />,
+    <TableAction itemId={9323438402} showEdit showTrash />,
   ],
 ];
 

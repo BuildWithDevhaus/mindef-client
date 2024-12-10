@@ -47,7 +47,7 @@ const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, p
           <div className="border-b-2 border-[#D7D7D7]"></div>
           <div className="flex flex-col gap-2">
             <h3 className="font-bold text-2xl">
-              {shirtData ? "Shirt Location" : "Pants Location"}{" "}
+              {shirtData ? "Shirt Location" : "Pants Location"}
             </h3>
             <div>
               <p className="text-2xl">
@@ -75,15 +75,13 @@ const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, p
               className="w-full text-xl font-medium"
               onClick={handleConfirm}
             >
-              {" "}
-              Add New Item{" "}
+              Add New Item
             </ButtonPrimary>
             <ButtonSecondary
               className="w-full text-xl font-medium"
               onClick={() => navigate("/admin")}
             >
-              {" "}
-              Back to Main{" "}
+              Back to Main
             </ButtonSecondary>
           </div>
         </ContainerLayout>

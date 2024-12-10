@@ -2,15 +2,24 @@ import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import AdminReturnUniformForm from "../organisms/AdminReturnUniformForm";
 import { useStep } from "../../hooks/useStep";
+import { useNavigate } from "react-router-dom";
 
 
 const AdminReturn: React.FC = () => {
+
+  const navigate = useNavigate();
+  const { resetStep, nextStep } = useStep();
+
+  const handleReturnUniformBreadcrumb = () => {
+    navigate("/admin/return-uniform");
+    resetStep();
+    nextStep("admin-return-uniform-scan-rfid");
+  };
+
   const breadcrumbItems = [
     { label: "Admin Menu"},
-    { label: "Return Uniform", url: "/admin/return-uniform" },
+    { label: "Return Uniform", onClick: handleReturnUniformBreadcrumb },
   ];
-
-  const { nextStep } = useStep();
 
   useEffect(() => {
     nextStep("admin-return-uniform-scan-rfid");
