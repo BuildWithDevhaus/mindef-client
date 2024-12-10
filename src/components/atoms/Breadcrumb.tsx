@@ -15,13 +15,16 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className }) => {
     >
       {items.map((item, index) => (
         <React.Fragment key={index}>
-          {item.url ? (
+          {item.onClick ? (
             <button
-              onClick={() => {
-                if (item.url) {
-                  navigate(item.url);
-                }
-              }}
+              onClick={item.onClick}
+              className="hover:underline"
+            >
+              {item.label}
+            </button>
+          ) : item.url ? (
+            <button
+              onClick={() => navigate(item.url!)}
               className="hover:underline"
             >
               {item.label}
