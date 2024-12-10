@@ -6,4 +6,5 @@ interface AdminScanRfidData {
 interface AdminScanRfidFunction {
   setShirtData: (data: Shirt) => void
   setPantsData: (data: Pants) => void
+  nextStepDestination? : string
 }
