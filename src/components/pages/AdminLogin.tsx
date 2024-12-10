@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface AdminLoginProps {
-  onLogin: () => void;
-}
-
 const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   const [pin, setPin] = useState<string>('');
   const [activeKey, setActiveKey] = useState<string | null>(null);

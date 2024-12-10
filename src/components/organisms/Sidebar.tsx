@@ -2,11 +2,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SidebarSection from "../molecules/SidebarSection";
 import LogoutButton from "../molecules/LogoutButton";
 import { useStep } from "../../hooks/useStep";
+import useAuth from "../../hooks/useAuth";
 
 const Sidebar = () => {
+  const { logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-
+  const location = useLocation()
   const { nextStep, resetStep } = useStep();
 
   const handleReturnUniform = () => {
@@ -34,7 +35,9 @@ const Sidebar = () => {
   }
 
   const handleLogout = () => {
-    navigate("/admin/login");
+    localStorage.removeItem('isAuthenticated');
+    logout();
+    navigate("/admin/login", { replace: true });
     window.location.reload();
   };
 
