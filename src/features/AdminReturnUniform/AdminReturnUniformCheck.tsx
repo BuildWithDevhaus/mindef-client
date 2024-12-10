@@ -51,7 +51,7 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
                   ? `Shirt ID: ${shirtData.id}`
                   : `Pants ID: ${pantsData?.id}`}
               </h1>
-              <p>
+              <p className="text-xl">
                 {shirtData
                   ? `Description: ${shirtData.uniformType}, ${shirtData.gender} Shirt, ${shirtData.belongsTo}`
                   : `Description: ${pantsData?.uniformType}, ${pantsData?.gender} Pants, ${pantsData?.belongsTo}`}
