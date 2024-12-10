@@ -19,6 +19,7 @@ import AdminDrawUniform from "./components/pages/AdminDrawUniform";
 import AdminLogin from "./components/pages/AdminLogin";
 import AdminAddDeleteReason from "./components/pages/AdminAddDeleteReason";
 import AdminAddUnitWing from "./components/pages/AdminAddUnitWing";
+import AdminAddDeleteInventory from "./components/pages/AdminAddDeleteInventory";
 
 const App = () => {
   const { isAuthenticated, login } = useAuth();
@@ -50,6 +51,10 @@ const App = () => {
         <Route
           path="/admin/delete-inventory"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminDeleteInventory />} />}
+        />
+        <Route
+          path="/admin/delete-inventory/add"
+          element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddDeleteInventory />} />}
         />
         <Route
           path="/admin/delete-reasons"
