@@ -58,7 +58,9 @@ const Sidebar = () => {
     {
       label: "Register New Inventory",
       onClick: () => navigate("/admin/register-inventory"),
-      isActive: location.pathname === "/admin/register-inventory",
+      isActive:
+        location.pathname === "/admin/register-inventory" ||
+        location.pathname === "/admin/register-inventory/add",
     },
     {
       label: "Delete Inventory",
