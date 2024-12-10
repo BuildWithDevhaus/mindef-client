@@ -9,14 +9,14 @@ import { useStep } from '../../hooks/useStep'
 
 
 
-const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
+const AdminUniformResult: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
   const { nextStep, resetStep } = useStep();
   
   const navigate = useNavigate();
 
   const handleConfirm = () => {
     resetStep();
-    nextStep("admin-return-uniform-scan-rfid");
+    nextStep("admin-register-new-uniform-scan-rfid");
   }
   
   return (
@@ -90,4 +90,4 @@ const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, p
   );
 }
 
-export default AdminReturnUniformConfirmed
+export default AdminUniformResult

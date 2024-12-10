@@ -4,6 +4,7 @@ import AdminLayout from "../templates/AdminLayout";
 import { pantsRegisterData, pantsRegisterHeaders, shirtRegisterData, shirtRegisterHeaders } from "../../dummy/RegisterInventoryDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import useTableFilter from "../../hooks/useTableFilter";
+import { useNavigate } from "react-router-dom";
 
 const AdminRegisterInventory: React.FC = () => {
   const {
@@ -28,6 +29,12 @@ const AdminRegisterInventory: React.FC = () => {
   const filteredShirtData = filterShirtDataByDateRange(shirtRegisterData);
   const filteredPantsData = filterPantsDataByDateRange(pantsRegisterData);
 
+  const navigate = useNavigate();
+
+  const handleRegisterUniform = () => {
+  navigate("/admin/register-inventory/add");
+  }
+
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Register New Inventory", url: "/admin/register-inventory" },
@@ -37,7 +44,7 @@ const AdminRegisterInventory: React.FC = () => {
     <AdminLayout headingText="Register New Inventory" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
-        <ButtonPrimary>Register New Shirt</ButtonPrimary>
+        <ButtonPrimary onClick={handleRegisterUniform}>Register New Shirt</ButtonPrimary>
       </div>
       <Table
         headers={shirtRegisterHeaders}
@@ -56,7 +63,7 @@ const AdminRegisterInventory: React.FC = () => {
 
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
-        <ButtonPrimary>Register New Pants</ButtonPrimary>
+        <ButtonPrimary onClick={handleRegisterUniform}>Register New Pants</ButtonPrimary>
       </div>
       <Table
         headers={pantsRegisterHeaders}

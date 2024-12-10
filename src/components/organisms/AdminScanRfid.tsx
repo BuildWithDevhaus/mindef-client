@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
 
-const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPantsData }) => {
+const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPantsData, nextStepDestination }) => {
   const [rfidNo, setRfidNo] = useState("");
   const { nextStep } = useStep();
 
@@ -11,7 +11,9 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
     // TODO: Check if user scan the same item
     checkInventory("Shirt");
 
-    nextStep("admin-return-uniform-form-check");
+      if (nextStepDestination) {
+    nextStep(nextStepDestination);
+  }
 
     setRfidNo("");
   }, [rfidNo]);

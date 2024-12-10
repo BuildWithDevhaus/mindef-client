@@ -3,6 +3,7 @@ import useAuth from "./hooks/useAuth";
 import PrivateRoute from "./components/organisms/PrivateRoute";
 import AdminReturn from "./components/pages/AdminReturnUniform";
 import AdminRegisterInventory from "./components/pages/AdminRegisterInventory";
+import AdminAddRegisterInventory from "./components/pages/AdminAddRegisterInventory";
 import AdminDeleteInventory from "./components/pages/AdminDeleteInventory";
 import AdminDeleteReasons from "./components/pages/AdminDeleteReasons";
 import AdminUnitWing from "./components/pages/AdminUnitWing";
@@ -41,6 +42,10 @@ const App = () => {
         <Route
           path="/admin/register-inventory"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminRegisterInventory />} />}
+        />
+        <Route
+          path="/admin/register-inventory/add"
+          element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddRegisterInventory />} />}
         />
         <Route
           path="/admin/delete-inventory"
