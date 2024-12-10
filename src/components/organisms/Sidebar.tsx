@@ -65,7 +65,9 @@ const Sidebar = () => {
     {
       label: "Delete Inventory",
       onClick: () => navigate("/admin/delete-inventory"),
-      isActive: location.pathname === "/admin/delete-inventory",
+      isActive: 
+        location.pathname === "/admin/delete-inventory" ||
+        location.pathname === "/admin/delete-inventory/add",
     },
     {
       label: "Delete Reasons",
