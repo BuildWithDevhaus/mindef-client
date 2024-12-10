@@ -1,20 +1,19 @@
 import { useState } from "react";
 
-interface UseAuth {
-  isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
-}
-
 const useAuth = (): UseAuth => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Retrieve the authentication state from localStorage
+    return localStorage.getItem("isAuthenticated") === "true";
+  });
 
   const login = () => {
     setIsAuthenticated(true);
+    localStorage.setItem("isAuthenticated", "true");
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem("isAuthenticated");
   };
 
   return { isAuthenticated, login, logout };

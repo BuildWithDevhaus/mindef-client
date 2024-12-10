@@ -3,19 +3,22 @@ import { useNavigate } from "react-router-dom";
 import DropdownItem from "../atoms/AdminDropdownItem";
 import IconGear from "../atoms/IconGear"; 
 import IconKey from "../atoms/IconKey";
-
+import useAuth from "../../hooks/useAuth";
 
 const AdminDropdownMenu: React.FC<AdminDropdownMenuProps> = ({ userName }) => {
+  const { logout } = useAuth(); 
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleLogout = () => {
-    navigate("/admin/login");
+    localStorage.removeItem('isAuthenticated');
+    logout();
+    navigate("/admin/login", { replace: true });
     window.location.reload();
   };
-
+  
   return (
     <div className="relative">
       <button
