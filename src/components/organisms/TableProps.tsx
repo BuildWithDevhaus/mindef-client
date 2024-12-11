@@ -27,15 +27,29 @@ const Table: React.FC<TableProps> = ({
   const [dateRange, setDateRange] = useState<any>(null);
 
   const filteredData = data.filter((row) =>
-    row.some((cell) =>
-      typeof cell === "string" || typeof cell === "number"
-        ? cell
+    row.some((cell) => {
+      if (typeof cell === "string" || typeof cell === "number") {
+        return cell
+          .toString()
+          .toLowerCase()
+          .includes(currentSearchQuery.toLowerCase());
+      }
+  
+      if (React.isValidElement(cell)) {
+        const elementProps = cell.props as { content?: string | number }; 
+        const content = elementProps.content;
+  
+        if (content && (typeof content === "string" || typeof content === "number")) {
+          return content
             .toString()
             .toLowerCase()
-            .includes(currentSearchQuery.toLowerCase())
-        : false
-    )
+            .includes(currentSearchQuery.toLowerCase());
+        }
+      }
+        return false;
+    })
   );
+  
 
   const totalPages = Math.ceil(filteredData.length / currentRowsPerPage);
   const paginatedData = filteredData.slice(
@@ -61,16 +75,19 @@ const Table: React.FC<TableProps> = ({
 
   const handleSearchChange = (query: string) => {
     setCurrentSearchQuery(query);
+    setCurrentPage(1);
     onSearchChange && onSearchChange(query);
   };
 
   const handleRowsPerPageChange = (value: number) => {
     setCurrentRowsPerPage(value);
+    setCurrentPage(1);
     onRowsPerPageChange && onRowsPerPageChange(value);
   };
 
   const handleDateRangeChange = (value: any) => {
     setDateRange(value);
+    setCurrentPage(1);
     onDateRangeChange && onDateRangeChange(value);
   };
 
