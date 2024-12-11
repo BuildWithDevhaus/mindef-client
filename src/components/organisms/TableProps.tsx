@@ -27,14 +27,30 @@ const Table: React.FC<TableProps> = ({
   const [dateRange, setDateRange] = useState<any>(null);
 
   const filteredData = data.filter((row) =>
-    row.some((cell) =>
-      typeof cell === "string" || typeof cell === "number"
-        ? cell
+    row.some((cell) => {
+      if (typeof cell === "string" || typeof cell === "number") {
+        return cell
+          .toString()
+          .toLowerCase()
+          .includes(currentSearchQuery.toLowerCase());
+      }
+
+      if (React.isValidElement(cell)) {
+        const elementProps = cell.props as { content?: string | number };
+        const content = elementProps.content;
+
+        if (
+          content &&
+          (typeof content === "string" || typeof content === "number")
+        ) {
+          return content
             .toString()
             .toLowerCase()
-            .includes(currentSearchQuery.toLowerCase())
-        : false
-    )
+            .includes(currentSearchQuery.toLowerCase());
+        }
+      }
+      return false;
+    })
   );
 
   const totalPages = Math.ceil(filteredData.length / currentRowsPerPage);
@@ -61,22 +77,25 @@ const Table: React.FC<TableProps> = ({
 
   const handleSearchChange = (query: string) => {
     setCurrentSearchQuery(query);
+    setCurrentPage(1);
     onSearchChange && onSearchChange(query);
   };
 
   const handleRowsPerPageChange = (value: number) => {
     setCurrentRowsPerPage(value);
+    setCurrentPage(1);
     onRowsPerPageChange && onRowsPerPageChange(value);
   };
 
   const handleDateRangeChange = (value: any) => {
     setDateRange(value);
+    setCurrentPage(1);
     onDateRangeChange && onDateRangeChange(value);
   };
 
   return (
     <div>
-      <div className="flex items-center justify-between" >
+      <div className="flex items-center justify-between">
         <div>
           {enableRowsPerPage && (
             <div className="mb-8 flex items-center justify-between">
@@ -117,21 +136,32 @@ const Table: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((row, rowIndex) => (
-            <tr key={rowIndex} className="odd:bg-gray-100">
-              {row.map((cell, cellIndex) => (
-                <TableCell
-                  key={cellIndex}
-                  content={cell}
-                  className="border-x-2 text-sm px-4 py-2"
-                />
-              ))}
+          {paginatedData.length > 0 ? (
+            paginatedData.map((row, rowIndex) => (
+              <tr key={rowIndex} className="odd:bg-gray-100">
+                {row.map((cell, cellIndex) => (
+                  <TableCell
+                    key={cellIndex}
+                    content={cell}
+                    className="border-x-2 text-sm px-4 py-2"
+                  />
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={headers.length}
+                className="text-center py-6 text-red-600 font-medium bg-gray-50 border-2"
+              >
+                No matching rows found.
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
 
-      {enablePagination && (
+      {enablePagination && paginatedData.length > 0 && (
         <div className="flex justify-between items-center px-6 py-4 border-x-2 border-b-2 border-gray-200">
           <span className="text-sm text-gray-600 font-semibold">
             Page {currentPage} of {totalPages}
