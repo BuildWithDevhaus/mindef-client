@@ -17,7 +17,7 @@ export const YearlyReportData = [
     "No. 1",
     "Top",
     "30cm",
-    "Row: 2, Rack: B1, No: 30",
+    "Row: 2, Rack: B1",
     "Male",
     <StatusTag content="Too Old" variant="danger" />,
     "2024-11-23",
@@ -27,7 +27,7 @@ export const YearlyReportData = [
     "No. 2",
     "Bottom",
     "28cm",
-    "Row: 3, Rack: C2, No: 15",
+    "Row: 3, Rack: C2",
     "Female",
     <StatusTag content="Slightly Worn" variant="danger" />,
     "2024-11-01",
@@ -37,7 +37,7 @@ export const YearlyReportData = [
     "No. 3",
     "Top",
     "32cm",
-    "Row: 1, Rack: A3, No: 5",
+    "Row: 1, Rack: A3",
     "Male",
     <StatusTag content="Good Condition" variant="danger" />,
     "2024-10-15",
@@ -66,7 +66,7 @@ for (let i = 4; i <= 48; i++) {
     `${28 + Math.floor(Math.random() * 5)}cm`,
     `Row: ${1 + Math.floor(Math.random() * 5)}, Rack: ${
       String.fromCharCode(65 + Math.floor(Math.random() * 3))
-    }${1 + Math.floor(Math.random() * 3)}, No: ${1 + Math.floor(Math.random() * 50)}`,
+    }${1 + Math.floor(Math.random() * 3)}`,
     genderOptions[Math.floor(Math.random() * genderOptions.length)],
     <StatusTag
       content={

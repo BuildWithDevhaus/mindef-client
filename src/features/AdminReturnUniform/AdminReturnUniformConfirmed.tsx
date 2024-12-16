@@ -62,12 +62,6 @@ const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, p
                   ? ` ${shirtData?.shirtLocation?.Rack}`
                   : ` ${pantsData?.pantsLocation?.Rack}`}
               </p>
-              <p className="text-2xl">
-                No :
-                {shirtData
-                  ? ` ${shirtData?.shirtLocation?.No}`
-                  : ` ${pantsData?.pantsLocation?.No}`}
-              </p>
             </div>
           </div>
           <div className="w-full flex gap-9">
