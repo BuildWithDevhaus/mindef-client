@@ -11,7 +11,7 @@ const UserRegistrationForm: React.FC = () => {
   const [userDetails, setUserDetails] = useState<StaffInputSchema>({
     nricNo: "",
     name: "",
-    divisionId: 0,
+    divisionId: 1,
     gender: "",
   } as StaffInputSchema);
 
@@ -38,7 +38,7 @@ const UserRegistrationForm: React.FC = () => {
     setUserDetails({
       nricNo: "",
       name: "",
-      divisionId: 0,
+      divisionId: 1,
       gender: "",
     } as StaffInputSchema);
   };
