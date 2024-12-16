@@ -7,6 +7,7 @@ import ButtonBack from "../../components/atoms/ButtonBack";
 import { UserRegistrationStepNextProps } from "../../types/staffSteps";
 import { DivisionSchema } from "../../zod/division";
 import { api } from "../../helpers/api";
+import { useStaff } from "../../hooks/useStaff";
 
 const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
   userDetails,
@@ -16,6 +17,7 @@ const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
 }) => {
   const [divisions, setDivisions] = useState<DivisionSchema[]>([]);
   const [inputValue, setInputValue] = useState(userDetails);
+  const { staff } = useStaff();
   const { nextStep } = useStep();
 
   useEffect(() => {
@@ -24,6 +26,12 @@ const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
       setDivisions(divisionsData);
     })();
   }, []);
+
+  useEffect(() => {
+    if (staff) {
+      setInputValue({ ...inputValue, divisionId: staff.division.id });
+    }
+  }, [staff]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInputValue({ ...inputValue, divisionId: Number(e.target.value) });
