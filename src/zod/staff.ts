@@ -25,3 +25,11 @@ export const staffInputSchema = z.object({
 });
 
 export type StaffInputSchema = z.infer<typeof staffInputSchema>;
+
+export const staffUpdateSchema = z.object({
+  name: z.string(),
+  divisionId: z.number(),
+  gender: z.string(),
+});
+
+export type StaffUpdateSchema = z.infer<typeof staffUpdateSchema>;
