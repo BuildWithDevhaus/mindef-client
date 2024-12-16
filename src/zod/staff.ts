@@ -3,7 +3,10 @@ import { z } from "zod";
 export const staffSchema = z.object({
   nricNo: z.string(),
   name: z.string(),
-  division: z.string(),
+  division: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
   gender: z.string(),
   shoulderLen: z.number().optional(),
   sleeve: z.number().optional(),
