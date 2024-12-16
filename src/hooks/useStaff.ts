@@ -18,15 +18,14 @@ export const useStaff = () => {
       const { data: { access_token } } = await api.post('/staffs/login', { nricNo });
       localStorage.setItem('access_token', access_token);
       const { data: staff }: { data: StaffSchema } = await api.get(`/staffs/${nricNo}`);
-      console.log(staff);
       
       setStaff(staff);
-      setNricNo(nricNo);
       setIsLoggedIn(true);
     } catch (error) {
       setStaff(null);
       setIsLoggedIn(false);
     } finally {
+      setNricNo(nricNo);
       setIsCheckingStaff(false);
     }
   };
@@ -37,15 +36,17 @@ export const useStaff = () => {
     setIsLoggedIn(false);
   };
 
-  const staffRegister = (staffData: StaffInputSchema) => {
-    // TODO: Change this into real logic
-    console.log(staffData);
+  const staffRegister = async (staffData: StaffInputSchema) => {
+    try {
+      await api.post('/staffs', staffData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const staffUpdate = (staffData: Partial<StaffSchema>) => {
     // TODO: Change this into real logic
     const updatedStaff = staffSchema.parse({ ...staff, ...staffData });
-    console.log(updatedStaff);
     setStaff(updatedStaff);
   };
 
