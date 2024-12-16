@@ -4,7 +4,7 @@ import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary";
 import SelectOptionItem from "../../components/atoms/SelectOptionItem";
 import ButtonBack from "../../components/atoms/ButtonBack";
-import { UserRegistrationStepNextProps } from "../../types/userRegistration";
+import { UserRegistrationStepNextProps } from "../../types/staffSteps";
 
 const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
   userDetails,
@@ -16,7 +16,7 @@ const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
   const { nextStep } = useStep();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputValue({ ...inputValue, division: e.target.value });
+    setInputValue({ ...inputValue, divisionId: Number(e.target.value) });
   };
 
   const handleConfirm = () => {
@@ -28,7 +28,7 @@ const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
     <>
       <div className="flex flex-col items-center justify-between h-full">
         <label className="text-6xl font-bold">Select your Unit/Wing</label>
-        <SelectOptionPrimary placeholder="Select your Unit/Wing" value={inputValue.division} onChange={handleChange} className="w-full">
+        <SelectOptionPrimary placeholder="Select your Unit/Wing" value={inputValue.divisionId} onChange={handleChange} className="w-full">
           <SelectOptionItem value="Alpha" text="Alpha" />
           <SelectOptionItem value="Charlie" text="Charlie" />
           <SelectOptionItem value="Gamma" text="Gamma" />

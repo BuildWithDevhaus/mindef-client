@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { staffSchema, StaffSchema } from "../zod/staff";
+import { StaffInputSchema, staffSchema, StaffSchema } from "../zod/staff";
 import { api } from "../helpers/api";
 
 const staffAtom = atom<StaffSchema | null>(null);
@@ -37,7 +37,7 @@ export const useStaff = () => {
     setIsLoggedIn(false);
   };
 
-  const staffRegister = (staffData: StaffSchema) => {
+  const staffRegister = (staffData: StaffInputSchema) => {
     // TODO: Change this into real logic
     console.log(staffData);
   };
