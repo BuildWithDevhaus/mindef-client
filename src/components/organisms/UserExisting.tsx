@@ -13,12 +13,7 @@ import StepGender from '../../features/UserRegistration/StepGender'
 import SelectActivity from './SelectActivity'
 
 const UserExisting: React.FC = () => {
-  const [userDetails, setUserDetails] = useState<StaffSchema>({
-    nricNo: "",
-    name: "",
-    division: "",
-    gender: "",
-  });
+  const [userDetails, setUserDetails] = useState<StaffSchema>({} as StaffSchema);
 
   const { step, nextStep } = useStep();
   const { staff, staffUpdate } = useStaff();
@@ -40,7 +35,7 @@ const UserExisting: React.FC = () => {
     nextStep("existing-user-confirmation");
 
     staffUpdate(userDetails);
-    setUserDetails({ nricNo: "", name: "", division: "", gender: "" });
+    setUserDetails({} as StaffSchema);
   };
 
   return (
