@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { StaffInputSchema, staffSchema, StaffSchema } from "../zod/staff";
+import { StaffInputSchema, StaffSchema, StaffUpdateSchema } from "../zod/staff";
 import { api } from "../helpers/api";
 
 const staffAtom = atom<StaffSchema | null>(null);
@@ -44,10 +44,15 @@ export const useStaff = () => {
     }
   };
 
-  const staffUpdate = (staffData: Partial<StaffSchema>) => {
-    // TODO: Change this into real logic
-    const updatedStaff = staffSchema.parse({ ...staff, ...staffData });
-    setStaff(updatedStaff);
+  const staffUpdate = async (staffData: StaffUpdateSchema) => {
+    try {
+      if (!staff) return;
+
+      const { data: updatedStaff }: { data: StaffSchema } = await api.put(`/staffs/${staff.id}`, staffData);
+      setStaff(updatedStaff);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return { staff, isLoggedIn, isCheckingStaff, nricNo, staffLogin, staffLogout, staffRegister, staffUpdate };
