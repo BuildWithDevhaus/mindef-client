@@ -9,7 +9,7 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
     if (!rfidNo) return;
 
     // TODO: Check if user scan the same item
-    checkInventory("Shirt");
+    checkInventory("Pants");
 
       if (nextStepDestination) {
     nextStep(nextStepDestination);
@@ -36,7 +36,6 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
         shirtLocation: {
           Row: 8,
           Rack: "T3",
-          No: 12
         }
       })
     } else {
@@ -50,7 +49,6 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
         pantsLocation: {
           Row: 1,
           Rack: "B3",
-          No: 27
         }
       })
     }

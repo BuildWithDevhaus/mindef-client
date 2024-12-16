@@ -62,12 +62,6 @@ const AdminDeleteInventoryResult: React.FC<AdminScanRfidData> = ({ shirtData, pa
                   ? ` ${shirtData?.shirtLocation?.Rack}`
                   : ` ${pantsData?.pantsLocation?.Rack}`}
               </p>
-              <p className="text-2xl">
-                No :
-                {shirtData
-                  ? ` ${shirtData?.shirtLocation?.No}`
-                  : ` ${pantsData?.pantsLocation?.No}`}
-              </p>
             </div>
           </div>
           <div className="w-full flex gap-9">
