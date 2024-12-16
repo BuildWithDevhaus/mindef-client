@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const staffSchema = z.object({
-  nricNo: z.string(),
   name: z.string(),
   division: z.object({
     id: z.number(),
