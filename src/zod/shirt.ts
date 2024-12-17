@@ -21,3 +21,17 @@ export const shirtSchema = z.object({
 });
 
 export type ShirtSchema = z.infer<typeof shirtSchema>;
+
+export const shirtInputSchema = z.object({
+  rfidNo: z.string(),
+  belongsTo: z.string(),
+  uniformType: z.string(),
+  gender: z.string(),
+  shoulderLen: z.number(),
+  sleeve: z.number(),
+  collarLen: z.number(),
+  row: z.string(),
+  rack: z.string(),
+});
+
+export type ShirtInputSchema = z.infer<typeof shirtInputSchema>;
