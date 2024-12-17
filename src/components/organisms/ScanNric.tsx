@@ -10,7 +10,7 @@ const ScanNric: React.FC = () => {
   useEffect(() => {
     if (!nricNo) return;
 
-    staffLogin(nricNo, false);
+    staffLogin(nricNo);
 
     if (!isCheckingStaff) {
       if (staff && step !== "existing-user-confirmation") {
