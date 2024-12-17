@@ -22,7 +22,6 @@ export const pantsSchema = z.object({
 export type PantsSchema = z.infer<typeof pantsSchema>;
 
 export const pantsInputSchema = z.object({
-  id: z.number(),
   rfidNo: z.string(),
   belongsTo: z.string(),
   uniformType: z.string(),
