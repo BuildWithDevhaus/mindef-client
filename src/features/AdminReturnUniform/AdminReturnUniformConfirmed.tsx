@@ -6,8 +6,7 @@ import pantsMaleNo1 from '../../assets/images/Pants (Male - No. 1).png'
 import ButtonSecondary from '../../components/atoms/ButtonSecondary'
 import { useNavigate } from 'react-router-dom'
 import { useStep } from '../../hooks/useStep'
-
-
+import { AdminScanRfidData } from '../../types/adminScanRfid'
 
 const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
   const { nextStep, resetStep } = useStep();
@@ -27,8 +26,8 @@ const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, p
             <div className="flex flex-col gap-2">
               <h1 className="font-bold text-2xl">
                 {shirtData
-                  ? `Shirt ID: ${shirtData.id}`
-                  : `Pants ID: ${pantsData?.id}`}
+                  ? `Shirt ID: ${shirtData.rfidNo}`
+                  : `Pants ID: ${pantsData?.rfidNo}`}
               </h1>
               <p className="text-xl">
                 {shirtData
@@ -53,14 +52,14 @@ const AdminReturnUniformConfirmed: React.FC<AdminScanRfidData> = ({ shirtData, p
               <p className="text-2xl">
                 Row :
                 {shirtData
-                  ? ` ${shirtData?.shirtLocation?.Row}`
-                  : ` ${pantsData?.pantsLocation?.Row}`}
+                  ? ` ${shirtData?.row}`
+                  : ` ${pantsData?.row}`}
               </p>
               <p className="text-2xl">
                 Rack :
                 {shirtData
-                  ? ` ${shirtData?.shirtLocation?.Rack}`
-                  : ` ${pantsData?.pantsLocation?.Rack}`}
+                  ? ` ${shirtData?.rack}`
+                  : ` ${pantsData?.rack}`}
               </p>
             </div>
           </div>
