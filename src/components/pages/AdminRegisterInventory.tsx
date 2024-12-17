@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
-import { pantsRegisterData, pantsRegisterHeaders, shirtRegisterData, shirtRegisterHeaders } from "../../dummy/RegisterInventoryDummy";
+import { pantsRegisterData, pantsRegisterHeaders, shirtRegisterHeaders } from "../../dummy/RegisterInventoryDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import useTableFilter from "../../hooks/useTableFilter";
 import { useNavigate } from "react-router-dom";
+import { useShirt } from "../../hooks/useShirt";
+import TableAction from "../molecules/TableAction";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+import { getCurrentSlug } from "../../helpers/windows";
 
 const AdminRegisterInventory: React.FC = () => {
   const {
@@ -25,8 +29,43 @@ const AdminRegisterInventory: React.FC = () => {
     setDateRange: setPantsDateRange,
     filterDataByDateRange: filterPantsDataByDateRange,
   } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
+  const { shirts, getShirts, deleteShirt } = useShirt();
+  const [filteredShirtData, setFilteredShirtData] = useState<any>([]);
 
-  const filteredShirtData = filterShirtDataByDateRange(shirtRegisterData);
+  useEffect(() => {
+    getShirts();
+  }, []);
+
+  useEffect(() => {
+    if (shirts.length > 0) {
+      const mappedShirts = shirts.map((shirt) => {
+        const editHandler = () => {
+          navigate(`${getCurrentSlug()}/edit/${shirt.rfidNo}`);
+        }
+
+        const deleteHandler = () => {
+          deleteShirt(shirt.rfidNo);
+        } 
+
+        return [
+          shirt.rfidNo,
+          shirt.belongsTo,
+          capitalizeFirstLetter(shirt.gender),
+          shirt.uniformType,
+          shirt.shoulderLen,
+          shirt.sleeve,
+          shirt.collarLen,
+          `Row: ${shirt.row}, Rack: ${shirt.rack}`,
+          shirt.createdAt,
+          <TableAction showEdit={true} showTrash={true} onEdit={editHandler} onDelete={deleteHandler} />,
+        ];
+      })
+      const filteredShirtData = filterShirtDataByDateRange(mappedShirts);
+      setFilteredShirtData(filteredShirtData);
+    }
+  }, [shirts]);
+
+  // const filteredShirtData = filterShirtDataByDateRange(shirtRegisterData);
   const filteredPantsData = filterPantsDataByDateRange(pantsRegisterData);
 
   const navigate = useNavigate();
