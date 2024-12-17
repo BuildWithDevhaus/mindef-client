@@ -4,14 +4,14 @@ import clsx from "clsx";
 const SelectOptionPrimary = React.forwardRef<
   HTMLSelectElement,
   SelectOptionProps
->(({ placeholder, value, onChange, className, children, disabled, defaultValue }, ref) => {
+>(({ placeholder, value, onChange, className, children, disabled, name }, ref) => {
   return (
     <div className="relative w-full">
       <select
         id="dropdown"
         ref={ref}
+        name={name}
         value={value}
-        defaultValue={defaultValue}
         disabled={disabled} 
         onChange={onChange}
         className={clsx(
