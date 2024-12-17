@@ -39,10 +39,14 @@ export const useShirt = () => {
     }
   }
 
-  // const updateShirt = (id: number, shirtData: Partial<ShirtSchema>) => {
-  //   // TODO: Change this into real logic
-  //   return;
-  // }
+  const updateShirt = async (rfidNo: string, shirtData: Partial<ShirtSchema>) => {
+    try {
+      await api.put(`/shirts/${rfidNo}`, shirtData);
+      getShirts();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const deleteShirt = async (rfidNo: string) => {
     try {
@@ -54,5 +58,5 @@ export const useShirt = () => {
     }
   }
 
-  return { shirts, selectedShirt, getShirts, findShirt, deleteShirt, createShirt };
+  return { shirts, selectedShirt, getShirts, findShirt, deleteShirt, createShirt, updateShirt };
 }

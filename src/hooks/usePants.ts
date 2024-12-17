@@ -30,16 +30,24 @@ export const usePants = () => {
   }
 
   const createPants = async (pantsData: PantsInputSchema) => {
-    await api.post('/pants', pantsData);
-    getPants();
-    return;
+    try {
+      await api.post('/pants', pantsData);
+      getPants();
+      return;
+    } catch (error) {
+      console.error(error);
+    }
   }  
 
-  // const updatePants = (id: number, pantsData: Partial<PantsSchema>) => {
-  //   // TODO: Change this into real logic
-  //   return;
-
-  // }
+  const updatePants = async (rfidNo: string, pantsData: Partial<PantsSchema>) => {
+    try {
+      await api.put(`/pants/${rfidNo}`, pantsData);
+      getPants();
+      return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const deletePants = async (rfidNo: string) => { 
     try {
@@ -51,5 +59,5 @@ export const usePants = () => {
     }
   }
 
-  return { pants, selectedPants, getPants, findPants, deletePants, createPants };
+  return { pants, selectedPants, getPants, findPants, deletePants, createPants, updatePants };
 }
