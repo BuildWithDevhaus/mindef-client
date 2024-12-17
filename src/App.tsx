@@ -49,6 +49,10 @@ const App = () => {
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddRegisterInventory />} />}
         />
         <Route
+          path="/admin/register-inventory/edit/:rfidNo"
+          element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddRegisterInventory />} />}
+        />
+        <Route
           path="/admin/delete-inventory"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminDeleteInventory />} />}
         />
