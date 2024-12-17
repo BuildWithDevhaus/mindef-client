@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { ShirtSchema } from "../zod/shirt";
+import { ShirtInputSchema, ShirtSchema } from "../zod/shirt";
 import { api } from "../helpers/api";
 
 const shirtAtom = atom<ShirtSchema[] | []>([]);
@@ -29,10 +29,15 @@ export const useShirt = () => {
     }
   }
 
-  // const createShirt = (shirtData: ShirtSchema) => {
-  //   // TODO: Change this into real logic
-  //   return;
-  // }
+  const createShirt = async (shirtData: ShirtInputSchema) => {
+    try {
+      await api.post('/shirts', shirtData);
+      getShirts();
+      return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   // const updateShirt = (id: number, shirtData: Partial<ShirtSchema>) => {
   //   // TODO: Change this into real logic
@@ -49,5 +54,5 @@ export const useShirt = () => {
     }
   }
 
-  return { shirts, selectedShirt, getShirts, findShirt, deleteShirt };
+  return { shirts, selectedShirt, getShirts, findShirt, deleteShirt, createShirt };
 }

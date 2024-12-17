@@ -1,6 +1,6 @@
 import { atom, useAtom } from "jotai";
 import { api } from "../helpers/api";
-import { PantsSchema } from "../zod/pants";
+import { PantsInputSchema, PantsSchema } from "../zod/pants";
 
 const pantsAtom = atom<PantsSchema[] | []>([]);
 const selectedPantsAtom = atom<PantsSchema | null>(null);
@@ -29,10 +29,11 @@ export const usePants = () => {
     }
   }
 
-  // const createPants = (pantsData: PantsSchema) => {
-  //   // TODO: Change this into real logic
-  //   return;
-  // }  
+  const createPants = async (pantsData: PantsInputSchema) => {
+    await api.post('/pants', pantsData);
+    getPants();
+    return;
+  }  
 
   // const updatePants = (id: number, pantsData: Partial<PantsSchema>) => {
   //   // TODO: Change this into real logic
@@ -50,5 +51,5 @@ export const usePants = () => {
     }
   }
 
-  return { pants, selectedPants, getPants, findPants, deletePants };
+  return { pants, selectedPants, getPants, findPants, deletePants, createPants };
 }
