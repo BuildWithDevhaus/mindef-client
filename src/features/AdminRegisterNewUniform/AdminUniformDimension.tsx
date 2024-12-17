@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ContainerLayout from "../../components/templates/ContainerLayout";
 import InputFieldSecondary from "../../components/atoms/InputFieldSecondary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
@@ -25,6 +25,23 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
     waist: 0,
     length: 0,
   });
+
+  useEffect(() => {
+    if (shirtData?.collarLen) {
+      setShirtDimensions({
+        ...shirtDimensions,
+        collarLen: shirtData.collarLen,
+        sleeve: shirtData.sleeve,
+        shoulderLen: shirtData.shoulderLen,
+      });
+    } else if (pantsData?.waist) {
+      setPantsDimensions({
+        ...pantsDimensions,
+        waist: pantsData.waist,
+        length: pantsData.length,
+      });
+    }
+  }, [shirtData, pantsData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (shirtData?.belongsTo) {

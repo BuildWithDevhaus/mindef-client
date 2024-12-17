@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import shirtMaleNo1 from "../../assets/images/Shirt (Male - No. 1).png";
 import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
@@ -6,10 +6,10 @@ import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary"
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
 
-const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ onConfirm, nextStepDestination }) => {
+const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ onConfirm, nextStepDestination, shirtData, pantsData }) => {
   const { nextStep } = useStep();
   const [uniformDetails, setUniformDetails] = useState({
-    topBottom: "shirt",
+    topBottom: shirtData ? "shirt" : pantsData ? "pants" : "shirt",
     belongsTo: "Airforce",
     gender: "male",
     uniformType: "No. 1",
@@ -23,6 +23,26 @@ const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ onConfirm
     onConfirm(uniformDetails);
     nextStep(nextStepDestination);
   }
+
+  useEffect(() => {
+    if (shirtData?.collarLen) {
+      setUniformDetails((prevState) => ({
+        ...prevState,
+        topBottom: "shirt",
+        gender: shirtData.gender,
+        uniformType: shirtData.uniformType,
+        belongsTo: shirtData.belongsTo,
+      }));
+    } else if (pantsData?.waist) {
+      setUniformDetails((prevState) => ({
+        ...prevState,
+        topBottom: "pants",
+        gender: pantsData.gender,
+        uniformType: pantsData.uniformType,
+        belongsTo: pantsData.belongsTo,
+      }));
+    }
+  }, [shirtData, pantsData]);
 
   return (
     <div className="flex justify-between gap-20">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ContainerLayout from "../../components/templates/ContainerLayout";
 import InputFieldSecondary from "../../components/atoms/InputFieldSecondary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
@@ -19,6 +19,22 @@ const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
     row: "",
     rack: "",
   });
+
+  useEffect(() => {
+    if (shirtData?.collarLen) {
+      setUniformLocation({
+        ...uniformLocation,
+        row: shirtData.row,
+        rack: shirtData.rack,
+      });
+    } else if (pantsData?.waist) {
+      setUniformLocation({
+        ...uniformLocation,
+        row: pantsData.row,
+        rack: pantsData.rack,
+      });
+    }
+  }, [shirtData, pantsData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUniformLocation({ ...uniformLocation, [e.target.name]: e.target.value });
