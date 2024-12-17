@@ -67,11 +67,11 @@ const AdminRegisterInventory: React.FC = () => {
   useEffect(() => {
     if (shirts.length > 0) {
       const mappedShirts = shirts.map((shirt) => {
-        const editHandler = () => {
+        const handleEdit = () => {
           navigate(`${getCurrentSlug()}/edit/${shirt.rfidNo}`);
         }
 
-        const deleteHandler = () => {
+        const handleDelete = () => {
           deleteShirt(shirt.rfidNo);
         } 
 
@@ -85,7 +85,7 @@ const AdminRegisterInventory: React.FC = () => {
           shirt.collarLen,
           `Row: ${shirt.row}, Rack: ${shirt.rack}`,
           shirt.createdAt,
-          <TableAction showEdit={true} showTrash={true} onEdit={editHandler} onDelete={deleteHandler} />,
+          <TableAction showEdit={true} showTrash={true} onEdit={handleEdit} onDelete={handleDelete} />,
         ];
       })
       const filteredShirtData = filterShirtDataByDateRange(mappedShirts);
