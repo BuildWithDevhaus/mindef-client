@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
-import { pantsRegisterData, pantsRegisterHeaders, shirtRegisterHeaders } from "../../dummy/RegisterInventoryDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import useTableFilter from "../../hooks/useTableFilter";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,32 @@ import { useShirt } from "../../hooks/useShirt";
 import TableAction from "../molecules/TableAction";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import { getCurrentSlug } from "../../helpers/windows";
+import { usePants } from "../../hooks/usePants";
+
+export const shirtRegisterHeaders = [
+  "Shirt ID:",
+  "Belongs To:",
+  "Gender:",
+  "Uniform Type:",
+  "Shoulder Length",
+  "Sleeves Length",
+  "Collar Length",
+  "Shirt Location:",
+  "Date Registered:",
+  "Action:",
+];
+
+export const pantsRegisterHeaders = [
+  "Pants ID:",
+  "Belongs To:",
+  "Gender:",
+  "Uniform Type:",
+  "Pants Length",
+  "Waist Length",
+  "Pants Location:",
+  "Date Registered:",
+  "Action:",
+];
 
 const AdminRegisterInventory: React.FC = () => {
   const {
@@ -30,10 +55,13 @@ const AdminRegisterInventory: React.FC = () => {
     filterDataByDateRange: filterPantsDataByDateRange,
   } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
   const { shirts, getShirts, deleteShirt } = useShirt();
+  const { pants, getPants, deletePants } = usePants();
   const [filteredShirtData, setFilteredShirtData] = useState<any>([]);
+  const [filteredPantsData, setFilteredPantsData] = useState<any>([]);
 
   useEffect(() => {
     getShirts();
+    getPants();
   }, []);
 
   useEffect(() => {
@@ -65,8 +93,33 @@ const AdminRegisterInventory: React.FC = () => {
     }
   }, [shirts]);
 
-  // const filteredShirtData = filterShirtDataByDateRange(shirtRegisterData);
-  const filteredPantsData = filterPantsDataByDateRange(pantsRegisterData);
+  useEffect(() => {
+    if (pants.length > 0) {
+      const mappedPants = pants.map((pants) => {
+        const editHandler = () => {
+          navigate(`${getCurrentSlug()}/edit/${pants.rfidNo}`);
+        }
+
+        const deleteHandler = () => { 
+          deletePants(pants.rfidNo);
+        }
+
+        return [
+          pants.rfidNo,
+          pants.belongsTo,
+          capitalizeFirstLetter(pants.gender),
+          pants.uniformType,
+          pants.waist,
+          pants.length,
+          `Row: ${pants.row}, Rack: ${pants.rack}`,
+          pants.createdAt,
+          <TableAction showEdit={true} showTrash={true} onEdit={editHandler} onDelete={deleteHandler} />,
+        ];
+      })
+      const filteredPantsData = filterPantsDataByDateRange(mappedPants);
+      setFilteredPantsData(filteredPantsData);
+    }
+  }, [pants]);
 
   const navigate = useNavigate();
 
