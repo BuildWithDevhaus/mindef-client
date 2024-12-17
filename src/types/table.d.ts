@@ -25,10 +25,11 @@ interface TableCellProps {
 };
 
 interface TableActionProps {
-  itemId: number;
   showEdit?: boolean;
   showDelete?: boolean;
   showTrash?: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
 };
 
 
