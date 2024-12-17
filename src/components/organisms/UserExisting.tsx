@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useStep } from '../../hooks/useStep'
 import UserConfirmation from '../../features/UserExistingFlow/UserConfirmation'
 import UserSelectAction from '../../features/UserExistingFlow/UserSelectAction'
@@ -7,29 +7,23 @@ import StepResult from '../../features/ManualMeasurement/StepResult'
 import NotFound from './NotFound'
 import StepName from '../../features/UserRegistration/StepName'
 import { useStaff } from '../../hooks/useStaff'
-import { StaffSchema } from '../../zod/staff'
+import { StaffInputSchema } from '../../zod/staff'
 import StepDivision from '../../features/UserRegistration/StepDivision'
 import StepGender from '../../features/UserRegistration/StepGender'
 import SelectActivity from './SelectActivity'
 
 const UserExisting: React.FC = () => {
-  const [userDetails, setUserDetails] = useState<StaffSchema>({
+  const [userDetails, setUserDetails] = useState<StaffInputSchema>({
     nricNo: "",
     name: "",
-    division: "",
+    divisionId: 1,
     gender: "",
-  });
+  } as StaffInputSchema);
 
   const { step, nextStep } = useStep();
-  const { staff, staffUpdate } = useStaff();
+  const { staffUpdate } = useStaff();
 
-  useEffect(() => {
-    if (staff) {
-      setUserDetails({ nricNo: staff.nricNo, name: staff.name, division: staff.division, gender: staff.gender });
-    }
-  }, [staff]);
-
-  const handleChange = (userDetails: StaffSchema) => {
+  const handleChange = (userDetails: StaffInputSchema) => {
     setUserDetails(userDetails);
   };
 
@@ -39,8 +33,18 @@ const UserExisting: React.FC = () => {
     // TODO: Change this into real logic
     nextStep("existing-user-confirmation");
 
-    staffUpdate(userDetails);
-    setUserDetails({ nricNo: "", name: "", division: "", gender: "" });
+    staffUpdate({
+      name: userDetails.name,
+      divisionId: userDetails.divisionId,
+      gender: userDetails.gender
+    });
+
+    setUserDetails({
+      nricNo: "",
+      name: "",
+      divisionId: 1,
+      gender: "",
+    } as StaffInputSchema);
   };
 
   return (

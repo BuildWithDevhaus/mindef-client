@@ -4,27 +4,27 @@ import StepName from "../../features/UserRegistration/StepName";
 import StepGender from "../../features/UserRegistration/StepGender";
 import StepDivision from "../../features/UserRegistration/StepDivision";
 import { useStaff } from "../../hooks/useStaff";
-import { StaffSchema } from "../../zod/staff";
 import SelectActivity from "./SelectActivity";
+import { StaffInputSchema } from "../../zod/staff";
 
 const UserRegistrationForm: React.FC = () => {
-  const [userDetails, setUserDetails] = useState<StaffSchema>({
+  const [userDetails, setUserDetails] = useState<StaffInputSchema>({
     nricNo: "",
     name: "",
-    division: "",
+    divisionId: 1,
     gender: "",
-  });
+  } as StaffInputSchema);
 
   const { step, nextStep } = useStep();
   const { nricNo, staffRegister } = useStaff();
 
   useEffect(() => {
     if (nricNo) {
-      setUserDetails({ nricNo: nricNo, name: "", division: "", gender: "" });
+      setUserDetails({ ...userDetails, nricNo });
     }
   }, [nricNo]);
 
-  const handleChange = (userDetails: StaffSchema) => {
+  const handleChange = (userDetails: StaffInputSchema) => {
     setUserDetails(userDetails);
   };
 
@@ -35,7 +35,12 @@ const UserRegistrationForm: React.FC = () => {
     nextStep("user-registration-select-activity");
 
     staffRegister(userDetails);
-    setUserDetails({ nricNo: "", name: "", division: "", gender: "" });
+    setUserDetails({
+      nricNo: "",
+      name: "",
+      divisionId: 1,
+      gender: "",
+    } as StaffInputSchema);
   };
 
   return (

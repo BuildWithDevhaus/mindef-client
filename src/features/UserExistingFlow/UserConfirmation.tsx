@@ -41,7 +41,7 @@ const UserConfirmation: React.FC<StepProps> = ({ backOption }) => {
                 <label className="text-[#A3A3A3] text-2xl font-semibold">
                   Unit/Wing
                 </label>
-                <p className="text-2xl font-semibold">{staff?.division}</p>
+                <p className="text-2xl font-semibold">{staff?.division.name}</p>
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-[#A3A3A3] text-2xl font-semibold">

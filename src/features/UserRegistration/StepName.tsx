@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import InputFieldPrimary from "../../components/atoms/InputFieldPrimary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
-import { UserRegistrationStepNextProps } from "../../types/userRegistration";
 import ButtonBack from "../../components/atoms/ButtonBack";
+import { UserRegistrationStepNextProps } from "../../types/staffSteps";
+import { useStaff } from "../../hooks/useStaff";
 
 const StepName: React.FC<UserRegistrationStepNextProps> = ({
   userDetails,
@@ -12,7 +13,14 @@ const StepName: React.FC<UserRegistrationStepNextProps> = ({
   backOption
 }) => {
   const [inputValue, setInputValue] = useState(userDetails);
+  const { staff } = useStaff();
   const { nextStep } = useStep();
+
+  useEffect(() => {
+    if (staff) {
+      setInputValue({ ...inputValue, name: staff.name });
+    }
+  }, [staff]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({ ...inputValue, name: e.target.value });
