@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
 import AdminUniformDetails from '../../features/AdminRegisterNewUniform/AdminUniformDetails';
 import AdminUniformDimension from '../../features/AdminRegisterNewUniform/AdminUniformDimension';
 import { ShirtInputSchema } from '../../zod/shirt';
 import { PantsInputSchema } from '../../zod/pants';
-import AdminUniformScanRfid from '../../features/AdminRegisterNewUniform/AdminUniformScanRfid';
 import { useShirt } from '../../hooks/useShirt';
 import { usePants } from '../../hooks/usePants';
 import AdminUniformLocation from '../../features/AdminRegisterNewUniform/AdminUniformLocation';
-import AdminUniformResult from '../../features/AdminRegisterNewUniform/AdminUniformResult';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useUniform } from '../../hooks/useUniform';
 
-const AdminRegisterNewUniformForm: React.FC  = () => {
+const AdminEditRegisteredUniformForm: React.FC  = () => {
   const [shirt, setShirt] = useState<ShirtInputSchema>({
     rfidNo: "",
     belongsTo: "",
@@ -32,21 +32,36 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
     row: "",
     rack: "",
   });
+  const { rfidNo } = useParams();
 
-  const { step, nextStep } = useStep();
-  const { createShirt } = useShirt();
-  const { createPants } = usePants();
+  const { step } = useStep();
+  const { updateShirt } = useShirt();
+  const { updatePants } = usePants();
+  const { uniform, findUniform } = useUniform();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (rfidNo) findUniform(rfidNo);
+  }, []);
+
+  useEffect(() => {
+    if (uniform) {
+      if (uniform.type === 'shirt') setShirt(uniform.data as ShirtInputSchema);
+      else setPants(uniform.data as PantsInputSchema);
+    }
+  }, [uniform]);
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (shirt.collarLen && shirt.sleeve && shirt.shoulderLen) {
-      createShirt(shirt);
+      updateShirt(shirt.rfidNo, shirt);
     } else {
-      createPants(pants);
+      updatePants(pants.rfidNo, pants);
     }
     
-    nextStep("admin-register-new-uniform-form-result");
+    navigate("/admin/register-inventory");
+    handleResetForm();
   }
 
   const handleResetForm = () => {
@@ -56,32 +71,26 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
 
   return (
     <>
-      {(step.includes("admin-register-new-uniform") && !step.includes("admin-register-new-uniform-form-result")) && (
+      {step.includes("admin-edit-registered-uniform") && (
         <form
           name="new-uniform-form"
           id="new-uniform-form"
           className='h-full'
           onSubmit={handleSubmit}
         >
-          {step === "admin-register-new-uniform-scan-rfid" && (
-            <AdminUniformScanRfid nextStepDestination="admin-register-new-uniform-form-uniform-details" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
+          {step === "admin-edit-registered-uniform-form-details" && (
+            <AdminUniformDetails nextStepDestination="admin-edit-registered-uniform-form-dimension" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
           )}
-          {step === "admin-register-new-uniform-form-uniform-details" && (
-            <AdminUniformDetails nextStepDestination="admin-register-new-uniform-form-uniform-dimension" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
+          {step === "admin-edit-registered-uniform-form-dimension" && (
+            <AdminUniformDimension nextStepDestination="admin-edit-registered-uniform-form-location" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
           )}
-          {step === "admin-register-new-uniform-form-uniform-dimension" && (
-            <AdminUniformDimension nextStepDestination="admin-register-new-uniform-form-uniform-location" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
-          )}
-          {step === "admin-register-new-uniform-form-uniform-location" && (
+          {step === "admin-edit-registered-uniform-form-location" && (
             <AdminUniformLocation shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} onSubmit={() => handleSubmit} />
           )}
         </form>
-      )}
-      {step === "admin-register-new-uniform-form-result" && (
-        <AdminUniformResult shirtData={shirt} pantsData={pants} onResetForm={handleResetForm} />
       )}
     </>
   );
 }
 
-export default AdminRegisterNewUniformForm
+export default AdminEditRegisteredUniformForm

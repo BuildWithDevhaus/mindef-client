@@ -43,6 +43,7 @@ const AddminConfigureDataRetention: React.FC = () => {
               <SelectOptionPrimary
                 placeholder="Select your Unit/Wing"
                 className="w-full text-base"
+                name="unitWing"
               >
                 <SelectOptionItem value="3 months" text="3 months" />
                 <SelectOptionItem value="6 months" text="6 months" />

@@ -46,7 +46,7 @@ const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
     <>
       <div className="flex flex-col items-center justify-between h-full">
         <label className="text-6xl font-bold">Select your Unit/Wing</label>
-        <SelectOptionPrimary placeholder="Select your Unit/Wing" value={inputValue.divisionId} defaultValue={divisions[0]?.id} onChange={handleChange} className="w-full">
+        <SelectOptionPrimary placeholder="Select your Unit/Wing" name="division" value={inputValue.divisionId} onChange={handleChange} className="w-full">
           {divisions.map((division) => (
             <SelectOptionItem key={division.id} value={String(division.id)} text={division.name} />
           ))}

@@ -6,6 +6,7 @@ import { deleteReasonData } from "../../dummy/DeleteReasonDummy";
 import { useStep } from '../../hooks/useStep';
 import shirtMaleNo1 from  "../../assets/images/Shirt (Male - No. 1).png"
 import pantsMaleNo1 from  "../../assets/images/Pants (Male - No. 1).png"
+import { AdminScanRfidData } from "../../types/adminScanRfid";
 
 const AdminDeleteInventoryReason: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
   const [selectedRemark, setSelectedRemark] = useState<string>("");
@@ -38,8 +39,8 @@ const AdminDeleteInventoryReason: React.FC<AdminScanRfidData> = ({ shirtData, pa
             <div className="flex flex-col gap-2">
               <h1 className="font-bold text-2xl">
                 {shirtData
-                  ? `Shirt ID: ${shirtData.id}`
-                  : `Pants ID: ${pantsData?.id}`}
+                  ? `Shirt ID: ${shirtData.rfidNo}`
+                  : `Pants ID: ${pantsData?.rfidNo}`}
               </h1>
               <p className="text-xl">
                 {shirtData
@@ -64,6 +65,7 @@ const AdminDeleteInventoryReason: React.FC<AdminScanRfidData> = ({ shirtData, pa
                   <SelectOptionPrimary
                     className="text-base py-[10px] px-[14px]"
                     placeholder="Select Remark"
+                    name="remark"
                     value={selectedRemark}
                     onChange={handleRemarkChange}
                   >

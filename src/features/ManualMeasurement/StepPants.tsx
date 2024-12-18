@@ -33,6 +33,7 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
           <InputContainerLayout title="1. Waist" label="Width">
             <SelectOptionPrimary
               placeholder="Select your Waist"
+              name="waist"
               value={inputValue.waist}
               onChange={(e) => handleChange("waist", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
@@ -47,6 +48,7 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
           <InputContainerLayout title="2. Pants Length" label="Length">
             <SelectOptionPrimary
               placeholder="Select your Pants Length"
+              name="length"
               value={inputValue.length}
               onChange={(e) => handleChange("length", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"

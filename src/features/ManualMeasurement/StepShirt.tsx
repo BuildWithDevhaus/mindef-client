@@ -35,6 +35,7 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
           <InputContainerLayout title="1. Shoulder Length" label="Width">
             <SelectOptionPrimary
               placeholder="Select your Shoulder Length"
+              name="shoulderLen"
               value={inputValue.shoulderLen}
               onChange={(e) => handleChange("shoulderLen", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
@@ -49,6 +50,7 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
           <InputContainerLayout title="2. Sleeve" label="Length">
             <SelectOptionPrimary
               placeholder="Select your Sleeve"
+              name="sleeve"
               value={inputValue.sleeve}
               onChange={(e) => handleChange("sleeve", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
@@ -63,6 +65,7 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
           <InputContainerLayout title="3. Collar Length" label="Width">
             <SelectOptionPrimary
               placeholder="Select your Collar Length"
+              name="collarLen"
               value={inputValue.collarLen}
               onChange={(e) => handleChange("collarLen", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"

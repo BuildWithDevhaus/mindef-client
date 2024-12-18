@@ -1,58 +1,95 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ContainerLayout from "../../components/templates/ContainerLayout";
 import InputFieldSecondary from "../../components/atoms/InputFieldSecondary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
-import { useStep } from '../../hooks/useStep';
-import shirtMaleNo1 from  "../../assets/images/Shirt (Male - No. 1).png"
-import pantsMaleNo1 from  "../../assets/images/Pants (Male - No. 1).png"
+import { useStep } from "../../hooks/useStep";
+import shirtMaleNo1 from "../../assets/images/Shirt (Male - No. 1).png";
+import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
 import ButtonSecondary from "../../components/atoms/ButtonSecondary";
+import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
 
-const AdminUniformDimension: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
+const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
+  shirtData,
+  pantsData,
+  setShirtData,
+  setPantsData,
+  nextStepDestination,
+}) => {
   const { nextStep, backStep } = useStep();
+  const [shirtDimensions, setShirtDimensions] = useState({
+    collarLen: "",
+    sleeve: "",
+    shoulderLen: "",
+  });
 
-  const handleSubmit = () => {
-    // TODO: Change to real logic
+  const [pantsDimensions, setPantsDimensions] = useState({
+    waist: "",
+    length: "",
+  });
 
-    nextStep("admin-register-new-uniform-form-result");
-    console.log({...shirtData });
-    console.log({...pantsData });
+  useEffect(() => {
+    if (shirtData.collarLen || shirtData.sleeve || shirtData.shoulderLen) {
+      setShirtDimensions({
+        ...shirtDimensions,
+        collarLen: shirtData.collarLen,
+        sleeve: shirtData.sleeve,
+        shoulderLen: shirtData.shoulderLen,
+      });
+    } else if (pantsData.waist || pantsData.length) {
+      setPantsDimensions({
+        ...pantsDimensions,
+        waist: pantsData.waist,
+        length: pantsData.length,
+      });
+    }
+  }, [shirtData, pantsData]);
 
-    // TODO: Reset input values
-  }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (shirtData.belongsTo) {
+      setShirtData({
+        ...shirtData,
+        [e.target.name]: e.target.value,
+      })
+    } else if (pantsData.belongsTo) {
+      setPantsData({
+        ...pantsData,
+        [e.target.name]: e.target.value,
+      })
+    }
+  };
+
+  const handleConfirm = () => {
+    nextStep(nextStepDestination);
+  };
 
   return (
     <div className="flex justify-center items-center">
-      <form
-        name="return-uniform-form"
-        id="return-uniform-form"
-        className="w-[800px]"
-        onSubmit={handleSubmit}
-      >
+      <div className="w-[800px]">
         <ContainerLayout>
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-2">
               <h1 className="font-bold text-2xl">
-                {shirtData
-                  ? `Shirt ID: ${shirtData.id}`
-                  : `Pants ID: ${pantsData?.id}`}
+                {shirtData?.belongsTo
+                  ? `Shirt ID: ${shirtData?.rfidNo}`
+                  : `Pants ID: ${pantsData?.rfidNo}`}
               </h1>
               <p className="text-xl">
-                {shirtData
-                  ? `Description: ${shirtData.uniformType}, ${shirtData.gender} Shirt, ${shirtData.belongsTo}`
+                {shirtData?.belongsTo
+                  ? `Description: ${shirtData?.uniformType}, ${shirtData?.gender} Shirt, ${shirtData?.belongsTo}`
                   : `Description: ${pantsData?.uniformType}, ${pantsData?.gender} Pants, ${pantsData?.belongsTo}`}
               </p>
             </div>
             <div>
               <img
                 className="h-[100px] w-[100px] object-contain"
-                src={shirtData ? shirtMaleNo1 : pantsMaleNo1}
+                src={shirtData?.belongsTo ? shirtMaleNo1 : pantsMaleNo1}
                 alt="Uniform Image"
               />
             </div>
           </div>
           <div className="border-b-2 border-[#D7D7D7]"></div>
           <div className="flex flex-col gap-9">
-            {shirtData ? (
+            {shirtData?.belongsTo ? (
               <>
                 <div className="flex justify-between items-center">
                   <h1 className="font-bold text-lg">Shoulder</h1>
@@ -61,7 +98,10 @@ const AdminUniformDimension: React.FC<AdminScanRfidData> = ({ shirtData, pantsDa
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Shoulder Width"
-                      value={`${shirtData.shoulderLength} cm`}
+                      type="enabled"
+                      name="shoulderLen"
+                      value={`${shirtDimensions.shoulderLen}`}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -69,11 +109,14 @@ const AdminUniformDimension: React.FC<AdminScanRfidData> = ({ shirtData, pantsDa
                   <h1 className="font-bold text-lg">Sleeve</h1>
                   <div className="flex justify-between items-center w-96">
                     <p className="font-medium">Length</p>
-                      <InputFieldSecondary
-                        className="max-w-[278px]"
-                        placeholder="Sleeves Length"
-                        value={`${shirtData.sleevesLength} cm`}
-                      />
+                    <InputFieldSecondary
+                      className="max-w-[278px]"
+                      placeholder="Sleeves Length"
+                      type="enabled"
+                      name="sleeve"
+                      value={`${shirtDimensions.sleeve}`}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -83,7 +126,10 @@ const AdminUniformDimension: React.FC<AdminScanRfidData> = ({ shirtData, pantsDa
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Collar Length"
-                      value={`${shirtData.collarLength} cm`}
+                      type="enabled"
+                      name="collarLen"
+                      value={`${shirtDimensions.collarLen}`}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -97,7 +143,10 @@ const AdminUniformDimension: React.FC<AdminScanRfidData> = ({ shirtData, pantsDa
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Waist Length"
-                      value={`${pantsData?.waistLength} cm`}
+                      type="enabled"
+                      name="waist"
+                      value={`${pantsDimensions.waist}`}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -108,7 +157,10 @@ const AdminUniformDimension: React.FC<AdminScanRfidData> = ({ shirtData, pantsDa
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Pants Length"
-                      value={`${pantsData?.pantsLength} cm`}
+                      type="enabled"
+                      name="length"
+                      value={`${pantsDimensions.length}`}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -116,20 +168,21 @@ const AdminUniformDimension: React.FC<AdminScanRfidData> = ({ shirtData, pantsDa
             )}
           </div>
           <div className="w-full flex gap-9">
-          <ButtonPrimary 
-            className="w-full text-xl font-medium"
-            onClick={() => handleSubmit}
-          >
-            Confirm
-          </ButtonPrimary>
-          <ButtonSecondary
-            className="w-full text-xl font-medium"
-            onClick={() => backStep()}
-          >Back
-          </ButtonSecondary>
+            <ButtonPrimary
+              className="w-full text-xl font-medium"
+              onClick={handleConfirm}
+            >
+              Confirm
+            </ButtonPrimary>
+            <ButtonSecondary
+              className="w-full text-xl font-medium"
+              onClick={() => backStep()}
+            >
+              Back
+            </ButtonSecondary>
           </div>
         </ContainerLayout>
-      </form>
+      </div>
     </div>
   );
 };

@@ -11,7 +11,7 @@ interface TableProps {
   onSearchChange?: (query: string) => void;
   onRowsPerPageChange?: (value: number) => void;
   onDateRangeChange?: (value: any) => void;
-  dateRange: DateRange;
+  dateRange: { startDate: Date | null; endDate: Date | null };
 }
 
 interface TableRowProps {
@@ -25,10 +25,11 @@ interface TableCellProps {
 };
 
 interface TableActionProps {
-  itemId: number;
   showEdit?: boolean;
   showDelete?: boolean;
   showTrash?: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
 };
 
 

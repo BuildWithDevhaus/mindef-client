@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
+import { AdminScanRfidFunction } from '../../types/adminScanRfid';
 
 const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPantsData, nextStepDestination }) => {
   const [rfidNo, setRfidNo] = useState("");
@@ -11,9 +12,9 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
     // TODO: Check if user scan the same item
     checkInventory("Pants");
 
-      if (nextStepDestination) {
-    nextStep(nextStepDestination);
-  }
+    if (nextStepDestination) {
+      nextStep(nextStepDestination);
+    }
 
     setRfidNo("");
   }, [rfidNo]);
@@ -26,30 +27,26 @@ const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPants
   const checkInventory = (rfidNo: string) => {
     if (rfidNo === "Shirt") {
       setShirtData({
-        id: 9983843733,
+        rfidNo: 'RFID123123',
         belongsTo: "Infantry",
         gender: "Female",
         uniformType: "No. 1",
-        shoulderLength: 16,
-        sleevesLength: 34,
-        collarLength: 18,
-        shirtLocation: {
-          Row: 8,
-          Rack: "T3",
-        }
+        shoulderLen: 16,
+        sleeve: 34,
+        collarLen: 18,
+        row: 'B',
+        rack: "B3",
       })
     } else {
       setPantsData({
-        id: 8983843734,
-        belongsTo: "Army",
-        gender: "Male",
-        uniformType: "Colour Party",
-        pantsLength: 16,
-        waistLength: 34,
-        pantsLocation: {
-          Row: 1,
-          Rack: "B3",
-        }
+        rfidNo: 'RFID123123',
+        belongsTo: "Infantry",
+        gender: "Female",
+        uniformType: "No. 1",
+        waist: 16,
+        length: 34,
+        row: 'B',
+        rack: "B3",
       })
     }
   };

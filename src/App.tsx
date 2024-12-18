@@ -20,6 +20,7 @@ import AdminLogin from "./components/pages/AdminLogin";
 import AdminAddDeleteReason from "./components/pages/AdminAddDeleteReason";
 import AdminAddUnitWing from "./components/pages/AdminAddUnitWing";
 import AdminAddDeleteInventory from "./components/pages/AdminAddDeleteInventory";
+import AdminEditRegisteredInventory from "./components/pages/AdminEditRegisteredInventory";
 
 const App = () => {
   const { isAuthenticated, login } = useAuth();
@@ -47,6 +48,10 @@ const App = () => {
         <Route
           path="/admin/register-inventory/add"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddRegisterInventory />} />}
+        />
+        <Route
+          path="/admin/register-inventory/edit/:rfidNo"
+          element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminEditRegisteredInventory />} />}
         />
         <Route
           path="/admin/delete-inventory"
