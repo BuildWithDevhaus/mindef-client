@@ -70,8 +70,8 @@ const AdminHome: React.FC = () => {
           shirt.belongsTo,
           capitalizeFirstLetter(shirt.gender),
           shirt.uniformType,
-          `Row: ${shirt.row}, Rack: ${shirt.rack}`,
-          new Date(shirt.createdAt).toLocaleDateString("en-GB"),
+          `Row: ${shirt.row}, Rack: ${shirt.rack}`, 
+          new Date(shirt.createdAt).toLocaleDateString("en-GB"),     // TODO: Change this to Last drawn date from draw uniform
           <StatusTag
             content={shirt.status}
             variant={
@@ -102,7 +102,7 @@ const AdminHome: React.FC = () => {
           capitalizeFirstLetter(pants.gender),
           pants.uniformType,
           `Row: ${pants.row}, Rack: ${pants.rack}`,
-          new Date(pants.createdAt).toLocaleDateString("en-GB"),
+          new Date(pants.createdAt).toLocaleDateString("en-GB"),     // TODO: Change this to Last drawn date from draw uniform
           <StatusTag
             content={pants.status}
             variant={
