@@ -84,7 +84,7 @@ const AdminRegisterInventory: React.FC = () => {
           `${shirt.sleeve}cm`,
           `${shirt.collarLen}cm`,
           `Row: ${shirt.row}, Rack: ${shirt.rack}`,
-          shirt.createdAt,
+          new Date(shirt.createdAt).toLocaleDateString(),
           <TableAction showEdit={true} showTrash={true} onEdit={handleEdit} onDelete={handleDelete} />,
         ];
       })
@@ -112,7 +112,7 @@ const AdminRegisterInventory: React.FC = () => {
           `${pants.waist}cm`,
           `${pants.length}cm`,
           `Row: ${pants.row}, Rack: ${pants.rack}`,
-          pants.createdAt,
+          new Date(pants.createdAt).toLocaleDateString(),
           <TableAction showEdit={true} showTrash={true} onEdit={editHandler} onDelete={deleteHandler} />,
         ];
       })
