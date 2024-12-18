@@ -43,8 +43,9 @@ const AdminRegisterInventory: React.FC = () => {
     setRowsPerPage: setShirtRowsPerPage,
     dateRange: shirtDateRange,
     setDateRange: setShirtDateRange,
-    filterDataByDateRange: filterShirtDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
+    filterData: filterShirtData,
+  } = useTableFilter("", 5, { startDate: null, endDate: null });
+
   const {
     searchQuery: pantsSearchQuery,
     setSearchQuery: setPantsSearchQuery,
@@ -52,10 +53,12 @@ const AdminRegisterInventory: React.FC = () => {
     setRowsPerPage: setPantsRowsPerPage,
     dateRange: pantsDateRange,
     setDateRange: setPantsDateRange,
-    filterDataByDateRange: filterPantsDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
+    filterData: filterPantsData,
+  } = useTableFilter("", 5, { startDate: null, endDate: null });
+
   const { shirts, getShirts, deleteShirt } = useShirt();
   const { pants, getPants, deletePants } = usePants();
+
   const [filteredShirtData, setFilteredShirtData] = useState<any>([]);
   const [filteredPantsData, setFilteredPantsData] = useState<any>([]);
 
@@ -66,14 +69,15 @@ const AdminRegisterInventory: React.FC = () => {
 
   useEffect(() => {
     if (shirts.length > 0) {
-      const mappedShirts = shirts.map((shirt) => {
+      const filteredShirts = filterShirtData(shirts);
+      const mappedShirts = filteredShirts.map((shirt) => {
         const handleEdit = () => {
           navigate(`${getCurrentSlug()}/edit/${shirt.rfidNo}`);
-        }
+        };
 
         const handleDelete = () => {
           deleteShirt(shirt.rfidNo);
-        } 
+        };
 
         return [
           shirt.rfidNo,
@@ -84,25 +88,25 @@ const AdminRegisterInventory: React.FC = () => {
           `${shirt.sleeve}cm`,
           `${shirt.collarLen}cm`,
           `Row: ${shirt.row}, Rack: ${shirt.rack}`,
-          new Date(shirt.createdAt).toLocaleDateString(),
+          new Date(shirt.createdAt).toLocaleDateString("en-GB"),
           <TableAction showEdit={true} showTrash={true} onEdit={handleEdit} onDelete={handleDelete} />,
         ];
-      })
-      const filteredShirtData = filterShirtDataByDateRange(mappedShirts);
-      setFilteredShirtData(filteredShirtData);
+      });
+      setFilteredShirtData(mappedShirts);
     }
-  }, [shirts]);
+  }, [shirts, shirtDateRange, shirtSearchQuery]);
 
   useEffect(() => {
     if (pants.length > 0) {
-      const mappedPants = pants.map((pants) => {
+      const filteredPants = filterPantsData(pants);
+      const mappedPants = filteredPants.map((pants) => {
         const editHandler = () => {
           navigate(`${getCurrentSlug()}/edit/${pants.rfidNo}`);
-        }
+        };
 
-        const deleteHandler = () => { 
+        const deleteHandler = () => {
           deletePants(pants.rfidNo);
-        }
+        };
 
         return [
           pants.rfidNo,
@@ -112,20 +116,19 @@ const AdminRegisterInventory: React.FC = () => {
           `${pants.waist}cm`,
           `${pants.length}cm`,
           `Row: ${pants.row}, Rack: ${pants.rack}`,
-          new Date(pants.createdAt).toLocaleDateString(),
+          new Date(pants.createdAt).toLocaleDateString("en-GB"),
           <TableAction showEdit={true} showTrash={true} onEdit={editHandler} onDelete={deleteHandler} />,
         ];
-      })
-      const filteredPantsData = filterPantsDataByDateRange(mappedPants);
-      setFilteredPantsData(filteredPantsData);
+      });
+      setFilteredPantsData(mappedPants);
     }
-  }, [pants]);
+  }, [pants, pantsDateRange, pantsSearchQuery]);
 
   const navigate = useNavigate();
 
   const handleRegisterUniform = () => {
-  navigate("/admin/register-inventory/add");
-  }
+    navigate("/admin/register-inventory/add");
+  };
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
@@ -176,3 +179,4 @@ const AdminRegisterInventory: React.FC = () => {
 };
 
 export default AdminRegisterInventory;
+

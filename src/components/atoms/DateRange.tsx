@@ -13,7 +13,7 @@ const DateRange: React.FC<DateRangeProps> = ({ value, onChange }) => {
       inputClassName="w-full py-3 pl-4 pr-14 text-sm border-none focus:outline-none bg-white border rounded-lg shadow-sm border-gray-300"
       showShortcuts={true}
       showFooter={true}
-      displayFormat="DD/MM/YYYY"
+      displayFormat="MM/DD/YYYY"
       primaryColor={"teal"}
       useRange={false}
       value={value}
