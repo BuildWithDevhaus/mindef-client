@@ -6,41 +6,44 @@ import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary"
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
 
-const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ onConfirm, nextStepDestination, shirtData, pantsData }) => {
+const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ shirtData, pantsData, setShirtData, setPantsData, nextStepDestination }) => {
   const { nextStep } = useStep();
-  const [uniformDetails, setUniformDetails] = useState({
-    topBottom: shirtData ? "shirt" : pantsData ? "pants" : "shirt",
-    belongsTo: "Airforce",
-    gender: "male",
-    uniformType: "No. 1",
-  });
+  const [topBottom, setTopBottom] = useState("shirt");
+  const [uniformDetails, setUniformDetails] = useState({ belongsTo: "", gender: "", uniformType: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setUniformDetails({ ...uniformDetails, [e.target.name]: e.target.value });
-  };
+    if (topBottom === "shirt") setShirtData({ ...shirtData, [e.target.name]: e.target.value });
+    else if (topBottom === "pants") setPantsData({ ...pantsData, [e.target.name]: e.target.value });
+  }
+
+  const handleTopBottom = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "shirt") {
+      setTopBottom("shirt");
+      if (pantsData.belongsTo || pantsData.gender || pantsData.uniformType) {
+        setShirtData({ ...shirtData, belongsTo: pantsData.belongsTo, gender: pantsData.gender, uniformType: pantsData.uniformType });
+        setPantsData({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", waist: "", length: "", row: "", rack: "" });
+      }
+    }
+    else if (e.target.value === "pants") {
+      setTopBottom("pants");
+      if (shirtData.belongsTo || shirtData.gender || shirtData.uniformType) {
+        setPantsData({ ...pantsData, belongsTo: shirtData.belongsTo, gender: shirtData.gender, uniformType: shirtData.uniformType });
+        setShirtData({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", shoulderLen: "", sleeve: "", collarLen: "", row: "", rack: "" });
+      }
+    }
+  }
 
   const handleConfirm = () => {
-    onConfirm(uniformDetails);
     nextStep(nextStepDestination);
   }
 
   useEffect(() => {
-    if (shirtData?.collarLen) {
-      setUniformDetails((prevState) => ({
-        ...prevState,
-        topBottom: "shirt",
-        gender: shirtData.gender,
-        uniformType: shirtData.uniformType,
-        belongsTo: shirtData.belongsTo,
-      }));
-    } else if (pantsData?.waist) {
-      setUniformDetails((prevState) => ({
-        ...prevState,
-        topBottom: "pants",
-        gender: pantsData.gender,
-        uniformType: pantsData.uniformType,
-        belongsTo: pantsData.belongsTo,
-      }));
+    if (shirtData.belongsTo || shirtData.gender || shirtData.uniformType) {
+      setUniformDetails({ ...uniformDetails, belongsTo: shirtData.belongsTo, gender: shirtData.gender, uniformType: shirtData.uniformType });
+      setTopBottom("shirt");
+    } else if (pantsData.belongsTo || pantsData.gender || pantsData.uniformType) {
+      setUniformDetails({ ...uniformDetails, belongsTo: pantsData.belongsTo, gender: pantsData.gender, uniformType: pantsData.uniformType });
+      setTopBottom("pants");
     }
   }, [shirtData, pantsData]);
 
@@ -49,7 +52,7 @@ const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ onConfirm
       <div className="flex flex-col gap-12 w-1/2">
         <div className="h-full flex flex-col gap-6">
         <h2 className="font-bold text-2xl">Shirt / Pants</h2>
-        <SelectOptionPrimary placeholder="Select" name="topBottom" className="w-full text-lg py-[10px] px-[14px]" value={uniformDetails.topBottom} onChange={handleChange}>
+        <SelectOptionPrimary placeholder="Select" name="topBottom" className="w-full text-lg py-[10px] px-[14px]" value={topBottom} onChange={handleTopBottom}>
           <option value="shirt">Shirt</option>
           <option value="pants">Pants</option>
         </SelectOptionPrimary>
@@ -79,7 +82,7 @@ const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ onConfirm
       <div className="w-1/2 flex items-center justify-center">
         <img
           className="max-h-[59vh]"
-          src={uniformDetails.topBottom === "shirt" ? shirtMaleNo1 : pantsMaleNo1}
+          src={topBottom === "shirt" ? shirtMaleNo1 : pantsMaleNo1}
           alt="uniform"
         />
       </div>

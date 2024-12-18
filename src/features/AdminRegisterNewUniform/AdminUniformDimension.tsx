@@ -9,32 +9,33 @@ import ButtonSecondary from "../../components/atoms/ButtonSecondary";
 import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
 
 const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
-  onConfirm,
   shirtData,
   pantsData,
+  setShirtData,
+  setPantsData,
   nextStepDestination,
 }) => {
   const { nextStep, backStep } = useStep();
   const [shirtDimensions, setShirtDimensions] = useState({
-    collarLen: 0,
-    sleeve: 0,
-    shoulderLen: 0,
+    collarLen: "",
+    sleeve: "",
+    shoulderLen: "",
   });
 
   const [pantsDimensions, setPantsDimensions] = useState({
-    waist: 0,
-    length: 0,
+    waist: "",
+    length: "",
   });
 
   useEffect(() => {
-    if (shirtData?.collarLen) {
+    if (shirtData.collarLen || shirtData.sleeve || shirtData.shoulderLen) {
       setShirtDimensions({
         ...shirtDimensions,
         collarLen: shirtData.collarLen,
         sleeve: shirtData.sleeve,
         shoulderLen: shirtData.shoulderLen,
       });
-    } else if (pantsData?.waist) {
+    } else if (pantsData.waist || pantsData.length) {
       setPantsDimensions({
         ...pantsDimensions,
         waist: pantsData.waist,
@@ -44,25 +45,20 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   }, [shirtData, pantsData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (shirtData?.belongsTo) {
-      setShirtDimensions({
-        ...shirtDimensions,
-        [e.target.name]: Number(e.target.value),
-      });
-    } else {
-      setPantsDimensions({
-        ...pantsDimensions,
-        [e.target.name]: Number(e.target.value),
-      });
+    if (shirtData.belongsTo) {
+      setShirtData({
+        ...shirtData,
+        [e.target.name]: e.target.value,
+      })
+    } else if (pantsData.belongsTo) {
+      setPantsData({
+        ...pantsData,
+        [e.target.name]: e.target.value,
+      })
     }
   };
 
   const handleConfirm = () => {
-    if (shirtData?.belongsTo) {
-      onConfirm(shirtDimensions);
-    } else {
-      onConfirm(pantsDimensions);
-    }
     nextStep(nextStepDestination);
   };
 
