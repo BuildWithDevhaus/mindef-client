@@ -3,22 +3,23 @@ import AdminLayout from "../templates/AdminLayout";
 import { useStep } from "../../hooks/useStep";
 import { useNavigate } from "react-router-dom";
 import AdminEditRegisteredUniformForm from "../organisms/AdminEditRegisteredUniformForm";
+import { getCurrentSlug } from "../../helpers/windows";
 
 const AdminEditRegisteredInventory: React.FC = () => {
 
   const { resetStep, nextStep } = useStep();
   const navigate = useNavigate();
 
-  const handleRegisterNewUniformBreadcrumb = () => {
-    navigate("/admin/register-inventory/add");
+  const handleEditRegisteredUniformBreadcrumb = () => {
+    navigate(`${getCurrentSlug()}`);
     resetStep();
-    nextStep("admin-register-new-uniform-scan-rfid");
+    nextStep("admin-edit-registered-uniform-form-details");
   };
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Register New Inventory", url: "/admin/register-inventory" },
-    { label: "Register New Uniform", onClick: handleRegisterNewUniformBreadcrumb },
+    { label: "Edit Registered Uniform", onClick: handleEditRegisteredUniformBreadcrumb },
   ];
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const AdminEditRegisteredInventory: React.FC = () => {
   
 
   return (
-    <AdminLayout headingText="Register New Uniform" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout headingText="Edit Details of Registered Uniform" breadcrumbItems={breadcrumbItems}>
       <AdminEditRegisteredUniformForm />
     </AdminLayout>
   );
