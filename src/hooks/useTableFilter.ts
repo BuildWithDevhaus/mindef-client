@@ -1,36 +1,45 @@
 import { useState } from "react";
 
-// Assuming you have a hook like this:
-const useTableFilter = (
-  initialQuery: string,
-  initialRowsPerPage: number,
-  initialDateRange: { startDate: Date | null; endDate: Date | null }
-) => {
-  const [searchQuery, setSearchQuery] = useState(initialQuery);
-  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
-  const [dateRange, setDateRange] = useState(initialDateRange);
+export interface DateRange {
+  startDate: Date | null;
+  endDate: Date | null;
+}
 
-  const filterDataBySearchQuery = (data: any[]) => {
-    if (!searchQuery) return data;
-    return data.filter(item =>
-      item.rfidNo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.belongsTo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.uniformType.toLowerCase().includes(searchQuery.toLowerCase()) 
-    );
-  };
+const parseDate = (date: string | Date) => {
+  if (typeof date === "string") {
+    const [day, month, year] = date.split("-").map(Number);
+    return new Date(year, month - 1, day); // Correct day/month swapping
+  }
+  return date;
+};
+
+const useTableFilter = (
+  initialSearchQuery: string,
+  initialRowsPerPage: number,
+  initialDateRange: DateRange,
+  dateColumn: string = "createdAt" // Default to "createdAt"
+) => {
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(initialRowsPerPage);
+  const [dateRange, setDateRange] = useState<DateRange>(initialDateRange);
 
   const filterDataByDateRange = (data: any[]) => {
-    if (!dateRange.startDate || !dateRange.endDate) return data; 
-    return data.filter(item => {
-      const itemDate = new Date(item.createdAt);
-      return itemDate >= (dateRange.startDate || new Date(0)) && itemDate <= (dateRange.endDate || new Date());
-    });
-  };
+    if (!dateRange.startDate || !dateRange.endDate) return data;
 
-  const filterData = (data: any[]) => {
-    let filteredData = filterDataBySearchQuery(data);
-    filteredData = filterDataByDateRange(filteredData);
-    return filteredData;
+    const startDate =
+      typeof dateRange.startDate === "string"
+        ? parseDate(dateRange.startDate)
+        : dateRange.startDate;
+
+    const endDate =
+      typeof dateRange.endDate === "string"
+        ? parseDate(dateRange.endDate)
+        : dateRange.endDate;
+
+    return data.filter((item) => {
+      const itemDate = new Date(item[dateColumn]); // Dynamically access the column
+      return itemDate >= startDate && itemDate <= endDate;
+    });
   };
 
   return {
@@ -41,11 +50,7 @@ const useTableFilter = (
     dateRange,
     setDateRange,
     filterDataByDateRange,
-    filterDataBySearchQuery,
-    filterData,
   };
 };
-
-
 
 export default useTableFilter;
