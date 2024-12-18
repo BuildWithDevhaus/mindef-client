@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useMatch } from "react-router-dom";
 import SidebarSection from "../molecules/SidebarSection";
 import LogoutButton from "../molecules/LogoutButton";
 import { useStep } from "../../hooks/useStep";
@@ -60,7 +60,8 @@ const Sidebar = () => {
       onClick: () => navigate("/admin/register-inventory"),
       isActive:
         location.pathname === "/admin/register-inventory" ||
-        location.pathname === "/admin/register-inventory/add",
+        location.pathname === "/admin/register-inventory/add" ||
+        Boolean(useMatch("/admin/register-inventory/edit/:rfidNo")), 
     },
     {
       label: "Delete Inventory",
@@ -87,7 +88,8 @@ const Sidebar = () => {
     {
       label: "Unit/Wing",
       onClick: () => navigate("/admin/unit-wing"),
-      isActive: location.pathname === "/admin/unit-wing" || location.pathname === "/admin/unit-wing/add",
+      isActive: location.pathname === "/admin/unit-wing" ||
+      location.pathname === "/admin/unit-wing/add",
     },
     {
       label: "Configure Data Retention Period",
