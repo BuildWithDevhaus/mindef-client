@@ -89,7 +89,8 @@ const Sidebar = () => {
       label: "Unit/Wing",
       onClick: () => navigate("/admin/unit-wing"),
       isActive: location.pathname === "/admin/unit-wing" ||
-      location.pathname === "/admin/unit-wing/add",
+      location.pathname === "/admin/unit-wing/add"||
+      Boolean(useMatch("/admin/unit-wing/edit/:id")),
     },
     {
       label: "Configure Data Retention Period",
