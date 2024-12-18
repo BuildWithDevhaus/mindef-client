@@ -16,9 +16,9 @@ const AdminEditRegisteredUniformForm: React.FC  = () => {
     belongsTo: "",
     uniformType: "",
     gender: "",
-    shoulderLen: 0,
-    sleeve: 0,
-    collarLen: 0,
+    shoulderLen: "",
+    sleeve: "",
+    collarLen: "",
     row: "",
     rack: "",
   });
@@ -27,8 +27,8 @@ const AdminEditRegisteredUniformForm: React.FC  = () => {
     belongsTo: "",
     uniformType: "",
     gender: "",
-    waist: 0,
-    length: 0,
+    waist: "",
+    length: "",
     row: "",
     rack: "",
   });
@@ -51,19 +51,6 @@ const AdminEditRegisteredUniformForm: React.FC  = () => {
     }
   }, [uniform]);
 
-  const handleConfirm = (data: any) => {
-    if ((data.collarLen && data.sleeve && data.shoulderLen) || data.topBottom === 'shirt') {
-      if (data.topBottom === 'shirt') delete data.topBottom;
-      setShirt({ ...shirt, ...data });
-    } else if ((data.waist && data.length) || data.topBottom === 'pants') {
-      if (data.topBottom === 'pants') delete data.topBottom;
-      setPants({ ...pants, ...data });
-    } else {
-      setShirt({ ...shirt, ...data });
-      setPants({ ...pants, ...data });
-    }
-  }
-
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -78,8 +65,8 @@ const AdminEditRegisteredUniformForm: React.FC  = () => {
   }
 
   const handleResetForm = () => {
-    setShirt({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", shoulderLen: 0, sleeve: 0, collarLen: 0, row: "", rack: "" });
-    setPants({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", waist: 0, length: 0, row: "", rack: "" });
+    setShirt({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", shoulderLen: "", sleeve: "", collarLen: "", row: "", rack: "" });
+    setPants({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", waist: "", length: "", row: "", rack: "" });
   }
 
   return (
@@ -92,13 +79,13 @@ const AdminEditRegisteredUniformForm: React.FC  = () => {
           onSubmit={handleSubmit}
         >
           {step === "admin-edit-registered-uniform-form-details" && (
-            <AdminUniformDetails nextStepDestination="admin-edit-registered-uniform-form-dimension" onConfirm={handleConfirm} shirtData={shirt} pantsData={pants} />
+            <AdminUniformDetails nextStepDestination="admin-edit-registered-uniform-form-dimension" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
           )}
           {step === "admin-edit-registered-uniform-form-dimension" && (
-            <AdminUniformDimension nextStepDestination="admin-edit-registered-uniform-form-location" shirtData={shirt} pantsData={pants} onConfirm={handleConfirm} />
+            <AdminUniformDimension nextStepDestination="admin-edit-registered-uniform-form-location" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
           )}
           {step === "admin-edit-registered-uniform-form-location" && (
-            <AdminUniformLocation shirtData={shirt} pantsData={pants} onConfirm={handleConfirm} onSubmit={() => handleSubmit} />
+            <AdminUniformLocation shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} onSubmit={() => handleSubmit} />
           )}
         </form>
       )}

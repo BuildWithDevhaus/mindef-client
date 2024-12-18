@@ -16,9 +16,9 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
     belongsTo: "",
     uniformType: "",
     gender: "",
-    shoulderLen: 0,
-    sleeve: 0,
-    collarLen: 0,
+    shoulderLen: "",
+    sleeve: "",
+    collarLen: "",
     row: "",
     rack: "",
   });
@@ -27,8 +27,8 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
     belongsTo: "",
     uniformType: "",
     gender: "",
-    waist: 0,
-    length: 0,
+    waist: "",
+    length: "",
     row: "",
     rack: "",
   });
@@ -36,19 +36,6 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
   const { step, nextStep } = useStep();
   const { createShirt } = useShirt();
   const { createPants } = usePants();
-
-  const handleConfirm = (data: any) => {
-    if ((data.collarLen && data.sleeve && data.shoulderLen) || data.topBottom === 'shirt') {
-      if (data.topBottom === 'shirt') delete data.topBottom;
-      setShirt({ ...shirt, ...data });
-    } else if ((data.waist && data.length) || data.topBottom === 'pants') {
-      if (data.topBottom === 'pants') delete data.topBottom;
-      setPants({ ...pants, ...data });
-    } else {
-      setShirt({ ...shirt, ...data });
-      setPants({ ...pants, ...data });
-    }
-  }
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,8 +50,8 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
   }
 
   const handleResetForm = () => {
-    setShirt({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", shoulderLen: 0, sleeve: 0, collarLen: 0, row: "", rack: "" });
-    setPants({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", waist: 0, length: 0, row: "", rack: "" });
+    setShirt({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", shoulderLen: "", sleeve: "", collarLen: "", row: "", rack: "" });
+    setPants({ rfidNo: "", belongsTo: "", uniformType: "", gender: "", waist: "", length: "", row: "", rack: "" });
   }
 
   return (
@@ -77,16 +64,16 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
           onSubmit={handleSubmit}
         >
           {step === "admin-register-new-uniform-scan-rfid" && (
-            <AdminUniformScanRfid nextStepDestination="admin-register-new-uniform-form-uniform-details" onConfirm={handleConfirm} />
+            <AdminUniformScanRfid nextStepDestination="admin-register-new-uniform-form-uniform-details" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
           )}
           {step === "admin-register-new-uniform-form-uniform-details" && (
-            <AdminUniformDetails nextStepDestination="admin-register-new-uniform-form-uniform-dimension" onConfirm={handleConfirm} />
+            <AdminUniformDetails nextStepDestination="admin-register-new-uniform-form-uniform-dimension" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
           )}
           {step === "admin-register-new-uniform-form-uniform-dimension" && (
-            <AdminUniformDimension nextStepDestination="admin-register-new-uniform-form-uniform-location" shirtData={shirt} pantsData={pants} onConfirm={handleConfirm} />
+            <AdminUniformDimension nextStepDestination="admin-register-new-uniform-form-uniform-location" shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} />
           )}
           {step === "admin-register-new-uniform-form-uniform-location" && (
-            <AdminUniformLocation shirtData={shirt} pantsData={pants} onConfirm={handleConfirm} onSubmit={() => handleSubmit} />
+            <AdminUniformLocation shirtData={shirt} pantsData={pants} setShirtData={setShirt} setPantsData={setPants} onSubmit={() => handleSubmit} />
           )}
         </form>
       )}

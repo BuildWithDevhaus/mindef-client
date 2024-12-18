@@ -8,21 +8,21 @@ interface AdminScanRfidData {
 }
 
 interface AdminScanRfidFunction {
-  setShirtData: (data: ShirtInputSchema) => void
-  setPantsData: (data: PantsInputSchema) => void
   nextStepDestination? : string
 }
 
 interface AdminNewUniformFormNextProps {
-  shirtData?: ShirtInputSchema
-  pantsData?: PantsInputSchema
-  onConfirm: (data: any) => void
+  shirtData: ShirtInputSchema
+  pantsData: PantsInputSchema
+  setShirtData: (data: ShirtInputSchema) => void
+  setPantsData: (data: PantsInputSchema) => void
   nextStepDestination : string
 }
 
 interface AdminNewUniformFormSubmitProps {
   shirtData: ShirtInputSchema
   pantsData: PantsInputSchema
-  onConfirm: (data: any) => void
+  setShirtData: (data: ShirtInputSchema) => void
+  setPantsData: (data: PantsInputSchema) => void
   onSubmit: () => void;
 }
