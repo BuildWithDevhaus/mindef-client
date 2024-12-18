@@ -9,10 +9,11 @@ import ButtonSecondary from "../../components/atoms/ButtonSecondary";
 import { AdminNewUniformFormSubmitProps } from "../../types/adminScanRfid";
 
 const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
-  onConfirm,
-  onSubmit,
   shirtData,
   pantsData,
+  setShirtData,
+  setPantsData,
+  onSubmit,
 }) => {
   const { backStep } = useStep();
   const [uniformLocation, setUniformLocation] = useState({
@@ -21,13 +22,13 @@ const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
   });
 
   useEffect(() => {
-    if (shirtData?.collarLen) {
+    if (shirtData.row || shirtData.rack) {
       setUniformLocation({
         ...uniformLocation,
         row: shirtData.row,
         rack: shirtData.rack,
       });
-    } else if (pantsData?.waist) {
+    } else if (pantsData.row || pantsData.rack) {
       setUniformLocation({
         ...uniformLocation,
         row: pantsData.row,
@@ -37,12 +38,11 @@ const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
   }, [shirtData, pantsData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUniformLocation({ ...uniformLocation, [e.target.name]: e.target.value });
-  };
-
-  const handleConfirm = () => {
-    onConfirm(uniformLocation);
-    onSubmit();
+    if (shirtData.belongsTo) {
+      setShirtData({ ...shirtData, [e.target.name]: e.target.value });
+    } else if (pantsData.belongsTo) {
+      setPantsData({ ...pantsData, [e.target.name]: e.target.value });
+    }
   };
 
   return (
@@ -102,7 +102,7 @@ const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
           <div className="w-full flex gap-9">
             <ButtonPrimary
               className="w-full text-xl font-medium"
-              onClick={handleConfirm}
+              onClick={onSubmit}
             >
               Confirm
             </ButtonPrimary>

@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
 import { AdminNewUniformFormNextProps } from '../../types/adminScanRfid';
 
-const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({ onConfirm, nextStepDestination }) => {
+const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({ shirtData, pantsData, setShirtData, setPantsData, nextStepDestination }) => {
   const [rfidNo, setRfidNo] = useState("");
   const { nextStep } = useStep();
 
   useEffect(() => {
     if (!rfidNo) return;
 
-    onConfirm({ rfidNo });
+    setShirtData({ ...shirtData, rfidNo });
+    setPantsData({ ...pantsData, rfidNo });
     nextStep(nextStepDestination);
 
     setRfidNo("");
