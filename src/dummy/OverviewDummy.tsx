@@ -1,14 +1,6 @@
 import StatusTag from "../components/atoms/StatusTag";
 
-export const shirtInventoryHeaders = [
-  "Shirt ID:",
-  "Belongs To:",
-  "Gender:",
-  "Uniform Type:",
-  "Shirt Location:",
-  "Last drawn date:",
-  "Status:",
-];
+
 export const shirtInventoryData = [
   [
     "9983747389",
@@ -192,15 +184,7 @@ export const shirtInventoryData = [
   ],
 ];
 
-export const pantsInventoryHeaders = [
-    "Pants ID:",
-    "Belongs To:",
-    "Gender:",
-    "Uniform Type:",
-    "Pants Location:",
-    "Last drawn date:",
-    "Status:",
-];
+
 
 export const pantsInventoryData = [
     [
