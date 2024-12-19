@@ -75,7 +75,8 @@ const Sidebar = () => {
       onClick: () => navigate("/admin/delete-reasons"),
       isActive: 
         location.pathname === "/admin/delete-reasons" ||
-        location.pathname === "/admin/delete-reasons/add",
+        location.pathname === "/admin/delete-reasons/add" ||
+        Boolean(useMatch("/admin/delete-reasons/edit/:deleteReasonId")),
     },
     {
       label: "Reports",
