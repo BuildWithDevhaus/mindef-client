@@ -8,23 +8,36 @@ const shirtDimensionsAtom = atom<ShirtDimensionsSchema | null>(null);
 
 export const useShirt = () => {
   const [shirts, setShirts] = useAtom(shirtAtom);
+  const [filteredShirts, setFilteredShirts] = useAtom(shirtAtom);
   const [selectedShirt, setSelectedShirt] = useAtom(selectedShirtAtom);
   const [shirtDimensions, setShirtDimensions] = useAtom(shirtDimensionsAtom);
 
-  const getShirts = async (uniformType?: string, gender?: string, collarLen?: string, sleeve? :string, shoulderLen?: string) => {
+  const getShirts = async () => {
     try {
-      const params = new URLSearchParams();
-
-      if (uniformType) params.append('uniformType', uniformType);
-      if (gender) params.append('gender', gender);
-      if (collarLen) params.append('collarLen', collarLen);
-      if (sleeve) params.append('sleeve', sleeve);
-      if (shoulderLen) params.append('shoulderLen', shoulderLen);
-
-      const { data: shirtsData }: { data: ShirtSchema[] } = await api.get(`/shirts?${params.toString()}`);
-
+      const { data: shirtsData }: { data: ShirtSchema[] } = await api.get('/shirts');
       setShirts(shirtsData);
       return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const getShirtsByFilter = async (uniformType: string, gender: string, collarLen: string, sleeve: string, shoulderLen: string) => {
+    try {
+      const params = new URLSearchParams({
+        uniformType,
+        gender,
+        collarLen,
+        sleeve,
+        shoulderLen
+      });
+
+      console.log(`/shirts?${params.toString()}`);
+      
+      const { data: shirtsData }: { data: ShirtSchema[] } = await api.get(`/shirts?${params.toString()}`);
+
+      setFilteredShirts(shirtsData);
+      return shirtsData;
     } catch (error) {
       console.error(error);
     }
@@ -81,5 +94,5 @@ export const useShirt = () => {
 
   getShirtsDimensionRange();
 
-  return { shirts, selectedShirt, shirtDimensions, getShirts, findShirt, deleteShirt, createShirt, updateShirt, getShirtsDimensionRange };
+  return { shirts, selectedShirt, shirtDimensions, filteredShirts, getShirts, findShirt, deleteShirt, createShirt, updateShirt, getShirtsDimensionRange, getShirtsByFilter };
 }

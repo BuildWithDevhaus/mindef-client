@@ -8,26 +8,38 @@ const pantsDimensionsAtom = atom<PantsDimensionsSchema | null>(null);
 
 export const usePants = () => {
   const [pants, setPants] = useAtom(pantsAtom);
+  const [filteredPants, setFilteredPants] = useAtom(pantsAtom);
   const [selectedPants, setSelectedPants] = useAtom(selectedPantsAtom);
   const [pantsDimensions, setPantsDimensions] = useAtom(pantsDimensionsAtom);
 
-  const getPants = async (uniformType?: string, gender?: string, waist?: string, length?: string) => {
+  const getPants = async () => {
     try {
-      const params = new URLSearchParams();
-
-      if (uniformType) params.append('uniformType', uniformType);
-      if (gender) params.append('gender', gender);
-      if (waist) params.append('waist', waist);
-      if (length) params.append('length', length);
-
-      const { data: pantsData }: { data: PantsSchema[] } = await api.get(`/pants?${params.toString()}`);
-
+      const { data: pantsData }: { data: PantsSchema[] } = await api.get('/pants');
       setPants(pantsData);
       return;
     } catch (error) {
       console.error(error);
     }
   }
+
+  const getPantsByFilter = async (uniformType: string, gender: string, waist: string, length: string) => {
+    try {
+      const params = new URLSearchParams({
+        uniformType,
+        gender,
+        waist,
+        length,
+      });
+
+      const { data: pantsData }: { data: PantsSchema[] } = await api.get(`/pants?${params.toString()}`);
+
+      setFilteredPants(pantsData);
+      return pantsData;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
   const findPants = async (rfidNo: string) => {
     try {
@@ -81,5 +93,5 @@ export const usePants = () => {
 
   getPantsDimensionRange();
 
-  return { pants, selectedPants, pantsDimensions, getPants, findPants, deletePants, createPants, updatePants, getPantsDimensionRange };
+  return { pants, selectedPants, pantsDimensions, filteredPants, getPants, findPants, deletePants, createPants, updatePants, getPantsDimensionRange, getPantsByFilter };
 }
