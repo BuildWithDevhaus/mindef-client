@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import shirtMaleNo1 from "../../assets/images/Measure Shirt (Male - No. 1).png";
 import ContainerLayout from "../../components/templates/ContainerLayout";
@@ -17,7 +17,11 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
   const { nextStep } = useStep();
-  const { shirtDimensions } = useShirt();
+  const { shirtDimensions, getShirtsDimensionRange } = useShirt();
+
+  useEffect(() => {
+    getShirtsDimensionRange(inputValue.uniformType);
+  }, [])
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });

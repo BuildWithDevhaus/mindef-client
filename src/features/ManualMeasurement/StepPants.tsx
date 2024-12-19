@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ContainerLayout from '../../components/templates/ContainerLayout'
 import InputContainerLayout from '../../components/templates/InputContainerLayout'
 import SelectOptionItem from '../../components/atoms/SelectOptionItem'
@@ -15,7 +15,11 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   backOption
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
-  const { pantsDimensions } = usePants();
+  const { pantsDimensions, getPantsDimensionRange } = usePants();
+
+  useEffect(() => {
+    getPantsDimensionRange(inputValue.uniformType);
+  }, []);
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });

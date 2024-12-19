@@ -32,8 +32,6 @@ export const useShirt = () => {
         shoulderLen
       });
 
-      console.log(`/shirts?${params.toString()}`);
-      
       const { data: shirtsData }: { data: ShirtSchema[] } = await api.get(`/shirts?${params.toString()}`);
 
       setFilteredShirts(shirtsData);
@@ -82,9 +80,15 @@ export const useShirt = () => {
     }
   }
 
-  const getShirtsDimensionRange = async () => {
+  const getShirtsDimensionRange = async (uniformType?: string) => {
     try {
-      const { data: shirtDimensions }: { data: ShirtDimensionsSchema } = await api.get(`/shirts/dimension`);
+      const params = new URLSearchParams();
+
+      if (uniformType) {
+        params.append('uniformType', uniformType);
+      }
+
+      const { data: shirtDimensions }: { data: ShirtDimensionsSchema } = await api.get(`/shirts/dimension?${params.toString()}`);
       setShirtDimensions(shirtDimensions);
       return;
     } catch (error) {

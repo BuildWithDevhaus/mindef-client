@@ -81,9 +81,15 @@ export const usePants = () => {
     }
   }
 
-  const getPantsDimensionRange = async () => {
+  const getPantsDimensionRange = async (uniformType?: string) => {
     try {
-      const { data: pantsDimensions }: { data: PantsDimensionsSchema } = await api.get(`/pants/dimension`);
+      const params = new URLSearchParams();
+
+      if (uniformType) {
+        params.append('uniformType', uniformType);
+      }
+
+      const { data: pantsDimensions }: { data: PantsDimensionsSchema } = await api.get(`/pants/dimension?${params.toString()}`);
       setPantsDimensions(pantsDimensions);
       return;
     } catch (error) {
