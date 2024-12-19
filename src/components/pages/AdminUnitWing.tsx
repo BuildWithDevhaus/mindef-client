@@ -8,11 +8,11 @@ import ButtonPrimary from "../atoms/ButtonPrimary";
 import TableAction from "../molecules/TableAction";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import { getCurrentSlug } from "../../helpers/windows";
-import { useDivision } from "../../hooks/useDivision";
+import { useUnitWing } from "../../hooks/useUnitWing";
 
 const AdminUnitWing: React.FC = () => {
   const {
-    searchQuery: divisionSearchQuery,
+    searchQuery: unitWingSearchQuery,
     setSearchQuery: setDivisionSearchQuery,
     rowsPerPage: divisionRowsPerPage,
     setRowsPerPage: setDivisionRowsPerPage,
@@ -21,24 +21,24 @@ const AdminUnitWing: React.FC = () => {
     filterDataByDateRange: filterDivisionDataByDateRange,
   } = useTableFilter("", 5, { startDate: null, endDate: null });
 
-  const { divisions, getDivisions, deleteDivision } = useDivision();
-  const [filteredDivisionData, setFilteredDivisionData] = useState<any[]>([]);
+  const { unitWings, getUnitWings, deleteUnitWing } = useUnitWing();
+  const [filteredUnitWingData, setFilteredUnitWingData] = useState<any[]>([]);
   
   const navigate = useNavigate();
   
   useEffect(() => {
-    getDivisions();
+    getUnitWings();
   }, []);
 
   useEffect(() => {
-    if (divisions.length > 0) {
-      const filteredDivisions = filterDivisionDataByDateRange(divisions);
+    if (unitWings.length > 0) {
+      const filteredDivisions = filterDivisionDataByDateRange(unitWings);
 
       const mappedDivisions = filteredDivisions.map((division, index) => {
         const handleEdit = () =>
           navigate(`${getCurrentSlug()}/edit/${division.id}`);
         const handleDelete = () => {
-          deleteDivision(division.id);
+          deleteUnitWing(division.id);
         };
         
         return [
@@ -53,9 +53,9 @@ const AdminUnitWing: React.FC = () => {
         ];
       });
 
-      setFilteredDivisionData(mappedDivisions);
+      setFilteredUnitWingData(mappedDivisions);
     }
-  }, [divisions, divisionDateRange]);
+  }, [unitWings, divisionDateRange]);
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
@@ -76,13 +76,13 @@ const AdminUnitWing: React.FC = () => {
       </div>
       <Table
         headers={unitWingHeaders}
-        data={filteredDivisionData}
+        data={filteredUnitWingData}
         rowsPerPage={divisionRowsPerPage}
         enablePagination
         enableSearch
         enableRowsPerPage
         enableDateRange={false}
-        initialSearchQuery={divisionSearchQuery}
+        initialSearchQuery={unitWingSearchQuery}
         onSearchChange={setDivisionSearchQuery}
         onRowsPerPageChange={setDivisionRowsPerPage}
         onDateRangeChange={setDivisionDateRange}
