@@ -23,9 +23,9 @@ const AdminUnitWing: React.FC = () => {
 
   const { divisions, getDivisions, deleteDivision } = useDivision();
   const [filteredDivisionData, setFilteredDivisionData] = useState<any[]>([]);
-
+  
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     getDivisions();
   }, []);
@@ -40,7 +40,7 @@ const AdminUnitWing: React.FC = () => {
         const handleDelete = () => {
           deleteDivision(division.id);
         };
-
+        
         return [
           index + 1,
           capitalizeFirstLetter(division.name),
