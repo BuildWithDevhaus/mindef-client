@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ContainerLayout from "../../components/templates/ContainerLayout";
 import InputFieldSecondary from "../../components/atoms/InputFieldSecondary";
 import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
-import { deleteReasonData } from "../../dummy/DeleteReasonDummy";
 import { useStep } from '../../hooks/useStep';
 import shirtMaleNo1 from  "../../assets/images/Shirt (Male - No. 1).png"
 import pantsMaleNo1 from  "../../assets/images/Pants (Male - No. 1).png"
 import { AdminScanRfidData } from "../../types/adminScanRfid";
+import { useReason } from "../../hooks/useReason";
 
 const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
   const [selectedRemark, setSelectedRemark] = useState<string>("");
@@ -16,6 +16,14 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
   const handleRemarkChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRemark(event.target.value);
   };
+
+    const { getReasons, reasons } = useReason();
+
+
+    useEffect(() => {
+        getReasons();
+      }, []);
+  
 
   const handleCheckboxChange = () => {
     setIsChecked((prevState) => {
@@ -145,20 +153,16 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
                   />
                 </div>
                 <div className="w-[278px]">
-                  <SelectOptionPrimary
+                <SelectOptionPrimary
                     className="text-base py-[10px] px-[14px]"
                     placeholder="Select Remark"
                     name="remark"
                     value={selectedRemark}
                     onChange={handleRemarkChange}
-                    disabled={!isChecked}
                   >
-                    {deleteReasonData.map(([id, status]) => (
-                      <option
-                        key={id.toString()}
-                        value={(status as React.ReactElement).props.content}
-                      >
-                        {(status as React.ReactElement).props.content}
+                    {reasons.map ((reason) => (
+                      <option key={reason.id} value={reason.id}>
+                        {reason.name}
                       </option>
                     ))}
                   </SelectOptionPrimary>
