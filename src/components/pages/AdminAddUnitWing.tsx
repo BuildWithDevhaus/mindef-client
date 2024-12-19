@@ -4,11 +4,11 @@ import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDivision } from "../../hooks/useDivision";
-import { DivisionInputSchema } from "../../zod/division";
+import { useUnitWing } from "../../hooks/useUnitWing";
+import { UnitWingInputSchema } from "../../zod/unitWing";
 
 const AdminAddUnitWing: React.FC = () => {
-  const [division, setDivision] = useState<DivisionInputSchema>({
+  const [unitWing, setUnitWing] = useState<UnitWingInputSchema>({
     name: "",
   });
 
@@ -18,12 +18,12 @@ const AdminAddUnitWing: React.FC = () => {
     { label: "Add Unit/Wing" },
   ];
 
-  const { createDivision } = useDivision();
+  const { createUnitWing } = useUnitWing();
 
   const handleButtonClick = () => {
-    if (division.name.trim()) {
-      createDivision(division);
-      toast.success(`Unit/wing added: ${division.name}`, {
+    if (unitWing.name.trim()) {
+      createUnitWing(unitWing);
+      toast.success(`Unit/wing added: ${unitWing.name}`, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -32,7 +32,7 @@ const AdminAddUnitWing: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
-      setDivision({ name: "" });
+      setUnitWing({ name: "" });
     } else {
       toast.error("Please enter a unit/wing", {
         position: "bottom-right",
@@ -55,9 +55,9 @@ const AdminAddUnitWing: React.FC = () => {
           <InputFieldPrimary
             className="text-lg text-left"
             placeholder="(Write new Unit/Wing)"
-            value={division.name}
+            value={unitWing.name}
             onChange={(e) =>
-              setDivision((prev) => ({ ...prev, name: e.target.value }))
+              setUnitWing((prev) => ({ ...prev, name: e.target.value }))
             }
           />
           <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
