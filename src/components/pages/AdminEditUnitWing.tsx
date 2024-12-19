@@ -26,7 +26,7 @@ const AdminEditUnitWing: React.FC = () => {
   const handleButtonClick = () => {
     if (division.name.trim()) {
       updateDivision(divisionId, division); 
-      toast.success(`Unit/wing added: ${division.name}`, {
+      toast.success(`Unit/wing was updated: ${division.name}`, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
