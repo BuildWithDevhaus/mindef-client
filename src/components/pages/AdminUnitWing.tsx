@@ -19,7 +19,7 @@ const AdminUnitWing: React.FC = () => {
     dateRange: divisionDateRange,
     setDateRange: setDivisionDateRange,
     filterDataByDateRange: filterDivisionDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, "createdAt");
+  } = useTableFilter("", 5, { startDate: null, endDate: null });
 
   const { divisions, getDivisions, deleteDivision } = useDivision();
   const [filteredDivisionData, setFilteredDivisionData] = useState<any[]>([]);
