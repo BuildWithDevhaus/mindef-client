@@ -4,39 +4,40 @@ import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDivision } from "../../hooks/useDivision";
-import { DivisionInputSchema } from "../../zod/division";
+import { ReasonInputSchema } from "../../zod/reason";
+import { useReason } from "../../hooks/useReason";
 import { useParams } from "react-router-dom";
 
-const AdminEditUnitWing: React.FC = () => {
-  const [division, setDivision] = useState<DivisionInputSchema>({
-    name: "",
-  });
-
-  const { updateDivision, findDivision, selectedDivision } = useDivision();
-  const { unitWingId } = useParams();
-
+const AdminEditDeleteReason: React.FC = () => {
+    const [reason, setReason] = useState<ReasonInputSchema>({
+      name: "",
+    });
+    
+    const { updateReason, findReason, selectedReason } = useReason();
+    const { deleteReasonId } = useParams();
+    
   const breadcrumbItems = [
     { label: "Admin Menu" },
-    { label: "Unit/Wing", url: "/admin/unit-wing" },
-    { label: "Edit Unit/Wing" },
+    { label: "Delete Reasons", url: "/admin/delete-reasons" },
+    { label: "Edit Reason" },
   ];
 
-  useEffect(() => {
-    if (unitWingId) findDivision(unitWingId as string);
-  }, [unitWingId]);
+      useEffect(() => {
+        if (deleteReasonId) findReason(deleteReasonId as string);        
+      }, [deleteReasonId]);
+      
+      useEffect(() => {
+        if (selectedReason) {
+          setReason(selectedReason);
+        }        
+      }, [selectedReason]);
 
-  useEffect(() => {
-    if (selectedDivision) {
-      setDivision(selectedDivision);
-    }
-  }, [selectedDivision]);
-
+  
   //TODO: upon success redirect to the main table and show toaster
   const handleButtonClick = () => {
-    if (division.name.trim()) {
-      updateDivision(unitWingId as string, division);
-      toast.success(`Unit/wing was updated: ${division.name}`, {
+    if (reason.name.trim()) {
+      updateReason(deleteReasonId as string, reason);
+      toast.success(`Reason Edited: ${reason.name}`, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -45,9 +46,9 @@ const AdminEditUnitWing: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
-      setDivision({ name: "" });
+      setReason({ name: "" });
     } else {
-      toast.error("Please enter a unit/wing", {
+      toast.error("Please enter a reason", {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -60,17 +61,17 @@ const AdminEditUnitWing: React.FC = () => {
   };
 
   return (
-    <AdminLayout headingText="Unit/Wing" breadcrumbItems={breadcrumbItems}>
+    <AdminLayout headingText="Delete Reasons" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Edit Unit/Wing</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">Edit Reason for Delete Inventory</h2>
       </div>
       <div className="flex flex-col items-end gap-8">
         <InputFieldPrimary
           className="text-lg text-left"
-          placeholder="(edit Unit/Wing)"
-          value={division.name}
-          onChange={(e) =>
-            setDivision((prev) => ({ ...prev, name: e.target.value }))
+          placeholder="(edit reason for deletion here)"
+          value={reason.name}
+          onChange={(e) => 
+            setReason((prev) => ({ ...prev, name: e.target.value }))
           }
         />
         <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
@@ -80,4 +81,4 @@ const AdminEditUnitWing: React.FC = () => {
   );
 };
 
-export default AdminEditUnitWing;
+export default AdminEditDeleteReason;

@@ -18,7 +18,7 @@ const AdminDeleteInventory: React.FC = () => {
     dateRange: shirtDateRange,
     setDateRange: setShirtDateRange,
     filterDataByDateRange: filterShirtDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
+  } = useTableFilter("", 5, { startDate: null, endDate: null });
   const {
     searchQuery: pantsSearchQuery,
     setSearchQuery: setPantsSearchQuery,
@@ -27,7 +27,7 @@ const AdminDeleteInventory: React.FC = () => {
     dateRange: pantsDateRange,
     setDateRange: setPantsDateRange,
     filterDataByDateRange: filterPantsDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, 5);
+  } = useTableFilter("", 5, { startDate: null, endDate: null });
 
   const filteredShirtData = filterShirtDataByDateRange(shirtDeleteData);
   const filteredPantsData = filterPantsDataByDateRange(pantsDeleteData);

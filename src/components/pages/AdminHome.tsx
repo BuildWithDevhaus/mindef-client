@@ -71,7 +71,9 @@ const AdminHome: React.FC = () => {
           capitalizeFirstLetter(shirt.gender),
           shirt.uniformType,
           `Row: ${shirt.row}, Rack: ${shirt.rack}`, 
-          new Date(shirt.createdAt).toLocaleDateString("en-GB"),     // TODO: Change this to Last drawn date from draw uniform
+          shirt.drawUniform.length > 0 
+            ? new Date(shirt.drawUniform[shirt.drawUniform.length - 1].createdAt).toLocaleDateString("en-GB") 
+            : "-",
           <StatusTag
             content={shirt.status}
             variant={

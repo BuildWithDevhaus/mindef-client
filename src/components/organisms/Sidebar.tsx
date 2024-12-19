@@ -75,7 +75,8 @@ const Sidebar = () => {
       onClick: () => navigate("/admin/delete-reasons"),
       isActive: 
         location.pathname === "/admin/delete-reasons" ||
-        location.pathname === "/admin/delete-reasons/add",
+        location.pathname === "/admin/delete-reasons/add" ||
+        Boolean(useMatch("/admin/delete-reasons/edit/:deleteReasonId")),
     },
     {
       label: "Reports",
@@ -90,7 +91,7 @@ const Sidebar = () => {
       onClick: () => navigate("/admin/unit-wing"),
       isActive: location.pathname === "/admin/unit-wing" ||
       location.pathname === "/admin/unit-wing/add"||
-      Boolean(useMatch("/admin/unit-wing/edit/:id")),
+      Boolean(useMatch("/admin/unit-wing/edit/:unitWingid")),
     },
     {
       label: "Configure Data Retention Period",
