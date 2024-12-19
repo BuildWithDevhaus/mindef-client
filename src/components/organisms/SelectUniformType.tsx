@@ -17,7 +17,7 @@ const SelectUniformType: React.FC<ManualMeasurementFormStepNextProps> = ({ manua
         <label className="text-6xl font-bold">Select your Uniform type:</label>
         <div className='flex gap-48 h-full items-center'>
           {/* TODO: Hide Colour Party when user is a female */}
-          <ButtonCircle onClick={() => handleConfirm("No.1")}>No.1</ButtonCircle>
+          <ButtonCircle onClick={() => handleConfirm("No. 1")}>No. 1</ButtonCircle>
           <ButtonCircle onClick={() => handleConfirm("Colour Party")}>Colour Party</ButtonCircle>
         </div>
       </div>
