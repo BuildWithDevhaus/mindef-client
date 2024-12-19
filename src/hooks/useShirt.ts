@@ -1,17 +1,28 @@
 import { atom, useAtom } from "jotai";
-import { ShirtInputSchema, ShirtSchema } from "../zod/shirt";
+import { ShirtDimensionsSchema, ShirtInputSchema, ShirtSchema } from "../zod/shirt";
 import { api } from "../helpers/api";
 
 const shirtAtom = atom<ShirtSchema[] | []>([]);
 const selectedShirtAtom = atom<ShirtSchema | null>(null);
+const shirtDimensionsAtom = atom<ShirtDimensionsSchema | null>(null);
 
 export const useShirt = () => {
   const [shirts, setShirts] = useAtom(shirtAtom);
   const [selectedShirt, setSelectedShirt] = useAtom(selectedShirtAtom);
+  const [shirtDimensions, setShirtDimensions] = useAtom(shirtDimensionsAtom);
 
-  const getShirts = async () => {
+  const getShirts = async (uniformType?: string, gender?: string, collarLen?: string, sleeve? :string, shoulderLen?: string) => {
     try {
-      const { data: shirtsData }: { data: ShirtSchema[] } = await api.get('/shirts');
+      const params = new URLSearchParams();
+
+      if (uniformType) params.append('uniformType', uniformType);
+      if (gender) params.append('gender', gender);
+      if (collarLen) params.append('collarLen', collarLen);
+      if (sleeve) params.append('sleeve', sleeve);
+      if (shoulderLen) params.append('shoulderLen', shoulderLen);
+
+      const { data: shirtsData }: { data: ShirtSchema[] } = await api.get(`/shirts?${params.toString()}`);
+
       setShirts(shirtsData);
       return;
     } catch (error) {
@@ -58,5 +69,17 @@ export const useShirt = () => {
     }
   }
 
-  return { shirts, selectedShirt, getShirts, findShirt, deleteShirt, createShirt, updateShirt };
+  const getShirtsDimensionRange = async () => {
+    try {
+      const { data: shirtDimensions }: { data: ShirtDimensionsSchema } = await api.get(`/shirts/dimension`);
+      setShirtDimensions(shirtDimensions);
+      return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getShirtsDimensionRange();
+
+  return { shirts, selectedShirt, shirtDimensions, getShirts, findShirt, deleteShirt, createShirt, updateShirt, getShirtsDimensionRange };
 }

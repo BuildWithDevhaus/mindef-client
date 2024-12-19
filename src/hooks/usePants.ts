@@ -1,17 +1,27 @@
 import { atom, useAtom } from "jotai";
 import { api } from "../helpers/api";
-import { PantsInputSchema, PantsSchema } from "../zod/pants";
+import { PantsDimensionsSchema, PantsInputSchema, PantsSchema } from "../zod/pants";
 
 const pantsAtom = atom<PantsSchema[] | []>([]);
 const selectedPantsAtom = atom<PantsSchema | null>(null);
+const pantsDimensionsAtom = atom<PantsDimensionsSchema | null>(null);
 
 export const usePants = () => {
   const [pants, setPants] = useAtom(pantsAtom);
   const [selectedPants, setSelectedPants] = useAtom(selectedPantsAtom);
+  const [pantsDimensions, setPantsDimensions] = useAtom(pantsDimensionsAtom);
 
-  const getPants = async () => {
+  const getPants = async (uniformType?: string, gender?: string, waist?: string, length?: string) => {
     try {
-      const { data: pantsData }: { data: PantsSchema[] } = await api.get('/pants');
+      const params = new URLSearchParams();
+
+      if (uniformType) params.append('uniformType', uniformType);
+      if (gender) params.append('gender', gender);
+      if (waist) params.append('waist', waist);
+      if (length) params.append('length', length);
+
+      const { data: pantsData }: { data: PantsSchema[] } = await api.get(`/pants?${params.toString()}`);
+
       setPants(pantsData);
       return;
     } catch (error) {
@@ -59,5 +69,17 @@ export const usePants = () => {
     }
   }
 
-  return { pants, selectedPants, getPants, findPants, deletePants, createPants, updatePants };
+  const getPantsDimensionRange = async () => {
+    try {
+      const { data: pantsDimensions }: { data: PantsDimensionsSchema } = await api.get(`/pants/dimension`);
+      setPantsDimensions(pantsDimensions);
+      return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getPantsDimensionRange();
+
+  return { pants, selectedPants, pantsDimensions, getPants, findPants, deletePants, createPants, updatePants, getPantsDimensionRange };
 }

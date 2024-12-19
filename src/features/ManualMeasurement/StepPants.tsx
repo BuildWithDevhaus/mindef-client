@@ -6,6 +6,7 @@ import SelectOptionPrimary from '../../components/molecules/SelectOptionPrimary'
 import pantsMaleNo1 from '../../assets/images/Measure Pants (Male - No. 1).png'
 import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import ButtonBack from '../../components/atoms/ButtonBack'
+import { usePants } from '../../hooks/usePants'
 
 const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   manualMeasurementInput,
@@ -14,6 +15,7 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   backOption
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
+  const { pantsDimensions } = usePants();
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });
@@ -38,11 +40,11 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
               onChange={(e) => handleChange("waist", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
             >
-              <SelectOptionItem value="16" text="16" />
-              <SelectOptionItem value="17" text="17" />
-              <SelectOptionItem value="18" text="18" />
-              <SelectOptionItem value="19" text="19" />
-              <SelectOptionItem value="20" text="20" />
+              {
+                pantsDimensions
+                  ? pantsDimensions.waist.map((item, index) => <SelectOptionItem key={index} value={item} text={item} />)
+                  : <SelectOptionItem value="16" text="16" />
+              }
             </SelectOptionPrimary>
           </InputContainerLayout>
           <InputContainerLayout title="2. Pants Length" label="Length">
@@ -53,11 +55,11 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
               onChange={(e) => handleChange("length", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
             >
-              <SelectOptionItem value="16" text="16" />
-              <SelectOptionItem value="17" text="17" />
-              <SelectOptionItem value="18" text="18" />
-              <SelectOptionItem value="19" text="19" />
-              <SelectOptionItem value="20" text="20" />
+              {
+                pantsDimensions
+                  ? pantsDimensions.length.map((item, index) => <SelectOptionItem key={index} value={item} text={item} />)
+                  : <SelectOptionItem value="28" text="28" />
+              }
             </SelectOptionPrimary>
           </InputContainerLayout>
           <ButtonPrimary variant="large" onClick={handleConfirm}>Submit</ButtonPrimary>

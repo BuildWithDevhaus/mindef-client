@@ -7,6 +7,7 @@ import SelectOptionItem from "../../components/atoms/SelectOptionItem";
 import InputContainerLayout from "../../components/templates/InputContainerLayout";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import ButtonBack from "../../components/atoms/ButtonBack";
+import { useShirt } from "../../hooks/useShirt";
 
 const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
   manualMeasurementInput,
@@ -16,6 +17,7 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
   const { nextStep } = useStep();
+  const { shirtDimensions } = useShirt();
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });
@@ -40,11 +42,11 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
               onChange={(e) => handleChange("shoulderLen", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
             >
-              <SelectOptionItem value="16" text="16" />
-              <SelectOptionItem value="17" text="17" />
-              <SelectOptionItem value="18" text="18" />
-              <SelectOptionItem value="19" text="19" />
-              <SelectOptionItem value="20" text="20" />
+              {
+                shirtDimensions
+                  ? shirtDimensions.shoulderLen.map((item, index) => <SelectOptionItem key={index} value={item} text={item} />)
+                  : <SelectOptionItem value="16" text="16" />
+              }
             </SelectOptionPrimary>
           </InputContainerLayout>
           <InputContainerLayout title="2. Sleeve" label="Length">
@@ -55,11 +57,11 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
               onChange={(e) => handleChange("sleeve", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
             >
-              <SelectOptionItem value="16" text="16" />
-              <SelectOptionItem value="17" text="17" />
-              <SelectOptionItem value="18" text="18" />
-              <SelectOptionItem value="19" text="19" />
-              <SelectOptionItem value="20" text="20" />
+              {
+                shirtDimensions
+                  ? shirtDimensions.sleeve.map((item, index) => <SelectOptionItem key={index} value={item} text={item} />)
+                  : <SelectOptionItem value="16" text="16" />
+              }
             </SelectOptionPrimary>
           </InputContainerLayout>
           <InputContainerLayout title="3. Collar Length" label="Width">
@@ -70,11 +72,11 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
               onChange={(e) => handleChange("collarLen", e.target.value)}
               className="text-lg bg-white bg-[length:32px]"
             >
-              <SelectOptionItem value="16" text="16" />
-              <SelectOptionItem value="17" text="17" />
-              <SelectOptionItem value="18" text="18" />
-              <SelectOptionItem value="19" text="19" />
-              <SelectOptionItem value="20" text="20" />
+              {
+                shirtDimensions
+                  ? shirtDimensions.collarLen.map((item, index) => <SelectOptionItem key={index} value={item} text={item} />)
+                  : <SelectOptionItem value="16" text="16" />
+              }
             </SelectOptionPrimary>
           </InputContainerLayout>
           <ButtonPrimary variant="large" onClick={handleConfirm}>Submit</ButtonPrimary>
