@@ -1,10 +1,10 @@
 interface ManualMeasurementForm {
   uniformType: string
-  shoulderLen: number
-  sleeve: number
-  collarLen: number
-  waist: number
-  length: number
+  shoulderLen: string
+  sleeve: string
+  collarLen: string
+  waist: string
+  length: string
 }
 
 interface StepProps {

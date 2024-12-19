@@ -18,11 +18,11 @@ const AutoMeasurementForm: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   useEffect(() => {
     // TODO: Load the data from the file
     const dummyData = {
-      collarLen: 22,
-      sleeve: 21,
-      shoulderLen: 20,
-      waist: 19,
-      length: 18,
+      collarLen: "22",
+      sleeve: "21",
+      shoulderLen: "20",
+      waist: "19",
+      length: "18",
     };
 
     setInputValue({ ...manualMeasurementInput, ...dummyData });
