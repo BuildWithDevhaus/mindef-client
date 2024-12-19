@@ -21,6 +21,7 @@ import AdminAddDeleteReason from "./components/pages/AdminAddDeleteReason";
 import AdminAddUnitWing from "./components/pages/AdminAddUnitWing";
 import AdminAddDeleteInventory from "./components/pages/AdminAddDeleteInventory";
 import AdminEditRegisteredInventory from "./components/pages/AdminEditRegisteredInventory";
+import AdminEditUnitWing from "./components/pages/AdminEditUnitWing";
 
 const App = () => {
   const { isAuthenticated, login } = useAuth();
@@ -80,6 +81,10 @@ const App = () => {
         <Route
           path="/admin/unit-wing/add"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminAddUnitWing />} />}
+        />
+        <Route
+          path="/admin/unit-wing/edit/:id"
+          element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminEditUnitWing />} />}
         />
         <Route
           path="/admin/configure-data-retention"
