@@ -2,29 +2,31 @@ import React, { useState } from "react";
 import ContainerLayout from "../../components/templates/ContainerLayout";
 import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
-import { deleteReasonData } from "../../dummy/DeleteReasonDummy";
-import { useStep } from '../../hooks/useStep';
-import shirtMaleNo1 from  "../../assets/images/Shirt (Male - No. 1).png"
-import pantsMaleNo1 from  "../../assets/images/Pants (Male - No. 1).png"
+import { useStep } from "../../hooks/useStep";
+import shirtMaleNo1 from "../../assets/images/Shirt (Male - No. 1).png";
+import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
 import { AdminScanRfidData } from "../../types/adminScanRfid";
 
-const AdminDeleteInventoryReason: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
+const AdminDeleteInventoryReason: React.FC<AdminScanRfidData> = ({
+  shirtData,
+  pantsData,
+  reason,
+}) => {
   const [selectedRemark, setSelectedRemark] = useState<string>("");
   const { nextStep } = useStep();
   const handleRemarkChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRemark(event.target.value);
   };
 
-
   const handleSubmit = () => {
     // TODO: Change to real logic
 
     nextStep("admin-delete-uniform-form-result");
-    console.log({...shirtData, selectedRemark});
-    console.log({...pantsData, selectedRemark});
+    console.log({ ...shirtData, selectedRemark });
+    console.log({ ...pantsData, selectedRemark });
 
     // TODO: Reset input values
-  }
+  };
 
   return (
     <div className="flex justify-center items-center">
@@ -69,14 +71,12 @@ const AdminDeleteInventoryReason: React.FC<AdminScanRfidData> = ({ shirtData, pa
                     value={selectedRemark}
                     onChange={handleRemarkChange}
                   >
-                    {deleteReasonData.map(([id, status]) => (
-                      <option
-                        key={id.toString()}
-                        value={(status as React.ReactElement).props.content}
-                      >
-                        {(status as React.ReactElement).props.content}
-                      </option>
-                    ))}
+                    {reason &&
+                      reason.map(([id, status]: [number, string]) => (
+                        <option key={id.toString()} value={status}>
+                          {status}
+                        </option>
+                      ))}
                   </SelectOptionPrimary>
                 </div>
               </div>
