@@ -104,7 +104,9 @@ const AdminHome: React.FC = () => {
           capitalizeFirstLetter(pants.gender),
           pants.uniformType,
           `Row: ${pants.row}, Rack: ${pants.rack}`,
-          new Date(pants.createdAt).toLocaleDateString("en-GB"),     // TODO: Change this to Last drawn date from draw uniform
+          pants.drawUniform.length > 0 
+            ? new Date(pants.drawUniform[pants.drawUniform.length - 1].createdAt).toLocaleDateString("en-GB") 
+            : "-",
           <StatusTag
             content={pants.status}
             variant={
