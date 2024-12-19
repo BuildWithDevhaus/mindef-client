@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDivision } from "../../hooks/useDivision";
 import { DivisionInputSchema } from "../../zod/division";
 
-const AdminAddUnitWing: React.FC = () => {
+const AdminEditUnitWing: React.FC = () => {
   const [division, setDivision] = useState<DivisionInputSchema>({
     name: "",
   });
@@ -15,14 +15,17 @@ const AdminAddUnitWing: React.FC = () => {
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Unit/Wing", url: "/admin/unit-wing" },
-    { label: "Add Unit/Wing" },
+    { label: "Edit Unit/Wing" },
   ];
 
-  const { createDivision } = useDivision();
+  const divisionId = window.location.pathname.split("/")[4];  
 
+  const { updateDivision } = useDivision();
+
+  //TODO: shows populate old unit/wing name on page
   const handleButtonClick = () => {
     if (division.name.trim()) {
-      createDivision(division);
+      updateDivision(divisionId, division); 
       toast.success(`Unit/wing added: ${division.name}`, {
         position: "bottom-right",
         autoClose: 3000,
@@ -49,12 +52,12 @@ const AdminAddUnitWing: React.FC = () => {
   return (
     <AdminLayout headingText="Unit/Wing" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Add Unit/Wing</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">Edit Unit/Wing</h2>
       </div>
       <div className="flex flex-col items-end gap-8">
           <InputFieldPrimary
             className="text-lg text-left"
-            placeholder="(Write new Unit/Wing)"
+            placeholder="(edit Unit/Wing)"
             value={division.name}
             onChange={(e) =>
               setDivision((prev) => ({ ...prev, name: e.target.value }))
@@ -67,5 +70,6 @@ const AdminAddUnitWing: React.FC = () => {
   );
 };
 
-export default AdminAddUnitWing;
+export default AdminEditUnitWing;
+
 
