@@ -6,9 +6,13 @@ import pantsMaleNo1 from '../../assets/images/Pants (Male - No. 1).png'
 import ResultContainerLayout from '../../components/templates/ResultContainerLayout';
 import ButtonPrimary from '../../components/atoms/ButtonPrimary';
 import ButtonBack from '../../components/atoms/ButtonBack';
+import { useShirt } from '../../hooks/useShirt';
+import { usePants } from '../../hooks/usePants';
 
 const StepResult: React.FC<StepProps> = ({ backOption }) => {
   const { step, resetStep, nextStep } = useStep();
+  const { filteredShirts } = useShirt();
+  const { filteredPants } = usePants();
 
   const handleConfirm = () => {
     const isAdmin = window.location.href.includes("admin");
@@ -32,8 +36,8 @@ const StepResult: React.FC<StepProps> = ({ backOption }) => {
             <div className='w-[652px] text-center'>
               <h1 className='font-bold text-[36px]'>We found a match! You may proceed to try the uniform.</h1>
             </div>
-            <ResultContainerLayout title="Shirt Location" image={shirtMaleNo1} row={2} rack="B2" no={25} />
-            <ResultContainerLayout title="Pants Location" image={pantsMaleNo1} row={2} rack="B2" no={25} />
+            <ResultContainerLayout title="Shirt Location" image={shirtMaleNo1} row={filteredShirts[0]?.row} rack={filteredShirts[0]?.rack} />
+            <ResultContainerLayout title="Pants Location" image={pantsMaleNo1} row={filteredPants[0]?.row} rack={filteredPants[0]?.rack} />
           </div>
           <ButtonPrimary variant="large" onClick={handleConfirm}>End Session</ButtonPrimary>
         </ContainerLayout>
