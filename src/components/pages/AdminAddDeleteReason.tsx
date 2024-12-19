@@ -4,18 +4,26 @@ import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ReasonInputSchema } from "../../zod/reason";
+import { useReason } from "../../hooks/useReason";
 
 const AdminAddDeleteReason: React.FC = () => {
-  const [reason, setReason] = useState<string>("");
+    const [reason, setReason] = useState<ReasonInputSchema>({
+      name: "",
+    });
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Delete Reasons", url: "/admin/delete-reasons" },
+    { label: "Add Reason" },
   ];
 
+const { createReason } = useReason();
+  
   const handleButtonClick = () => {
-    if (reason.trim()) {
-      toast.success(`Reason added: ${reason}`, {
+    if (reason.name.trim()) {
+      createReason(reason);
+      toast.success(`Reason added: ${reason.name}`, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -24,6 +32,7 @@ const AdminAddDeleteReason: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
+      setReason({ name: "" });
     } else {
       toast.error("Please enter a reason", {
         position: "bottom-right",
@@ -46,8 +55,10 @@ const AdminAddDeleteReason: React.FC = () => {
         <InputFieldPrimary
           className="text-lg text-left"
           placeholder="(Write new reason for deletion here)"
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
+          value={reason.name}
+          onChange={(e) => 
+            setReason((prev) => ({ ...prev, name: e.target.value }))
+          }
         />
         <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
       </div>
