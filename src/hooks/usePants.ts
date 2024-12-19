@@ -91,7 +91,5 @@ export const usePants = () => {
     }
   }
 
-  getPantsDimensionRange();
-
   return { pants, selectedPants, pantsDimensions, filteredPants, getPants, findPants, deletePants, createPants, updatePants, getPantsDimensionRange, getPantsByFilter };
 }

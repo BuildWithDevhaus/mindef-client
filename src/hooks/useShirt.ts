@@ -92,7 +92,5 @@ export const useShirt = () => {
     }
   }
 
-  getShirtsDimensionRange();
-
   return { shirts, selectedShirt, shirtDimensions, filteredShirts, getShirts, findShirt, deleteShirt, createShirt, updateShirt, getShirtsDimensionRange, getShirtsByFilter };
 }
