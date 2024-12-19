@@ -6,3 +6,9 @@ export const divisionSchema = z.object({
 });
 
 export type DivisionSchema = z.infer<typeof divisionSchema>;
+
+export const divisionInputSchema = z.object({
+  name: z.string(),
+});
+
+export type DivisionInputSchema = z.infer<typeof divisionInputSchema>;
