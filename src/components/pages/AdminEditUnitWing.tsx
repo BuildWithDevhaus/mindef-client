@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
@@ -6,11 +6,15 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDivision } from "../../hooks/useDivision";
 import { DivisionInputSchema } from "../../zod/division";
+import { useParams } from "react-router-dom";
 
 const AdminEditUnitWing: React.FC = () => {
   const [division, setDivision] = useState<DivisionInputSchema>({
     name: "",
   });
+
+  const { updateDivision, findDivision, selectedDivision } = useDivision();
+  const { unitWingId } = useParams();
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
@@ -18,14 +22,20 @@ const AdminEditUnitWing: React.FC = () => {
     { label: "Edit Unit/Wing" },
   ];
 
-  const divisionId = window.location.pathname.split("/")[4];  
+  useEffect(() => {
+    if (unitWingId) findDivision(unitWingId as string);
+  }, [unitWingId]);
 
-  const { updateDivision } = useDivision();
+  useEffect(() => {
+    if (selectedDivision) {
+      setDivision(selectedDivision);
+    }
+  }, [selectedDivision]);
 
-  //TODO: shows populate old unit/wing name on page
+  //TODO: upon success redirect to the main table and show toaster
   const handleButtonClick = () => {
     if (division.name.trim()) {
-      updateDivision(divisionId, division); 
+      updateDivision(unitWingId as string, division);
       toast.success(`Unit/wing was updated: ${division.name}`, {
         position: "bottom-right",
         autoClose: 3000,
@@ -55,15 +65,15 @@ const AdminEditUnitWing: React.FC = () => {
         <h2 className="text-2xl font-bold text-[#101828]">Edit Unit/Wing</h2>
       </div>
       <div className="flex flex-col items-end gap-8">
-          <InputFieldPrimary
-            className="text-lg text-left"
-            placeholder="(edit Unit/Wing)"
-            value={division.name}
-            onChange={(e) =>
-              setDivision((prev) => ({ ...prev, name: e.target.value }))
-            }
-          />
-          <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
+        <InputFieldPrimary
+          className="text-lg text-left"
+          placeholder="(edit Unit/Wing)"
+          value={division.name}
+          onChange={(e) =>
+            setDivision((prev) => ({ ...prev, name: e.target.value }))
+          }
+        />
+        <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
       </div>
       <ToastContainer />
     </AdminLayout>
@@ -71,5 +81,3 @@ const AdminEditUnitWing: React.FC = () => {
 };
 
 export default AdminEditUnitWing;
-
-
