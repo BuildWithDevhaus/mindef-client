@@ -31,7 +31,6 @@ interface ManualMeasurementFormStepSubmitProps extends ManualMeasurementFormStep
 interface ResultMeasurement {
   title: string;
   image: string;
-  row: number;
-  rack: string;
-  no: number;
+  row?: string;
+  rack?: string;
 }
