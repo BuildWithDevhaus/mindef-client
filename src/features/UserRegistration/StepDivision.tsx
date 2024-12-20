@@ -5,7 +5,7 @@ import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary"
 import SelectOptionItem from "../../components/atoms/SelectOptionItem";
 import ButtonBack from "../../components/atoms/ButtonBack";
 import { UserRegistrationStepNextProps } from "../../types/staffSteps";
-import { DivisionSchema } from "../../zod/division";
+import { UnitWingSchema } from "../../zod/unitWing";
 import { api } from "../../helpers/api";
 import { useStaff } from "../../hooks/useStaff";
 
@@ -15,14 +15,14 @@ const StepDivision: React.FC<UserRegistrationStepNextProps> = ({
   nextStepDestination,
   backOption
 }) => {
-  const [divisions, setDivisions] = useState<DivisionSchema[]>([]);
+  const [divisions, setDivisions] = useState<UnitWingSchema[]>([]);
   const [inputValue, setInputValue] = useState(userDetails);
   const { staff } = useStaff();
   const { nextStep } = useStep();
 
   useEffect(() => {
     (async () => {
-      const { data: divisionsData }: { data: DivisionSchema[] } = await api.get('/divisions');
+      const { data: divisionsData }: { data: UnitWingSchema[] } = await api.get('/divisions');
       setDivisions(divisionsData);
     })();
   }, []);
