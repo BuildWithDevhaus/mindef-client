@@ -34,11 +34,14 @@ export const useStaff = () => {
     localStorage.removeItem('access_token');
     setStaff(null);
     setIsLoggedIn(false);
+    setIsCheckingStaff(true);
+    setNricNo('');
   };
 
   const staffRegister = async (staffData: StaffInputSchema) => {
     try {
       await api.post('/staffs', staffData);
+      await staffLogin(staffData.nricNo);
     } catch (error) {
       console.error(error);
     }
