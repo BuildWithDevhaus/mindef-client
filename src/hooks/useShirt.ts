@@ -80,13 +80,12 @@ export const useShirt = () => {
     }
   }
 
-  const getShirtsDimensionRange = async (uniformType?: string) => {
+  const getShirtsDimensionRange = async (uniformType?: string, gender?: string) => {
     try {
       const params = new URLSearchParams();
 
-      if (uniformType) {
-        params.append('uniformType', uniformType);
-      }
+      if (uniformType) params.append('uniformType', uniformType);
+      if (gender) params.append('gender', gender);
 
       const { data: shirtDimensions }: { data: ShirtDimensionsSchema } = await api.get(`/shirts/dimension?${params.toString()}`);
       setShirtDimensions(shirtDimensions);

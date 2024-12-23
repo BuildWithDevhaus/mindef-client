@@ -7,6 +7,7 @@ import pantsMaleNo1 from '../../assets/images/Measure Pants (Male - No. 1).png'
 import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import ButtonBack from '../../components/atoms/ButtonBack'
 import { usePants } from '../../hooks/usePants'
+import { useStaff } from '../../hooks/useStaff'
 
 const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   manualMeasurementInput,
@@ -16,9 +17,10 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
   const { pantsDimensions, getPantsDimensionRange } = usePants();
+  const { staff } = useStaff();
 
   useEffect(() => {
-    getPantsDimensionRange(inputValue.uniformType);
+    getPantsDimensionRange(inputValue.uniformType, staff?.gender);
   }, []);
 
   const handleChange = (key: string, value: string | number) => {

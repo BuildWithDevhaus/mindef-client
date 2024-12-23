@@ -81,13 +81,12 @@ export const usePants = () => {
     }
   }
 
-  const getPantsDimensionRange = async (uniformType?: string) => {
+  const getPantsDimensionRange = async (uniformType?: string, gender?: string) => {
     try {
       const params = new URLSearchParams();
 
-      if (uniformType) {
-        params.append('uniformType', uniformType);
-      }
+      if (uniformType) params.append('uniformType', uniformType);
+      if (gender) params.append('gender', gender);
 
       const { data: pantsDimensions }: { data: PantsDimensionsSchema } = await api.get(`/pants/dimension?${params.toString()}`);
       setPantsDimensions(pantsDimensions);

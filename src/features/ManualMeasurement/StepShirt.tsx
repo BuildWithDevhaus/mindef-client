@@ -8,6 +8,7 @@ import InputContainerLayout from "../../components/templates/InputContainerLayou
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import ButtonBack from "../../components/atoms/ButtonBack";
 import { useShirt } from "../../hooks/useShirt";
+import { useStaff } from "../../hooks/useStaff";
 
 const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
   manualMeasurementInput,
@@ -18,9 +19,10 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
   const { nextStep } = useStep();
   const { shirtDimensions, getShirtsDimensionRange } = useShirt();
+  const { staff } = useStaff();
 
   useEffect(() => {
-    getShirtsDimensionRange(inputValue.uniformType);
+    getShirtsDimensionRange(inputValue.uniformType, staff?.gender);
   }, [])
 
   const handleChange = (key: string, value: string | number) => {
