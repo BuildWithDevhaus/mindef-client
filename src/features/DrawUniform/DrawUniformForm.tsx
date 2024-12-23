@@ -44,7 +44,7 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
     updatedAt: "",
     drawUniform: []
   });
-  const { uniform, findUniform } = useUniform();
+  const { uniform, findUniform, createDrawUniform } = useUniform();
   const { nextStep } = useStep();
 
   useEffect(() => {
@@ -67,9 +67,9 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
     })();
   }, [rfidNo]);
 
-  const handleConfirm = () => {
-    // TODO: Change this into real logic
+  const handleConfirm = async () => {
     if (selectedShirt?.rfidNo && selectedPants?.rfidNo) {
+      await createDrawUniform({ shirtId: selectedShirt.id, pantsId: selectedPants.id });
       nextStep('activity-draw-uniform-thank-you');
     } else {
       alert('Please scan both shirt and pants.');
