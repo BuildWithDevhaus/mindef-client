@@ -9,18 +9,19 @@ const ScanNric: React.FC = () => {
 
   useEffect(() => {
     if (!nricNo) return;
-
     staffLogin(nricNo);
+  }, [nricNo]);
 
+  useEffect(() => {
     if (!isCheckingStaff) {
-      if (staff && step !== "existing-user-confirmation") {
+      if (staff) {
         nextStep("existing-user-confirmation");
-      } else if (!staff && step !== "user-registration-name") {
+      } else {
         nextStep("user-registration-name");
       }
       setNricNo("");
     }
-  }, [nricNo, isCheckingStaff]);
+  }, [isCheckingStaff]);
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNricNo(e.target.value);
