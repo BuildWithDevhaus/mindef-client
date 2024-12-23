@@ -18,9 +18,10 @@ export const useUniform = () => {
       } else {
         setUniform({ type: 'pants', data });
       }
-      return;
+      return true;
     } catch (error) {
       console.error(error);
+      throw error;
     }
   }
 

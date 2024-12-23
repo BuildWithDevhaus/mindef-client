@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ContainerLayout from '../../components/templates/ContainerLayout'
 import shirtMaleNo1 from "../../assets/images/Shirt (Male - No. 1).png";
 import pantsMaleNo1 from '../../assets/images/Pants (Male - No. 1).png'
@@ -6,19 +6,83 @@ import ButtonPrimary from '../../components/atoms/ButtonPrimary';
 import ButtonSecondary from '../../components/atoms/ButtonSecondary';
 import { useStep } from '../../hooks/useStep';
 import ButtonBack from '../../components/atoms/ButtonBack';
+import { useUniform } from '../../hooks/useUniform';
+import { ShirtSchema } from '../../zod/shirt';
+import { PantsSchema } from '../../zod/pants';
+import { capitalizeFirstLetter } from '../../helpers/wordStructure';
 
 const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
+  const [rfidNo, setRfidNo] = useState("");
+  const [selectedShirt, setSelectedShirt] = useState<ShirtSchema>({
+    id: 0,
+    rfidNo: "",
+    belongsTo: "",
+    gender: "",
+    uniformType: "",
+    collarLen: "",
+    sleeve: "",
+    shoulderLen: "",
+    row: "",
+    rack: "",
+    status: "",
+    createdAt: "",
+    updatedAt: "",
+    drawUniform: []
+  });
+  const [selectedPants, setSelectedPants] = useState<PantsSchema>({
+    id: 0,
+    rfidNo: "",
+    belongsTo: "",
+    gender: "",
+    uniformType: "",
+    waist: "",
+    length: "",
+    row: "",
+    rack: "",
+    status: "",
+    createdAt: "",
+    updatedAt: "",
+    drawUniform: []
+  });
+  const { uniform, findUniform } = useUniform();
   const { nextStep } = useStep();
+
+  useEffect(() => {
+    if (!uniform) return;
+
+    if (uniform.type === 'shirt') setSelectedShirt(uniform.data);
+    if (uniform.type === 'pants') setSelectedPants(uniform.data);
+  }, [uniform]);
+  
+  useEffect(() => {
+    if (!rfidNo) return;
+
+    (async () => {
+      try {
+        await findUniform(rfidNo);
+      } catch (error) {
+        alert("The RFID code you entered is not registered in our system. Please contact the admin to register it before proceeding.");
+      }
+      setRfidNo("");
+    })();
+  }, [rfidNo]);
 
   const handleConfirm = () => {
     // TODO: Change this into real logic
-
-    nextStep('activity-draw-uniform-thank-you');
+    if (selectedShirt?.rfidNo && selectedPants?.rfidNo) {
+      nextStep('activity-draw-uniform-thank-you');
+    } else {
+      alert('Please scan both shirt and pants.');
+    }
   }
 
   const handleReselect = () => {
     nextStep('activity-draw-uniform-reselect');
   }
+
+  const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRfidNo(e.target.value);
+  };
 
   return (
     <>
@@ -36,17 +100,26 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
                   />
                 </div>
                 <div className='border border-black' />
-                <div className='flex flex-col gap-3'>
-                  <div>
-                    <p className='font-bold text-[32px]'>Shirt ID:</p>
-                    <p className='font-bold text-[32px]'>9983847389</p>
-                  </div>
-                  <div className='flex flex-col gap-2'>
-                    <p className='text-2xl'>Description : No. 1 Male Shirt, Infantry</p>
-                    <p className='text-2xl'>Shoulder Length : <span className='font-bold'>20 cm</span></p>
-                    <p className='text-2xl'>Collar : <span className='font-bold'>16 cm</span></p>
-                    <p className='text-2xl'>Sleeve Length : <span className='font-bold'>34 cm</span></p>
-                  </div>
+                <div className='flex flex-col gap-3 max-w-lg'>
+                  {selectedShirt?.rfidNo ? (
+                    <>
+                      <div>
+                        <p className='font-bold text-[32px]'>Shirt ID:</p>
+                        <p className='font-bold text-[32px]'>{selectedShirt.rfidNo}</p>
+                      </div>
+                      <div className='flex flex-col gap-2'>
+                        <p className='text-2xl'>Description : {selectedShirt.uniformType} {capitalizeFirstLetter(selectedShirt.gender)} Shirt, {selectedShirt.belongsTo}</p>
+                        <p className='text-2xl'>Shoulder Length : <span className='font-bold'>{selectedShirt.shoulderLen} cm</span></p>
+                        <p className='text-2xl'>Collar : <span className='font-bold'>{selectedShirt.collarLen} cm</span></p>
+                        <p className='text-2xl'>Sleeve Length : <span className='font-bold'>{selectedShirt.sleeve} cm</span></p>
+                      </div>
+                    </>
+                  ) : (
+                    <div>
+                      <p className='font-bold text-[32px] mb-3'>Scan RFID Code</p>
+                      <p className='text-2xl'>Please scan the RDIF code in your shirt using the barcode scanner.</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className='flex flex-col gap-12'>
@@ -59,16 +132,25 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
                   />
                 </div>
                 <div className='border border-black' />
-                <div className='flex flex-col gap-3'>
-                  <div>
-                    <p className='font-bold text-[32px]'>Pants ID:</p>
-                    <p className='font-bold text-[32px]'>9983847389</p>
-                  </div>
-                  <div className='flex flex-col gap-2'>
-                    <p className='text-2xl'>Description : No. 1 Male Pants, Infantry</p>
-                    <p className='text-2xl'>Waist : <span className='font-bold'>29 cm</span></p>
-                    <p className='text-2xl'>Trouser Length : <span className='font-bold'>34 cm</span></p>
-                  </div>
+                <div className='flex flex-col gap-3 max-w-lg'>
+                  {selectedPants?.rfidNo ? (
+                    <>
+                      <div>
+                        <p className='font-bold text-[32px]'>Pants ID:</p>
+                        <p className='font-bold text-[32px]'>{selectedPants.rfidNo}</p>
+                      </div>
+                      <div className='flex flex-col gap-2'>
+                        <p className='text-2xl'>Description : {selectedPants.uniformType} {capitalizeFirstLetter(selectedPants.gender)} Pants, {selectedPants.belongsTo}</p>
+                        <p className='text-2xl'>Waist : <span className='font-bold'>{selectedPants.waist} cm</span></p>
+                        <p className='text-2xl'>Trouser Length : <span className='font-bold'>{selectedPants.length} cm</span></p>
+                      </div>
+                    </>
+                  ) : (
+                    <div>
+                      <p className='font-bold text-[32px] mb-3'>Scan RFID Code</p>
+                      <p className='text-2xl'>Please scan the RDIF code in your pants using the barcode scanner.</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -81,6 +163,17 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
           </div>
         </ContainerLayout>
       </div>
+
+      <form name="rfid-form" id="rfid-form">
+        <input
+          type="text"
+          name="rfidNo"
+          id="rfidNo"
+          className="border border-gray-300 bg-gray-200"
+          value={rfidNo}
+          onChange={handleScan}
+        />
+      </form>
 
       {backOption && <ButtonBack />}
     </>
