@@ -8,11 +8,13 @@ import ButtonPrimary from '../../components/atoms/ButtonPrimary';
 import ButtonBack from '../../components/atoms/ButtonBack';
 import { useShirt } from '../../hooks/useShirt';
 import { usePants } from '../../hooks/usePants';
+import { useStaff } from '../../hooks/useStaff';
 
 const StepResult: React.FC<StepProps> = ({ backOption }) => {
   const { step, resetStep, nextStep } = useStep();
   const { filteredShirts } = useShirt();
   const { filteredPants } = usePants();
+  const { staffLogout } = useStaff();
 
   const handleConfirm = () => {
     const isAdmin = window.location.href.includes("admin");
@@ -24,6 +26,7 @@ const StepResult: React.FC<StepProps> = ({ backOption }) => {
         nextStep('activity-manual-measurement-uniform-type');
       }
     } else {
+      staffLogout();
       resetStep();
     }
   };
