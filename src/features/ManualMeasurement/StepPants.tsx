@@ -22,6 +22,12 @@ const StepPants: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   useEffect(() => {
     getPantsDimensionRange(inputValue.uniformType, staff?.gender);
   }, []);
+  
+  useEffect(() => {
+    if (!pantsDimensions?.waist || !pantsDimensions?.length) return;
+
+    setInputValue({ ...manualMeasurementInput, ...inputValue, waist: String(pantsDimensions?.waist[0]), length: String(pantsDimensions?.length[0]) });
+  }, [pantsDimensions]);
 
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });

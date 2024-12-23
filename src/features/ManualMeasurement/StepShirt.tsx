@@ -25,6 +25,12 @@ const StepShirt: React.FC<ManualMeasurementFormStepNextProps> = ({
     getShirtsDimensionRange(inputValue.uniformType, staff?.gender);
   }, [])
 
+  useEffect(() => {
+    if (!shirtDimensions?.collarLen || !shirtDimensions?.sleeve || !shirtDimensions?.shoulderLen ) return;
+
+    setInputValue({ ...manualMeasurementInput, ...inputValue, collarLen: String(shirtDimensions?.collarLen[0]), sleeve: String(shirtDimensions?.sleeve[0]), shoulderLen: String(shirtDimensions?.shoulderLen[0]) });
+  }, [shirtDimensions]);
+
   const handleChange = (key: string, value: string | number) => {
     setInputValue({ ...inputValue, [key]: value });
   };
