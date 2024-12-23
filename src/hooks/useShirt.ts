@@ -29,7 +29,8 @@ export const useShirt = () => {
         gender,
         collarLen,
         sleeve,
-        shoulderLen
+        shoulderLen,
+        status: 'available',
       });
 
       const { data: shirtsData }: { data: ShirtSchema[] } = await api.get(`/shirts?${params.toString()}`);

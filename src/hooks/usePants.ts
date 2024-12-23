@@ -29,6 +29,7 @@ export const usePants = () => {
         gender,
         waist,
         length,
+        status: 'available',
       });
 
       const { data: pantsData }: { data: PantsSchema[] } = await api.get(`/pants?${params.toString()}`);
