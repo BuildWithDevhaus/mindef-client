@@ -30,14 +30,12 @@ const UserExisting: React.FC = () => {
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // TODO: Change this into real logic
-    nextStep("existing-user-confirmation");
-
     staffUpdate({
       name: userDetails.name,
       divisionId: userDetails.divisionId,
       gender: userDetails.gender
     });
+    nextStep("existing-user-confirmation");
 
     setUserDetails({
       nricNo: "",
