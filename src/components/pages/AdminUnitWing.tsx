@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
-import { unitWingHeaders } from "../../dummy/UnitWingDummy";
 import useTableFilter from "../../hooks/useTableFilter";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import TableAction from "../molecules/TableAction";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import { getCurrentSlug } from "../../helpers/windows";
 import { useUnitWing } from "../../hooks/useUnitWing";
+
+export const unitWingHeaders = [
+  "No:",
+  "Name:",
+  "Action:"
+];
 
 const AdminUnitWing: React.FC = () => {
   const {
