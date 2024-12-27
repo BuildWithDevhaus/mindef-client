@@ -1,25 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
-import { YearlyReportData, YearlyReportHeaders } from "../../dummy/YearlyReportDummy";
 import useTableFilter from "../../hooks/useTableFilter";
+import { useYearlyReports } from "../../hooks/useYearlyReports";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+import StatusTag from "../atoms/StatusTag";
+
+const YearlyReportHeaders = [
+  "S/N",
+  "Uniform Type:",
+  "Top/Bottom",
+  "size",
+  "Shirt Location:",
+  "Gender:",
+  "Reason",
+  "Date of Disposal:",
+];
 
 const AdminYearlyReport: React.FC = () => {
   const {
-    searchQuery: yearlyReportSearchQuery,
-    setSearchQuery: setYearlyReportSearchQuery,
-    rowsPerPage: yearlyReportRowsPerPage,
-    setRowsPerPage: setYearlyReportRowsPerPage,
-    dateRange: yearlyReportDateRange,
-    setDateRange: setYearlyReportDateRange,
-    filterDataByDateRange: filterYearlyReportDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, 8);
+    searchQuery: yearlyReportsSearchQuery,
+    setSearchQuery: setYearlyReportsSearchQuery,
+    rowsPerPage: yearlyReportsRowsPerPage,
+    setRowsPerPage: setYearlyReportsRowsPerPage,
+    dateRange: yearlyReportsDateRange,
+    setDateRange: setYearlyReportsDateRange,
+    filterDataByDateRange: filterYearlyReportsDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null });
+
+  const { yearlyReports, getYearlyReports } = useYearlyReports();
+  const [filteredYearlyReportsData, setFilteredYearlyReportsData] = useState<any[]>([]);
   
-  const filteredYearlyReportData = filterYearlyReportDataByDateRange(YearlyReportData);
+  
+    useEffect(() => {
+      getYearlyReports();
+    }, []);
+
+
+    useEffect(() => {
+      if (yearlyReports.length > 0) {
+        const filteredYearlyReports = filterYearlyReportsDataByDateRange(yearlyReports);
+  
+        const mappedYearlyReports = filteredYearlyReports.map((yearlyReports, index) => {
+          
+          return [
+            index + 1,
+            capitalizeFirstLetter(yearlyReports.uniformType),
+            capitalizeFirstLetter(yearlyReports.topBottom),
+            `${yearlyReports.size}cm`,
+            `Row: ${yearlyReports.row}, Rack: ${yearlyReports.rack}`,
+            capitalizeFirstLetter(yearlyReports.gender),
+            <StatusTag
+              content={capitalizeFirstLetter(yearlyReports.deleteReason)}
+              variant="danger"   
+            />,
+            new Date(yearlyReports.dateOfDisposal).toLocaleDateString("en-GB"),
+          ];
+        });
+  
+        setFilteredYearlyReportsData(mappedYearlyReports);
+      }
+    }, [yearlyReports, yearlyReportsDateRange]);
+
   const breadcrumbItems = [
     { label: "Admin Menu" },
-    { label: "Reports", url: "/admin/Reports" },
+    { label: "Reports", url: "/admin/reports" },
     { label: "Yearly Report", url: "/admin/reports/Yearly-report" },
   ];
 
@@ -31,17 +77,17 @@ const AdminYearlyReport: React.FC = () => {
       </div>
       <Table
         headers={YearlyReportHeaders}
-        data={filteredYearlyReportData}
-        rowsPerPage={yearlyReportRowsPerPage}
+        data={filteredYearlyReportsData}
+        rowsPerPage={yearlyReportsRowsPerPage}
         enablePagination={true}
         enableSearch={true}
         enableRowsPerPage={true}
         enableDateRange={true}
-        initialSearchQuery={yearlyReportSearchQuery}
-        onSearchChange={setYearlyReportSearchQuery}
-        onRowsPerPageChange={setYearlyReportRowsPerPage}
-        onDateRangeChange={setYearlyReportDateRange}
-        dateRange={yearlyReportDateRange}
+        initialSearchQuery={yearlyReportsSearchQuery}
+        onSearchChange={setYearlyReportsSearchQuery}
+        onRowsPerPageChange={setYearlyReportsRowsPerPage}
+        onDateRangeChange={setYearlyReportsDateRange}
+        dateRange={yearlyReportsDateRange}
       />
     </AdminLayout>
   );
