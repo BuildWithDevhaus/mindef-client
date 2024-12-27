@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
-import { MonthlyReportData, MonthlyReportHeaders } from "../../dummy/MonthlyReportDummy";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import useTableFilter from "../../hooks/useTableFilter";
+import { useMonthlyReports } from "../../hooks/useMonthlyReports";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+
+export const MonthlyReportHeaders = [
+  "S/N",
+  "Name",
+  "Unit/Wing",
+  "Uniform Type:",
+  "Shirt Collar Length",
+  "Pants Waist Length",
+  "Gender:",
+  "Last Drawn Date:",
+  "Last Return Date:",
+];
 
 const AdminMonthlyReport: React.FC = () => {
   const {
@@ -11,15 +24,46 @@ const AdminMonthlyReport: React.FC = () => {
     setSearchQuery: setMonthlyReportSearchQuery,
     rowsPerPage: monthlyReportRowsPerPage,
     setRowsPerPage: setMonthlyReportRowsPerPage,
-    dateRange: monthlyReportDateRange,
+    dateRange: monthlyReportsDateRange,
     setDateRange: setMonthlyReportDateRange,
-    filterDataByDateRange: filterMonthlyReportDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null }, [7, 8]);
+    filterDataByDateRange: filterMonthlyReportsDataByDateRange,
+  } = useTableFilter("", 5, { startDate: null, endDate: null });
 
-  const filteredMonthlyReportData = filterMonthlyReportDataByDateRange(MonthlyReportData);
+  const { monthlyReports, getMonthlyReports } = useMonthlyReports();
+  const [filteredMonthlyReportsData, setFilteredMonthlyReportsData] = useState<any[]>([]);
+ 
+    useEffect(() => {
+      getMonthlyReports();
+    }, []);
+
+    useEffect(() => {
+      if (monthlyReports.length > 0) {
+        const filteredMonthlyReports = filterMonthlyReportsDataByDateRange(monthlyReports);
+  
+        const mappedMonthlyReports = filteredMonthlyReports.map((monthlyReports, index) => {
+          
+          return [
+            index + 1,
+            capitalizeFirstLetter(monthlyReports.name),
+            capitalizeFirstLetter(monthlyReports.division),
+            capitalizeFirstLetter(monthlyReports.uniformType),
+            `${monthlyReports.top}cm`,
+            `${monthlyReports.bottom}cm`,
+            capitalizeFirstLetter(monthlyReports.gender),
+            new Date(monthlyReports.dateOfDrawing).toLocaleDateString("en-GB"),
+            monthlyReports.dateOfReturn
+            ? new Date(monthlyReports.dateOfReturn).toLocaleDateString("en-GB")
+            : "N/A",
+          ];
+        });
+  
+        setFilteredMonthlyReportsData(mappedMonthlyReports);
+      }
+    }, [monthlyReports, monthlyReportsDateRange]);
+
   const breadcrumbItems = [
     { label: "Admin Menu" },
-    { label: "Reports", url: "/admin/Reports" },
+    { label: "Reports", url: "/admin/reports" },
     { label: "Monthly Report", url: "/admin/reports/monthly-report" },
   ];
 
@@ -31,7 +75,7 @@ const AdminMonthlyReport: React.FC = () => {
       </div>
       <Table
         headers={MonthlyReportHeaders}
-        data={filteredMonthlyReportData}
+        data={filteredMonthlyReportsData}
         rowsPerPage={monthlyReportRowsPerPage}
         enablePagination={true}
         enableSearch={true}
@@ -41,7 +85,7 @@ const AdminMonthlyReport: React.FC = () => {
         onSearchChange={setMonthlyReportSearchQuery}
         onRowsPerPageChange={setMonthlyReportRowsPerPage}
         onDateRangeChange={setMonthlyReportDateRange}
-        dateRange={monthlyReportDateRange}
+        dateRange={monthlyReportsDateRange}
       />
     </AdminLayout>
   );
