@@ -8,6 +8,7 @@ import { useReason } from "../../hooks/useReason";
 import { getCurrentSlug } from "../../helpers/windows";
 import TableAction from "../molecules/TableAction";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+import StatusTag from "../atoms/StatusTag";
 
 export const deleteReasonHeaders = ["No:", "Reason", "Action:"];
 
@@ -44,7 +45,7 @@ const AdminDeleteReasons: React.FC = () => {
 
         return [
           index + 1,
-          capitalizeFirstLetter(reason.name),
+          <StatusTag variant="danger" content={capitalizeFirstLetter(reason.name)} />, 
           <TableAction
             showEdit
             showTrash
