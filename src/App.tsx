@@ -24,18 +24,23 @@ import AdminEditRegisteredInventory from "./components/pages/AdminEditRegistered
 import AdminEditUnitWing from "./components/pages/AdminEditUnitWing";
 import AdminEditDeleteReason from "./components/pages/AdminEditDeleteReason";
 import AdminEditDeleteInventory from "./components/pages/AdminEditDeletedInventory";
+import AdminEditPin from "./components/pages/AdminEditPin";
 
 const App = () => {
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Router>
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<UserHome />} />
-        <Route path="/admin/login" element={<AdminLogin onLogin={login} />} />
+        <Route path="/admin/login" element={<AdminLogin/>} />
 
         {/* Protected Routes */}
+        <Route 
+        path="/admin/edit-pin" 
+        element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminEditPin />} />} 
+        />
         <Route
           path="/admin"
           element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AdminHome />} />}

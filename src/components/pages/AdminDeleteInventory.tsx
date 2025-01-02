@@ -23,7 +23,7 @@ export const shirtDeleteHeaders = [
 ];
 
 export const pantsDeleteHeaders = [
-  "Shirt ID:",
+  "Pants ID:",
   "Belongs To:",
   "Gender:",
   "Uniform Type:",
@@ -71,7 +71,6 @@ const AdminDeleteInventory: React.FC = () => {
       
       const mappedRemarkedShirts = filteredRemarkedShirts.map((remarkedShirts) => {
         const handleEdit = () => navigate(`${getCurrentSlug()}/edit/${remarkedShirts.rfidNo}`);
-        //TODO: better handle delete function
         const handleDelete = () => {
           updateRemarkedShirt(remarkedShirts.rfidNo, {
             ...remarkedShirts,
@@ -104,8 +103,6 @@ const AdminDeleteInventory: React.FC = () => {
 
       const mappedRemarkedPants = filteredRemarkedPants.map((remarkedPants) => {
         const handleEdit = () => navigate(`${getCurrentSlug()}/edit/${remarkedPants.rfidNo}`);
-        //TODO: better handle delete function
-
         const handleDelete = () => {
           updateRemarkedPants(remarkedPants.rfidNo, {
             ...remarkedPants,

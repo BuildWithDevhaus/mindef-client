@@ -1,8 +1,11 @@
 import { useState } from "react";
 
+
+const DEFAULT_PIN = "7654321";
+
 const useAuth = (): UseAuth => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    // Retrieve the authentication state from localStorage
+  const storedPin = localStorage.getItem("pin");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem("isAuthenticated") === "true";
   });
 
@@ -16,7 +19,12 @@ const useAuth = (): UseAuth => {
     localStorage.removeItem("isAuthenticated");
   };
 
-  return { isAuthenticated, login, logout };
+  const isPinValid = (pin: string) => {
+    const validPin = storedPin || DEFAULT_PIN;
+    return pin === validPin;
+  };
+
+  return { isAuthenticated, login, logout, isPinValid };
 };
 
 export default useAuth;

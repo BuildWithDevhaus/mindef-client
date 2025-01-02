@@ -6,6 +6,7 @@ interface UseAuth {
   isAuthenticated: boolean;
   login: () => void;
   logout: () => void;
+  isPinValid: (pin: string) => boolean;
 }
 
 interface PrivateRouteProps {
