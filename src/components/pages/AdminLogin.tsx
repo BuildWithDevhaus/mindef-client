@@ -104,7 +104,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
 
       <div className="mt-[80px] text-sm text-gray-500">
         Forgot your PIN?{' '}
-        <a href="#" className="text-blue-500 underline">
+        <a onClick={handleEditPin} className="text-blue-500 underline cursor-pointer">
           Reset PIN code
         </a>
       </div>

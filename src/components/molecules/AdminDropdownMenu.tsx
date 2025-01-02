@@ -12,6 +12,10 @@ const AdminDropdownMenu: React.FC<AdminDropdownMenuProps> = ({ userName }) => {
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
+  const handleEditPin = () => {
+    navigate("/admin/edit-pin", { replace: true });
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
     logout();
@@ -32,8 +36,8 @@ const AdminDropdownMenu: React.FC<AdminDropdownMenuProps> = ({ userName }) => {
         <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg z-10">
           <DropdownItem
             icon={<IconGear />}
-            label="Settings"
-            onClick={() => console.log("Settings Clicked")}
+            label="Edit Pin"
+            onClick={handleEditPin}
           />
           <div className="border-t border-gray-300"></div>
           <DropdownItem
