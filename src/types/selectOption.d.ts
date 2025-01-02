@@ -9,6 +9,6 @@ interface SelectOptionProps {
 }
 
 interface SelectOptionItemProps {
-  value: string;
-  text: string;
+  value: string | number;
+  text: string | number;
 }

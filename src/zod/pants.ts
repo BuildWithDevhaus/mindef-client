@@ -33,3 +33,10 @@ export const pantsInputSchema = z.object({
 });
 
 export type PantsInputSchema = z.infer<typeof pantsInputSchema>;
+
+export const pantsDimensionsSchema = z.object({
+  waist: z.array(z.number()),
+  length: z.array(z.number()),
+});
+
+export type PantsDimensionsSchema = z.infer<typeof pantsDimensionsSchema>;

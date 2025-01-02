@@ -30,9 +30,18 @@ export const useStep = () => {
   };
 
   const resetStep = () => {
-    setStep("scan-nric");
     setHistory([]);
+    setStep("scan-nric");
   };
+
+  const backToMain = () => {
+    resetStep();
+    if (history.some((step) => step.includes("user-registration"))) {
+      setStep("user-registration-select-activity");
+    } else {
+      setStep("existing-user-confirmation");
+    }
+  }
 
   return {
     step,
@@ -40,5 +49,6 @@ export const useStep = () => {
     backStep,
     resetStep,
     history,
+    backToMain,
   };
 };

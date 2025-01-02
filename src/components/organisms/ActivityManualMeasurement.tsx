@@ -6,44 +6,50 @@ import StepPants from "../../features/ManualMeasurement/StepPants";
 import StepResult from "../../features/ManualMeasurement/StepResult";
 import NotFound from "./NotFound";
 import { disableBackOptionWhenAdmin } from "../../helpers/adminConditions";
+import { useStaff } from "../../hooks/useStaff";
+import { useShirt } from "../../hooks/useShirt";
+import { usePants } from "../../hooks/usePants";
 
 const ActivityManualMeasurement: React.FC = () => {
   const [manualMeasurementInput, setManualMeasurementInput] = useState<ManualMeasurementForm>({
     uniformType: "",
-    shoulderLen: 16,
-    sleeve: 16,
-    collarLen: 16,
-    waist: 16,
-    length: 16
+    shoulderLen: "16",
+    sleeve: "16",
+    collarLen: "16",
+    waist: "16",
+    length: "16"
   });
 
   const { step, nextStep } = useStep();
+  const { staff } = useStaff();
+  const { getShirtsByFilter } = useShirt();
+  const { getPantsByFilter } = usePants();
 
   const handleChange = (manualMeasurementInput: ManualMeasurementForm) => {
     setManualMeasurementInput(manualMeasurementInput);
   };
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let resultFound = true;
-    console.log(manualMeasurementInput);
-    
-    // TODO: Change this into real logic
-    
-    if (resultFound) {
+    if (!staff) return;
+
+    const shirts = await getShirtsByFilter(manualMeasurementInput.uniformType, staff.gender, manualMeasurementInput.collarLen, manualMeasurementInput.sleeve, manualMeasurementInput.shoulderLen);
+    const pants = await getPantsByFilter(manualMeasurementInput.uniformType, staff.gender, manualMeasurementInput.waist, manualMeasurementInput.length);
+
+    if (shirts!.length > 0 || pants!.length > 0) {
       nextStep("activity-manual-measurement-result");
     } else {
       nextStep("activity-manual-measurement-notfound");
     }
-
+    
     setManualMeasurementInput({
       uniformType: "",
-      shoulderLen: 16,
-      sleeve: 16,
-      collarLen: 16,
-      waist: 16,
-      length: 16
+      shoulderLen: "16",
+      sleeve: "16",
+      collarLen: "16",
+      waist: "16",
+      length: "16"
     });
   };
 

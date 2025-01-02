@@ -3,9 +3,11 @@ import ContainerLayout from '../../components/templates/ContainerLayout'
 import ButtonPrimary from '../../components/atoms/ButtonPrimary'
 import { useStep } from '../../hooks/useStep'
 import ButtonBack from '../../components/atoms/ButtonBack'
+import { useStaff } from '../../hooks/useStaff'
 
 const ThankYouScreen: React.FC<StepProps> = ({ backOption }) => {
   const { resetStep, nextStep } = useStep();
+  const { staffLogout } = useStaff();
 
   const handleConfirm = () => {
     const isAdmin = window.location.href.includes("admin");
@@ -13,6 +15,7 @@ const ThankYouScreen: React.FC<StepProps> = ({ backOption }) => {
     if (isAdmin) {
       nextStep('activity-draw-uniform-scan-rfid');
     } else {
+      staffLogout();
       resetStep();
     }
   };

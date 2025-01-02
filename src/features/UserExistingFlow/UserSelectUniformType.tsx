@@ -1,14 +1,11 @@
 import React from 'react'
-import ButtonCircle from '../atoms/ButtonCircle'
-import { useStep } from '../../hooks/useStep';
-import ButtonBack from '../atoms/ButtonBack';
+import ButtonCircle from '../../components/atoms/ButtonCircle';
+import ButtonBack from '../../components/atoms/ButtonBack';
 
-const SelectUniformType: React.FC<ManualMeasurementFormStepNextProps> = ({ manualMeasurementInput, onConfirm, nextStepDirection, backOption }) => {
-  const { nextStep } = useStep();
-
+const ExistingUserSelectUniformType: React.FC<ManualMeasurementFormStepSubmitProps> = ({ manualMeasurementInput, onConfirm, onSubmit, backOption }) => {
   const handleConfirm = (uniformType: string) => {
     onConfirm({ ...manualMeasurementInput, uniformType });
-    nextStep(nextStepDirection);
+    onSubmit();
   };
 
   return (
@@ -27,4 +24,4 @@ const SelectUniformType: React.FC<ManualMeasurementFormStepNextProps> = ({ manua
   )
 }
 
-export default SelectUniformType
+export default ExistingUserSelectUniformType

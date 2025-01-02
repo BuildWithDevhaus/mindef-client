@@ -31,10 +31,9 @@ const UserRegistrationForm: React.FC = () => {
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // TODO: Change this into real logic
+    staffRegister(userDetails);
     nextStep("user-registration-select-activity");
 
-    staffRegister(userDetails);
     setUserDetails({
       nricNo: "",
       name: "",

@@ -11,7 +11,7 @@ const UserSelectAction: React.FC<StepProps> = ({ backOption }) => {
       <div className="flex flex-col items-center h-full">
         <label className="text-6xl font-bold">Select your Action:</label>
         <div className="flex gap-48 h-full items-center">
-          <ButtonCircle onClick={() => nextStep("existing-user-check-dimensions")}>
+          <ButtonCircle onClick={() => nextStep("existing-user-previous-record-check-dimensions")}>
             Check Existing Dimensions
           </ButtonCircle>
           <ButtonCircle

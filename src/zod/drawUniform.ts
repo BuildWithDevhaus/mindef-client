@@ -11,3 +11,10 @@ export const drawUniformSchema = z.object({
 });
 
 export type DrawUniformSchema = z.infer<typeof drawUniformSchema>;
+
+export const drawUniformInputSchema = z.object({
+  shirtId: z.number(),
+  pantsId: z.number(),
+});
+
+export type DrawUniformInputSchema = z.infer<typeof drawUniformInputSchema>;

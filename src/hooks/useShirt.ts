@@ -1,19 +1,42 @@
 import { atom, useAtom } from "jotai";
-import { ShirtInputSchema, ShirtSchema } from "../zod/shirt";
+import { ShirtDimensionsSchema, ShirtInputSchema, ShirtSchema } from "../zod/shirt";
 import { api } from "../helpers/api";
 
 const shirtAtom = atom<ShirtSchema[] | []>([]);
 const selectedShirtAtom = atom<ShirtSchema | null>(null);
+const shirtDimensionsAtom = atom<ShirtDimensionsSchema | null>(null);
 
 export const useShirt = () => {
   const [shirts, setShirts] = useAtom(shirtAtom);
+  const [filteredShirts, setFilteredShirts] = useAtom(shirtAtom);
   const [selectedShirt, setSelectedShirt] = useAtom(selectedShirtAtom);
+  const [shirtDimensions, setShirtDimensions] = useAtom(shirtDimensionsAtom);
 
   const getShirts = async () => {
     try {
       const { data: shirtsData }: { data: ShirtSchema[] } = await api.get('/shirts');
       setShirts(shirtsData);
       return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const getShirtsByFilter = async (uniformType: string, gender: string, collarLen: string, sleeve: string, shoulderLen: string) => {
+    try {
+      const params = new URLSearchParams({
+        uniformType,
+        gender,
+        collarLen,
+        sleeve,
+        shoulderLen,
+        status: 'available',
+      });
+
+      const { data: shirtsData }: { data: ShirtSchema[] } = await api.get(`/shirts?${params.toString()}`);
+
+      setFilteredShirts(shirtsData);
+      return shirtsData;
     } catch (error) {
       console.error(error);
     }
@@ -58,5 +81,20 @@ export const useShirt = () => {
     }
   }
 
-  return { shirts, selectedShirt, getShirts, findShirt, deleteShirt, createShirt, updateShirt };
+  const getShirtsDimensionRange = async (uniformType?: string, gender?: string) => {
+    try {
+      const params = new URLSearchParams();
+
+      if (uniformType) params.append('uniformType', uniformType);
+      if (gender) params.append('gender', gender);
+
+      const { data: shirtDimensions }: { data: ShirtDimensionsSchema } = await api.get(`/shirts/dimension?${params.toString()}`);
+      setShirtDimensions(shirtDimensions);
+      return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return { shirts, selectedShirt, shirtDimensions, filteredShirts, getShirts, findShirt, deleteShirt, createShirt, updateShirt, getShirtsDimensionRange, getShirtsByFilter };
 }

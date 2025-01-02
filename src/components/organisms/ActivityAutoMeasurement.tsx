@@ -9,11 +9,11 @@ import { disableBackOptionWhenAdmin } from "../../helpers/adminConditions";
 const ActivityAutoMeasurement: React.FC = () => {
   const [manualMeasurementInput, setManualMeasurementInput] = useState<ManualMeasurementForm>({
     uniformType: "",
-    shoulderLen: 16,
-    sleeve: 16,
-    collarLen: 16,
-    waist: 16,
-    length: 16
+    shoulderLen: "16",
+    sleeve: "16",
+    collarLen: "16",
+    waist: "16",
+    length: "16"
   });
 
   const { step, nextStep } = useStep();
@@ -38,11 +38,11 @@ const ActivityAutoMeasurement: React.FC = () => {
 
     setManualMeasurementInput({
       uniformType: "",
-      shoulderLen: 16,
-      sleeve: 16,
-      collarLen: 16,
-      waist: 16,
-      length: 16
+      shoulderLen: "16",
+      sleeve: "16",
+      collarLen: "16",
+      waist: "16",
+      length: "16"
     });
   };
 

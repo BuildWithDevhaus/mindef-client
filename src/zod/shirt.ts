@@ -35,3 +35,11 @@ export const shirtInputSchema = z.object({
 });
 
 export type ShirtInputSchema = z.infer<typeof shirtInputSchema>;
+
+export const shirtDimensionsSchema = z.object({
+  shoulderLen: z.array(z.number()),
+  sleeve: z.array(z.number()),
+  collarLen: z.array(z.number())
+})
+
+export type ShirtDimensionsSchema = z.infer<typeof shirtDimensionsSchema>;
