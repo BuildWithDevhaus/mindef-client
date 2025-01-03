@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useStep } from '../../hooks/useStep';
 import AdminScanRfid from './AdminScanRfid';
 import AdminDeleteInventoryReason from '../../features/AdminDeleteInventory/AdminDeleteInventoryReason';
