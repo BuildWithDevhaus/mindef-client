@@ -6,24 +6,68 @@ import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import { useStep } from '../../hooks/useStep';
 import shirtMaleNo1 from  "../../assets/images/Shirt (Male - No. 1).png"
 import pantsMaleNo1 from  "../../assets/images/Pants (Male - No. 1).png"
-import { AdminScanRfidData } from "../../types/adminScanRfid";
 import { useReason } from "../../hooks/useReason";
+import { AdminNextStepDestionation } from "../../types/adminScanRfid";
+import { useUniform } from "../../hooks/useUniform";
+import { ShirtSchema } from "../../zod/shirt";
+import { PantsSchema } from "../../zod/pants";
+import { useShirt } from "../../hooks/useShirt";
+import { usePants } from "../../hooks/usePants";
 
-const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pantsData }) => {
+const AdminReturnUniformCheck: React.FC<AdminNextStepDestionation> = ({ nextStepDestination }) => {
+  const [selectedShirt, setSelectedShirt] = useState<ShirtSchema>({
+    id: 0,
+    rfidNo: "",
+    belongsTo: "",
+    gender: "",
+    uniformType: "",
+    collarLen: "",
+    sleeve: "",
+    shoulderLen: "",
+    row: "",
+    rack: "",
+    status: "",
+    createdAt: "",
+    updatedAt: "",
+    drawUniform: []
+  });
+  const [selectedPants, setSelectedPants] = useState<PantsSchema>({
+    id: 0,
+    rfidNo: "",
+    belongsTo: "",
+    gender: "",
+    uniformType: "",
+    waist: "",
+    length: "",
+    row: "",
+    rack: "",
+    status: "",
+    createdAt: "",
+    updatedAt: "",
+    drawUniform: []
+  });
+  const { uniform } = useUniform();
+  const { nextStep } = useStep();
   const [selectedRemark, setSelectedRemark] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  const { nextStep } = useStep();
+  const { getReasons, reasons } = useReason();
+  const { updateShirt } = useShirt();
+  const { updatePants } = usePants();
+
+  useEffect(() => {
+    if (!uniform) return;
+
+    if (uniform.type === 'shirt') setSelectedShirt(uniform.data);
+    if (uniform.type === 'pants') setSelectedPants(uniform.data);
+  }, [uniform]);
+
+  useEffect(() => {
+    getReasons();
+  }, []);
+
   const handleRemarkChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRemark(event.target.value);
   };
-
-    const { getReasons, reasons } = useReason();
-
-
-    useEffect(() => {
-        getReasons();
-      }, []);
-  
 
   const handleCheckboxChange = () => {
     setIsChecked((prevState) => {
@@ -34,14 +78,26 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
     });
   };
 
-  const handleSubmit = () => {
-    // TODO: Change to real logic
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (selectedShirt.rfidNo) {
+      if (selectedRemark) {
+        updateShirt(selectedShirt.rfidNo, { status: 'remarked', deleteReasonId: parseInt(selectedRemark), disposalDate: new Date().toISOString() });
+      } else {
+        updateShirt(selectedShirt.rfidNo, { status: 'available' });
+      }
+    } else {
+      if (selectedRemark) {
+        updatePants(selectedShirt.rfidNo, { status: 'remarked', deleteReasonId: parseInt(selectedRemark), disposalDate: new Date().toISOString() });
+      } else {
+        updatePants(selectedShirt.rfidNo, { status: 'available' });
+      }
+    }
 
-    nextStep("admin-return-uniform-confirmed");
-    console.log({...shirtData, selectedRemark});
-    console.log({...pantsData, selectedRemark});
+    nextStep(nextStepDestination);
 
-    // TODO: Reset input values
+    setIsChecked(false);
+    setSelectedRemark("");
   }
 
   return (
@@ -56,27 +112,27 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-2">
               <h1 className="font-bold text-2xl">
-                {shirtData
-                  ? `Shirt ID: ${shirtData.rfidNo}`
-                  : `Pants ID: ${pantsData?.rfidNo}`}
+                {selectedShirt.rfidNo
+                  ? `Shirt ID: ${selectedShirt.rfidNo}`
+                  : `Pants ID: ${selectedPants?.rfidNo}`}
               </h1>
               <p className="text-xl">
-                {shirtData
-                  ? `Description: ${shirtData.uniformType}, ${shirtData.gender} Shirt, ${shirtData.belongsTo}`
-                  : `Description: ${pantsData?.uniformType}, ${pantsData?.gender} Pants, ${pantsData?.belongsTo}`}
+                {selectedShirt.rfidNo
+                  ? `Description: ${selectedShirt.uniformType}, ${selectedShirt.gender} Shirt, ${selectedShirt.belongsTo}`
+                  : `Description: ${selectedPants?.uniformType}, ${selectedPants?.gender} Pants, ${selectedPants?.belongsTo}`}
               </p>
             </div>
             <div>
               <img
                 className="h-[100px] w-[100px] object-contain"
-                src={shirtData ? shirtMaleNo1 : pantsMaleNo1}
+                src={selectedShirt.rfidNo ? shirtMaleNo1 : pantsMaleNo1}
                 alt="Uniform Image"
               />
             </div>
           </div>
           <div className="border-b-2 border-[#D7D7D7]"></div>
           <div className="flex flex-col gap-9">
-            {shirtData ? (
+            {selectedShirt.rfidNo ? (
               <>
                 <div className="flex justify-between items-center">
                   <h1 className="font-bold text-lg">Shoulder</h1>
@@ -85,7 +141,7 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Shoulder Width"
-                      value={`${shirtData.shoulderLen}`}
+                      value={`${selectedShirt.shoulderLen}`}
                     />
                   </div>
                 </div>
@@ -96,7 +152,7 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
                       <InputFieldSecondary
                         className="max-w-[278px]"
                         placeholder="Sleeves Length"
-                        value={`${shirtData.sleeve}`}
+                        value={`${selectedShirt.sleeve}`}
                       />
                   </div>
                 </div>
@@ -107,7 +163,7 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Collar Length"
-                      value={`${shirtData.collarLen}`}
+                      value={`${selectedShirt.collarLen}`}
                     />
                   </div>
                 </div>
@@ -121,7 +177,7 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Waist Length"
-                      value={`${pantsData?.waist}`}
+                      value={`${selectedPants?.waist}`}
                     />
                   </div>
                 </div>
@@ -132,7 +188,7 @@ const AdminReturnUniformCheck: React.FC<AdminScanRfidData> = ({ shirtData, pants
                     <InputFieldSecondary
                       className="max-w-[278px]"
                       placeholder="Pants Length"
-                      value={`${pantsData?.length}`}
+                      value={`${selectedPants?.length}`}
                     />
                   </div>
                 </div>

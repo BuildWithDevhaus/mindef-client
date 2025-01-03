@@ -1,13 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useStep } from '../../hooks/useStep';
 import AdminReturnUniformCheck from '../../features/AdminReturnUniform/AdminReturnUniformCheck';
 import AdminReturnUniformConfirmed from '../../features/AdminReturnUniform/AdminReturnUniformConfirmed';
 import AdminScanRfid from './AdminScanRfid';
 
 const AdminReturnUniformForm: React.FC  = () => {
-  const [shirt, setShirt] = useState<Shirt | undefined>(undefined);
-  const [pants, setPants] = useState<Pants | undefined>(undefined);
-
   const { step } = useStep();
 
   return (
@@ -15,13 +12,13 @@ const AdminReturnUniformForm: React.FC  = () => {
       {step.includes("admin-return-uniform") && (
         <>
           {step === "admin-return-uniform-scan-rfid" && (
-            <AdminScanRfid nextStepDestination="admin-return-uniform-form-check" setShirtData={setShirt} setPantsData={setPants} />
+            <AdminScanRfid nextStepDestination="admin-return-uniform-form-check" />
           )}
           {step === "admin-return-uniform-form-check" && (
-            <AdminReturnUniformCheck shirtData={shirt} pantsData={pants} />
+            <AdminReturnUniformCheck nextStepDestination="admin-return-uniform-confirmed" />
           )}
           {step === "admin-return-uniform-confirmed" && (
-            <AdminReturnUniformConfirmed shirtData={shirt} pantsData={pants} />
+            <AdminReturnUniformConfirmed />
           )}
         </>
       )}
