@@ -5,9 +5,6 @@ import AdminDeleteInventoryReason from '../../features/AdminDeleteInventory/Admi
 import AdminDeleteInventoryResult from '../../features/AdminDeleteInventory/AdminDeleteInventoryResult';
 
 const AdminDeleteInventoryForm: React.FC  = () => {
-  const [shirt, setShirt] = useState<Shirt | undefined>(undefined);
-  const [pants, setPants] = useState<Pants | undefined>(undefined);
-
   const { step } = useStep();
 
   return (
@@ -15,13 +12,13 @@ const AdminDeleteInventoryForm: React.FC  = () => {
       {step.includes("admin-delete-uniform") && (
         <>
           {step === "admin-delete-uniform-scan-rfid" && (
-            <AdminScanRfid nextStepDestination="admin-delete-uniform-form-reason" setShirtData={setShirt} setPantsData={setPants} />
+            <AdminScanRfid nextStepDestination="admin-delete-uniform-form-reason" />
           )}
           {step === "admin-delete-uniform-form-reason" && (
-            <AdminDeleteInventoryReason shirtData={shirt} pantsData={pants} />
+            <AdminDeleteInventoryReason nextStepDestination='admin-delete-uniform-form-result'/>
           )}
           {step === "admin-delete-uniform-form-result" && (
-            <AdminDeleteInventoryResult shirtData={shirt} pantsData={pants} />
+            <AdminDeleteInventoryResult />
           )}
         </>
       )}
