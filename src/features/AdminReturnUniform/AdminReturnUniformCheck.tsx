@@ -88,9 +88,9 @@ const AdminReturnUniformCheck: React.FC<AdminNextStepDestionation> = ({ nextStep
       }
     } else {
       if (selectedRemark) {
-        updatePants(selectedShirt.rfidNo, { status: 'remarked', deleteReasonId: parseInt(selectedRemark), disposalDate: new Date().toISOString() });
+        updatePants(selectedPants.rfidNo, { status: 'remarked', deleteReasonId: parseInt(selectedRemark), disposalDate: new Date().toISOString() });
       } else {
-        updatePants(selectedShirt.rfidNo, { status: 'available' });
+        updatePants(selectedPants.rfidNo, { status: 'available' });
       }
     }
 
