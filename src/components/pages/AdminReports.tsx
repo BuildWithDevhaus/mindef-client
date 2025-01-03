@@ -20,7 +20,7 @@ const AdminReports: React.FC = () => {
       <div className="flex flex-col items-center">
         <div className="flex gap-20 h-full items-center">
           <ButtonCircle onClick={() => {navigate('/admin/reports/monthly-report') }} >Monthly Report</ButtonCircle>
-          <ButtonCircle onClick={() => {navigate('/admin/reports/Yearly-report') }}>Yearly Report </ButtonCircle>
+          <ButtonCircle onClick={() => {navigate('/admin/reports/yearly-report') }}>Yearly Report </ButtonCircle>
         </div>
       </div>
     </AdminLayout>

@@ -84,7 +84,7 @@ const Sidebar = () => {
       isActive:
         location.pathname === "/admin/reports" ||
         location.pathname === "/admin/reports/monthly-report" ||
-        location.pathname === "/admin/reports/Yearly-report",
+        location.pathname === "/admin/reports/yearly-report",
     },
     {
       label: "Unit/Wing",
