@@ -1,54 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
-import { AdminScanRfidFunction } from '../../types/adminScanRfid';
+import { AdminNextStepDestionation } from '../../types/adminScanRfid';
+import { useUniform } from '../../hooks/useUniform';
 
-const AdminScanRfid: React.FC<AdminScanRfidFunction> = ({ setShirtData, setPantsData, nextStepDestination }) => {
+const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestination }) => {
   const [rfidNo, setRfidNo] = useState("");
   const { nextStep } = useStep();
+  const { findUniform } = useUniform();
 
   useEffect(() => {
     if (!rfidNo) return;
 
-    // TODO: Check if user scan the same item
-    checkInventory("Pants");
-
-    if (nextStepDestination) {
-      nextStep(nextStepDestination);
-    }
-
-    setRfidNo("");
+    (async () => {
+      try {
+        await findUniform(rfidNo);
+        nextStep(nextStepDestination);
+      } catch (error) {
+        alert("The RFID code you entered is not registered in our system. Please contact the admin to register it before proceeding.");
+      }
+      setRfidNo("");
+    })();
   }, [rfidNo]);
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRfidNo(e.target.value);
-  };
-
-  // TODO: Change this into real logic
-  const checkInventory = (rfidNo: string) => {
-    if (rfidNo === "Shirt") {
-      setShirtData({
-        rfidNo: 'RFID123123',
-        belongsTo: "Infantry",
-        gender: "Female",
-        uniformType: "No. 1",
-        shoulderLen: 16,
-        sleeve: 34,
-        collarLen: 18,
-        row: 'B',
-        rack: "B3",
-      })
-    } else {
-      setPantsData({
-        rfidNo: 'RFID123123',
-        belongsTo: "Infantry",
-        gender: "Female",
-        uniformType: "No. 1",
-        waist: 16,
-        length: 34,
-        row: 'B',
-        rack: "B3",
-      })
-    }
   };
 
   return (

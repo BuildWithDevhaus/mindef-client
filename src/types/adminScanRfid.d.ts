@@ -7,8 +7,8 @@ interface AdminScanRfidData {
   onResetForm: () => void
 }
 
-interface AdminScanRfidFunction {
-  nextStepDestination? : string
+interface AdminNextStepDestionation {
+  nextStepDestination : string
 }
 
 interface AdminNewUniformFormNextProps {
