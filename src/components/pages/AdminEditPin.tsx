@@ -17,13 +17,12 @@ const EditPin: React.FC = () => {
       setError('Pins do not match!');
       return;
     }
-
-    // Save new PIN to localStorage
     localStorage.setItem('pin', newPin);
-    alert('Pin updated successfully!');
     localStorage.removeItem('isAuthenticated');7
-    setError(null); // Clear any existing error
-    navigate('/admin/login');
+    setError(null);
+    navigate('/admin/login', {
+      state: { toastMessage: 'PIN updated successfully! You need to login again.' },
+    });
   };
 
   return (

@@ -216,6 +216,7 @@ const AdminReturnUniformCheck: React.FC<AdminNextStepDestionation> = ({ nextStep
                     name="remark"
                     value={selectedRemark}
                     onChange={handleRemarkChange}
+                    disabled={!isChecked}
                   >
                     {reasons.map ((reason) => (
                       <option key={reason.id} value={reason.id}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
 import useTableFilter from "../../hooks/useTableFilter";
@@ -8,14 +8,34 @@ import TableAction from "../molecules/TableAction";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import { getCurrentSlug } from "../../helpers/windows";
 import { useUnitWing } from "../../hooks/useUnitWing";
+import { toastAlert } from "../../helpers/toastAlert";
+import { ToastContainer } from "react-toastify";
+import ConfirmModal from "../molecules/ConfirmModal";
 
-export const unitWingHeaders = [
-  "No:",
-  "Name:",
-  "Action:"
-];
+export const unitWingHeaders = [ "No:", "Name:", "Action:" ];
 
 const AdminUnitWing: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { state } = location;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentDivision, setCurrentDivision] = useState<any>(null);
+  const { unitWings, getUnitWings, deleteUnitWing } = useUnitWing();
+  const [filteredUnitWingData, setFilteredUnitWingData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (state?.toastMessage) {
+      toastAlert("success", state.toastMessage);
+      navigate(location.pathname, { replace: true });
+    }
+  }, [state, location.pathname]);
+
+  useEffect(() => {
+    getUnitWings();
+  }, []);
+
+
   const {
     searchQuery: unitWingSearchQuery,
     setSearchQuery: setDivisionSearchQuery,
@@ -26,25 +46,27 @@ const AdminUnitWing: React.FC = () => {
     filterDataByDateRange: filterDivisionDataByDateRange,
   } = useTableFilter("", 5, { startDate: null, endDate: null });
 
-  const { unitWings, getUnitWings, deleteUnitWing } = useUnitWing();
-  const [filteredUnitWingData, setFilteredUnitWingData] = useState<any[]>([]);
-  
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    getUnitWings();
-  }, []);
+  const handleDeleteClick = (division: any) => {
+    setCurrentDivision(division);
+    setIsModalOpen(true);
+  };  
+
+  const confirmDelete = () => {
+    deleteUnitWing(currentDivision.id);
+    toastAlert("success", `Unit/Wing "${currentDivision.name}" deleted successfully!`);
+    setIsModalOpen(false);
+    setCurrentDivision(null);
+  };
+
+  const cancelDelete = () => {
+    setIsModalOpen(false);
+    setCurrentDivision(null);
+  };
 
   useEffect(() => {
     if (unitWings.length > 0) {
       const filteredDivisions = filterDivisionDataByDateRange(unitWings);
-
       const mappedDivisions = filteredDivisions.map((division, index) => {
-        const handleEdit = () =>
-          navigate(`${getCurrentSlug()}/edit/${division.id}`);
-        const handleDelete = () => {
-          deleteUnitWing(division.id);
-        };
         
         return [
           index + 1,
@@ -52,8 +74,8 @@ const AdminUnitWing: React.FC = () => {
           <TableAction
             showEdit
             showTrash
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+            onEdit={() => navigate(`${getCurrentSlug()}/edit/${division.id}`)}
+            onDelete={() => handleDeleteClick(division)}
           />,
         ];
       });
@@ -93,6 +115,17 @@ const AdminUnitWing: React.FC = () => {
         onDateRangeChange={setDivisionDateRange}
         dateRange={divisionDateRange}
       />
+      {isModalOpen && (
+        <ConfirmModal
+          title="Delete Unit/Wing"
+          message="Are you sure you want to delete this Unit/Wing?"
+          confirmText="Delete"
+          cancelText="Cancel"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+          />
+      )}
+      <ToastContainer />
     </AdminLayout>
   );
 };
