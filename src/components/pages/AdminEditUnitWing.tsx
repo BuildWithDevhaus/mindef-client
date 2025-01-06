@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUnitWing } from "../../hooks/useUnitWing";
 import { UnitWingInputSchema } from "../../zod/unitWing";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const AdminEditUnitWing: React.FC = () => {
   const [unitWing, setUnitWing] = useState<UnitWingInputSchema>({
@@ -15,6 +16,7 @@ const AdminEditUnitWing: React.FC = () => {
 
   const { updateUnitWing, findUnitWing, selectedUnitWing } = useUnitWing();
   const { unitWingId } = useParams();
+  const navigate = useNavigate();
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
@@ -36,26 +38,11 @@ const AdminEditUnitWing: React.FC = () => {
   const handleButtonClick = () => {
     if (unitWing.name.trim()) {
       updateUnitWing(unitWingId as string, unitWing);
-      toast.success(`Unit/wing was updated: ${unitWing.name}`, {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setUnitWing({ name: "" });
+      navigate("/admin/unit-wing", {
+        state: { toastMessage: `The Unit/Wing "${unitWing.name}" has been updated.` },
+      })
     } else {
-      toast.error("Please enter a unit/wing", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toastAlert ("error", "Please enter a unit/wing");
     }
   };
 

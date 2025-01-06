@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ReasonInputSchema } from "../../zod/reason";
 import { useReason } from "../../hooks/useReason";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const AdminEditDeleteReason: React.FC = () => {
     const [reason, setReason] = useState<ReasonInputSchema>({
@@ -15,6 +16,7 @@ const AdminEditDeleteReason: React.FC = () => {
     
     const { updateReason, findReason, selectedReason } = useReason();
     const { deleteReasonId } = useParams();
+    const navigate = useNavigate();
     
   const breadcrumbItems = [
     { label: "Admin Menu" },
@@ -32,31 +34,14 @@ const AdminEditDeleteReason: React.FC = () => {
         }        
       }, [selectedReason]);
 
-  
-  //TODO: upon success redirect to the main table and show toaster
-  const handleButtonClick = () => {
+    const handleButtonClick = () => {
     if (reason.name.trim()) {
       updateReason(deleteReasonId as string, reason);
-      toast.success(`Reason Edited: ${reason.name}`, {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+      navigate("/admin/delete-reasons", {
+        state: { toastMessage: `Reason for deletion has been updated to "${reason.name}"` },
       });
-      setReason({ name: "" });
     } else {
-      toast.error("Please enter a reason", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toastAlert( "error", "Please enter a reason");
     }
   };
 

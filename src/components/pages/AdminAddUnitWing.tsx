@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUnitWing } from "../../hooks/useUnitWing";
 import { UnitWingInputSchema } from "../../zod/unitWing";
+import { toastAlert } from "../../helpers/toastAlert";
+import { useNavigate } from "react-router-dom";
 
 const AdminAddUnitWing: React.FC = () => {
+  const navigate = useNavigate();
   const [unitWing, setUnitWing] = useState<UnitWingInputSchema>({
     name: "",
   });
@@ -20,29 +23,18 @@ const AdminAddUnitWing: React.FC = () => {
 
   const { createUnitWing } = useUnitWing();
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (unitWing.name.trim()) {
-      createUnitWing(unitWing);
-      toast.success(`Unit/wing added: ${unitWing.name}`, {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setUnitWing({ name: "" });
+      try {
+        await createUnitWing(unitWing);
+        navigate("/admin/unit-wing", {
+          state: { toastMessage: `The Unit/Wing "${unitWing.name}" has been added.` },
+        });
+      } catch (error) {
+        toastAlert("error", "Failed to add unit/wing");
+      }
     } else {
-      toast.error("Please enter a unit/wing", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toastAlert("error", "Please enter a unit/wing");
     }
   };
 
