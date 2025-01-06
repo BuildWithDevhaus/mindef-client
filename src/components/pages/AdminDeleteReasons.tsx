@@ -70,7 +70,7 @@ const AdminDeleteReasons: React.FC = () => {
       breadcrumbItems={breadcrumbItems}
     >
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">reason Inventory</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">List of Reasons</h2>
         <ButtonPrimary
           onClick={() => {
             navigate("/admin/delete-reasons/add");

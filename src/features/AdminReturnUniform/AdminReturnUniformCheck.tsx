@@ -13,6 +13,7 @@ import { ShirtSchema } from "../../zod/shirt";
 import { PantsSchema } from "../../zod/pants";
 import { useShirt } from "../../hooks/useShirt";
 import { usePants } from "../../hooks/usePants";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 
 const AdminReturnUniformCheck: React.FC<AdminNextStepDestionation> = ({ nextStepDestination }) => {
   const [selectedShirt, setSelectedShirt] = useState<ShirtSchema>({
@@ -118,8 +119,8 @@ const AdminReturnUniformCheck: React.FC<AdminNextStepDestionation> = ({ nextStep
               </h1>
               <p className="text-xl">
                 {selectedShirt.rfidNo
-                  ? `Description: ${selectedShirt.uniformType}, ${selectedShirt.gender} Shirt, ${selectedShirt.belongsTo}`
-                  : `Description: ${selectedPants?.uniformType}, ${selectedPants?.gender} Pants, ${selectedPants?.belongsTo}`}
+                  ? `Description: ${selectedShirt.uniformType}, ${capitalizeFirstLetter(selectedShirt.gender)} Shirt, ${selectedShirt.belongsTo}`
+                  : `Description: ${selectedPants?.uniformType}, ${capitalizeFirstLetter(selectedPants?.gender)} Pants, ${selectedPants?.belongsTo}`}
               </p>
             </div>
             <div>

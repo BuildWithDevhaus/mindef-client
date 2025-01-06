@@ -19,7 +19,7 @@ export const shirtDeleteHeaders = [
   "Shirt Location:",
   "Disposal date:",
   "Reason for Delete Inventory:",
-  "Remove from delete Inventory:",
+  "Remove from Delete Inventory:",
 ];
 
 export const pantsDeleteHeaders = [
@@ -30,7 +30,7 @@ export const pantsDeleteHeaders = [
   "Pants Location:",
   "Disposal date:",
   "Reason for Delete Inventory:",
-  "Remove from delete Inventory:",
+  "Remove from Delete Inventory:",
 ];
 
 const AdminDeleteInventory: React.FC = () => {

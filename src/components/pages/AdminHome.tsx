@@ -14,7 +14,7 @@ export const shirtInventoryHeaders = [
   "Gender:",
   "Uniform Type:",
   "Shirt Location:",
-  "Last drawn date:",
+  "Last Drawn Date:",
   "Status:",
 ];
 
@@ -24,7 +24,7 @@ export const pantsInventoryHeaders = [
   "Gender:",
   "Uniform Type:",
   "Pants Location:",
-  "Last drawn date:",
+  "Last Drawn Date:",
   "Status:",
 ];
 
@@ -75,7 +75,7 @@ const AdminHome: React.FC = () => {
             ? new Date(shirt.drawUniform[shirt.drawUniform.length - 1].createdAt).toLocaleDateString("en-GB") 
             : "-",
           <StatusTag
-            content={shirt.status}
+            content={capitalizeFirstLetter(shirt.status)}
             variant={
               shirt.status === "remarked"
                 ? "warning"
@@ -108,7 +108,7 @@ const AdminHome: React.FC = () => {
             ? new Date(pants.drawUniform[pants.drawUniform.length - 1].createdAt).toLocaleDateString("en-GB") 
             : "-",
           <StatusTag
-            content={pants.status}
+            content={capitalizeFirstLetter(pants.status)}
             variant={
               pants.status === "remarked"
                 ? "warning"
