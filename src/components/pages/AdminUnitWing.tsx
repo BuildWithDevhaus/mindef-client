@@ -9,11 +9,7 @@ import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import { getCurrentSlug } from "../../helpers/windows";
 import { useUnitWing } from "../../hooks/useUnitWing";
 
-export const unitWingHeaders = [
-  "No:",
-  "Name:",
-  "Action:"
-];
+export const unitWingHeaders = [ "No:", "Name:", "Action:" ];
 
 const AdminUnitWing: React.FC = () => {
   const {
