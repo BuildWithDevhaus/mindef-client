@@ -15,7 +15,7 @@ const AdminReports: React.FC = () => {
   return (
     <AdminLayout headingText="Reports" breadcrumbItems={breadcrumbItems}>
       <div className="flex items-center justify-between mb-36">
-        <h2 className="text-2xl font-bold text-[#101828]">Please select which report to view</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">Please Select Which Report to View</h2>
       </div>
       <div className="flex flex-col items-center">
         <div className="flex gap-20 h-full items-center">

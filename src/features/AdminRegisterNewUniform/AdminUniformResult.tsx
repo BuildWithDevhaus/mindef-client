@@ -7,6 +7,7 @@ import ButtonSecondary from '../../components/atoms/ButtonSecondary'
 import { useNavigate } from 'react-router-dom'
 import { useStep } from '../../hooks/useStep'
 import { AdminScanRfidData } from '../../types/adminScanRfid'
+import { capitalizeFirstLetter } from '../../helpers/wordStructure'
 
 const AdminUniformResult: React.FC<AdminScanRfidData> = ({ shirtData, pantsData, onResetForm }) => {
   const { nextStep, resetStep } = useStep();
@@ -37,8 +38,8 @@ const AdminUniformResult: React.FC<AdminScanRfidData> = ({ shirtData, pantsData,
               </h1>
               <p className="text-xl">
                 {shirtData?.collarLen
-                  ? `Description: ${shirtData?.uniformType}, ${shirtData?.gender} Shirt, ${shirtData?.belongsTo}`
-                  : `Description: ${pantsData?.uniformType}, ${pantsData?.gender} Pants, ${pantsData?.belongsTo}`}
+                  ? `Description: ${shirtData?.uniformType}, ${capitalizeFirstLetter(shirtData?.gender)} Shirt, ${shirtData?.belongsTo}`
+                  : `Description: ${pantsData?.uniformType}, ${capitalizeFirstLetter(pantsData ? pantsData.gender : "")} Pants, ${pantsData?.belongsTo}`}
               </p>
             </div>
             <div>
