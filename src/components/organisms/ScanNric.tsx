@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useStep } from "../../hooks/useStep";
 import { useStaff } from "../../hooks/useStaff";
 
@@ -6,6 +6,14 @@ const ScanNric: React.FC = () => {
   const [nricNo, setNricNo] = useState("");
   const { step, nextStep } = useStep();
   const { staff, isCheckingStaff, staffLogin } = useStaff();
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+    
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     if (!nricNo) return;
@@ -43,6 +51,7 @@ const ScanNric: React.FC = () => {
               className="border border-gray-300 bg-gray-200"
               value={nricNo}
               onChange={handleScan}
+              ref={inputRef}
             />
           </form>
         </div>
