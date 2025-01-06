@@ -3,13 +3,16 @@ import Table from "../organisms/TableProps";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import useTableFilter from "../../hooks/useTableFilter";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRemarkedPants } from "../../hooks/useRemarkedPants";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import StatusTag from "../atoms/StatusTag";
 import TableAction from "../molecules/TableAction";
 import { getCurrentSlug } from "../../helpers/windows";
 import { useRemarkedShirt } from "../../hooks/useRemarkedShirt";
+import { toastAlert } from "../../helpers/toastAlert";
+import { ToastContainer } from "react-toastify";
+import ConfirmModal from "../molecules/ConfirmModal";
 
 export const shirtDeleteHeaders = [
   "Shirt ID:",
@@ -34,7 +37,14 @@ export const pantsDeleteHeaders = [
 ];
 
 const AdminDeleteInventory: React.FC = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { state } = location;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentShirt, setCurrentShirt] = useState<any>(null);
+  const [currentPants, setCurrentPants] = useState<any>(null);
+  const [currentReason, setCurrentReason] = useState<any>(null);
+
 
   const {
     searchQuery: shirtSearchQuery,
@@ -55,10 +65,19 @@ const AdminDeleteInventory: React.FC = () => {
     filterDataByDateRange: filterRemarkedPantsDataByDateRange,
   } = useTableFilter("", 5, { startDate: null, endDate: null }, "createdAt");
 
-  const { getRemarkedShirts, updateRemarkedShirt, remarkedShirts } = useRemarkedShirt();
-  const { remarkedPants, getRemarkedPants, updateRemarkedPants } = useRemarkedPants();
+  const { getRemarkedShirts, updateRemarkedShirt, remarkedShirts } =
+    useRemarkedShirt();
+  const { remarkedPants, getRemarkedPants, updateRemarkedPants } =
+    useRemarkedPants();
   const [filteredShirtData, setFilteredShirtData] = useState<any[]>([]);
   const [filteredPantsData, setFilteredPantsData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (state?.toastMessage) {
+      toastAlert("success", state.toastMessage);
+      navigate(location.pathname, { replace: true });
+    }
+  }, [state, location.pathname]);
 
   useEffect(() => {
     getRemarkedShirts();
@@ -68,30 +87,36 @@ const AdminDeleteInventory: React.FC = () => {
   useEffect(() => {
     if (remarkedShirts.length > 0) {
       const filteredRemarkedShirts = filterShirtDataByDateRange(remarkedShirts);
-      
-      const mappedRemarkedShirts = filteredRemarkedShirts.map((remarkedShirts) => {
-        const handleEdit = () => navigate(`${getCurrentSlug()}/edit/${remarkedShirts.rfidNo}`);
-        const handleDelete = () => {
-          updateRemarkedShirt(remarkedShirts.rfidNo, {
-            ...remarkedShirts,
-            deleteReasonId: null,
-            status: "available",
-          });
+
+      const mappedRemarkedShirts = filteredRemarkedShirts.map(
+        (remarkedShirts) => {
+          const handleEdit = () =>
+            navigate(`${getCurrentSlug()}/edit/${remarkedShirts.rfidNo}`);
+          const handleDelete = () => {
+            setIsModalOpen(true);
+            setCurrentShirt(remarkedShirts);
+            setCurrentReason(remarkedShirts.deleteReason);
+          };
+          return [
+            remarkedShirts.rfidNo,
+            remarkedShirts.belongsTo,
+            capitalizeFirstLetter(remarkedShirts.gender),
+            remarkedShirts.uniformType,
+            `Row: ${remarkedShirts.row}, Rack: ${remarkedShirts.rack}`,
+            new Date(remarkedShirts.disposalDate).toLocaleDateString("en-GB"),
+            <StatusTag
+              content={remarkedShirts.deleteReason.name}
+              variant={"danger"}
+            />,
+            <TableAction
+              showEdit
+              showTrash
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />,
+          ];
         }
-        return [
-          remarkedShirts.rfidNo,
-          remarkedShirts.belongsTo,
-          capitalizeFirstLetter(remarkedShirts.gender),
-          remarkedShirts.uniformType,
-          `Row: ${remarkedShirts.row}, Rack: ${remarkedShirts.rack}`,
-          new Date(remarkedShirts.disposalDate).toLocaleDateString("en-GB"),
-          <StatusTag
-            content={remarkedShirts.deleteReason.name}
-            variant={"danger"}
-          />,
-          <TableAction showEdit showTrash onEdit={handleEdit} onDelete={handleDelete} />,
-        ];
-      });
+      );
 
       setFilteredShirtData(mappedRemarkedShirts);
     }
@@ -99,18 +124,17 @@ const AdminDeleteInventory: React.FC = () => {
 
   useEffect(() => {
     if (remarkedPants.length > 0) {
-      const filteredRemarkedPants = filterRemarkedPantsDataByDateRange(remarkedPants);
+      const filteredRemarkedPants =
+        filterRemarkedPantsDataByDateRange(remarkedPants);
 
       const mappedRemarkedPants = filteredRemarkedPants.map((remarkedPants) => {
-        const handleEdit = () => navigate(`${getCurrentSlug()}/edit/${remarkedPants.rfidNo}`);
+        const handleEdit = () =>
+          navigate(`${getCurrentSlug()}/edit/${remarkedPants.rfidNo}`);
         const handleDelete = () => {
-          updateRemarkedPants(remarkedPants.rfidNo, {
-            ...remarkedPants,
-            deleteReasonId: null,
-            status: "available",
-          });
+          setIsModalOpen(true);
+          setCurrentPants(remarkedPants);
+          setCurrentReason(remarkedPants.deleteReason);
         };
-        
 
         return [
           remarkedPants.rfidNo,
@@ -123,13 +147,48 @@ const AdminDeleteInventory: React.FC = () => {
             content={remarkedPants.deleteReason.name}
             variant={"danger"}
           />,
-          <TableAction showEdit showTrash onEdit={handleEdit} onDelete={handleDelete} />,
+          <TableAction
+            showEdit
+            showTrash
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />,
         ];
       });
 
       setFilteredPantsData(mappedRemarkedPants);
     }
   }, [remarkedPants, pantsDateRange]);
+
+  const confirmDelete = () => {
+    if (currentShirt) {
+      updateRemarkedShirt(currentShirt.rfidNo, {
+        ...currentShirt,
+        deleteReasonId: null,
+        status: "available",
+      });
+      toastAlert("success", `RFID ${currentShirt.rfidNo} removed from Delete Inventory`);
+    } else if (currentPants) {
+      updateRemarkedPants(currentPants.rfidNo, {
+        ...currentPants,
+        deleteReasonId: null,
+        status: "available",
+      });
+      toastAlert("success", `RFID ${currentPants.rfidNo} removed from Delete Inventory`);
+
+    }
+    setIsModalOpen(false);
+    setCurrentShirt(null);
+    setCurrentPants(null);
+    setCurrentReason(null);
+  };
+
+  const cancelDelete = () => {
+    setIsModalOpen(false);
+    setCurrentShirt(null);
+    setCurrentPants(null);
+    setCurrentReason(null);
+  };
 
   const handleDeleteItems = () => {
     navigate("/admin/delete-inventory/add");
@@ -182,8 +241,21 @@ const AdminDeleteInventory: React.FC = () => {
         onDateRangeChange={setPantsDateRange}
         dateRange={pantsDateRange}
       />
+      {isModalOpen && (
+        <ConfirmModal
+          title="Are you sure?"
+          message={`You want to delete RFID "${currentShirt?.rfidNo || currentPants?.rfidNo}" with reason "${currentReason?.name}" from delete inventory?`}
+          confirmText="Yes"
+          cancelText="No"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
+      <ToastContainer />
     </AdminLayout>
   );
 };
 
 export default AdminDeleteInventory;
+
+
