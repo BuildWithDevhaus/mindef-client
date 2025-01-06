@@ -10,9 +10,11 @@ import { useUniform } from '../../hooks/useUniform';
 import { ShirtSchema } from '../../zod/shirt';
 import { PantsSchema } from '../../zod/pants';
 import { capitalizeFirstLetter } from '../../helpers/wordStructure';
+import { toastAlert } from '../../helpers/toastAlert';
 
 const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
-  const [rfidNo, setRfidNo] = useState("");
+  const [rfidNo, setRfidNo] = useState<string>("");
+  const [debouncedRfidNo, setDebouncedRfidNo] = useState<string>("");
   const [selectedShirt, setSelectedShirt] = useState<ShirtSchema>({
     id: 0,
     rfidNo: "",
@@ -53,19 +55,29 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
     if (uniform.type === 'shirt') setSelectedShirt(uniform.data);
     if (uniform.type === 'pants') setSelectedPants(uniform.data);
   }, [uniform]);
-  
+
   useEffect(() => {
-    if (!rfidNo) return;
+    const handler = setTimeout(() => {
+      setDebouncedRfidNo(rfidNo);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [rfidNo]);
+
+  useEffect(() => {
+    if (!debouncedRfidNo) return;
 
     (async () => {
       try {
-        await findUniform(rfidNo);
+        await findUniform(debouncedRfidNo);
       } catch (error) {
-        alert("The RFID code you entered is not registered in our system. Please contact the admin to register it before proceeding.");
+        toastAlert("error", "The RFID code you entered is not registered in our system.");
       }
       setRfidNo("");
     })();
-  }, [rfidNo]);
+  }, [debouncedRfidNo]);
 
   const handleConfirm = async () => {
     if (selectedShirt?.rfidNo && selectedPants?.rfidNo) {
