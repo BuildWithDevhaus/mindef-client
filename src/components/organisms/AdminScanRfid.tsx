@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
 import { AdminNextStepDestionation } from '../../types/adminScanRfid';
 import { useUniform } from '../../hooks/useUniform';
@@ -9,6 +9,14 @@ const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestinatio
   const [debouncedRfidNo, setDebouncedRfidNo] = useState<string>("");
   const { nextStep } = useStep();
   const { findUniform } = useUniform();
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -52,6 +60,7 @@ const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestinatio
           className="border border-gray-300 bg-gray-200"
           value={rfidNo}
           onChange={handleScan}
+          ref={inputRef}
         />
       </form>
     </div>
