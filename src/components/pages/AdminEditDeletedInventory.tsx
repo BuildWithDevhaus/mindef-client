@@ -7,15 +7,16 @@ import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
 import SelectOptionPrimary from "../molecules/SelectOptionPrimary";
 import { useReason } from "../../hooks/useReason";
 import { useRemarkedShirt } from "../../hooks/useRemarkedShirt";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRemarkedPants } from "../../hooks/useRemarkedPants";
 import { ShirtInputSchema } from "../../zod/shirt";
 import "react-toastify/dist/ReactToastify.css";
 import { PantsInputSchema } from "../../zod/pants";
 import { useUniform } from "../../hooks/useUniform";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 const AdminEditDeletedInventory: React.FC = () => {
+  const navigate = useNavigate();
   const [shirt, setShirt] = useState<ShirtInputSchema>({
     rfidNo: "",
     belongsTo: "",
@@ -79,14 +80,10 @@ const AdminEditDeletedInventory: React.FC = () => {
     updateRemarkedPants(rfidNo as string, {
       deleteReasonId: parseInt(selectedRemark),
     });
-    toast.success(`${uniform?.data.rfidNo} reason to delete change into ${selectedRemark}`, {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+    navigate ("/admin/delete-inventory", {
+      state: {
+        toastMessage: `"${uniform?.data.rfidNo}" reason to delete change into "${reasons.find((reason) => reason.id === parseInt(selectedRemark))?.name}"`,
+      }
     });
   };
 
