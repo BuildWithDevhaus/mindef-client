@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { ToastContainer } from "react-toastify";
+import { toastAlert } from "../../helpers/toastAlert";
+import ConfirmModal from "../molecules/ConfirmModal";
 
 const AdminLogin: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
   const [pin, setPin] = useState<string>("");
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const { login, isPinValid, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { state } = location;
+
+  useEffect(() => {
+    if (state?.toastMessage) {
+      toastAlert("success", state.toastMessage);
+      navigate(location.pathname, { replace: true });
+    }
+  }, [state, location.pathname]);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/admin"); 
+      navigate("/admin");
     }
   }, [isAuthenticated, navigate]);
 
@@ -48,11 +61,10 @@ const AdminLogin: React.FC = () => {
     console.log("Validating PIN:", storedPin);
 
     if (isPinValid(pin)) {
-      console.log("PIN is valid, logging in...");
       login();
       window.location.reload();
     } else {
-      alert("Invalid PIN");
+      toastAlert("error", "Invalid PIN. Please try again.", 8000);
       setPin("");
       setActiveKey(null);
     }
@@ -70,13 +82,20 @@ const AdminLogin: React.FC = () => {
     setTimeout(() => setActiveKey(null), 200);
   };
 
-  const handleEditPin = () => {
+  const handleResetPin = () => {
+    setIsModalOpen(true);
+  };
+
+  const confirmResetPin = () => {
     localStorage.removeItem("pin");
-    alert("PIN reset to default");
+    localStorage.removeItem("isAuthenticated");
+    setIsModalOpen(false);76
+    toastAlert("success", "PIN reset to default");
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+      <ToastContainer />
       <h1 className="text-5xl font-bold mb-6">Login to your account</h1>
       <p className="text-gray-500 mb-6">Enter PIN</p>
 
@@ -121,14 +140,28 @@ const AdminLogin: React.FC = () => {
 
       <div className="mt-[80px] text-sm text-gray-500">
         Forgot your PIN?{" "}
-        <a onClick={handleEditPin} className="text-blue-500 underline cursor-pointer">
-        Reset PIN code 
+        <a
+          onClick={handleResetPin}
+          className="text-blue-500 underline cursor-pointer"
+        >
+          Reset PIN code
         </a>
       </div>
 
       <footer className="absolute bottom-4 text-gray-400 text-xs">
         © 2024 Orion5
       </footer>
+
+      {isModalOpen && (
+        <ConfirmModal
+          title="Reset PIN"
+          message="Are you sure you want to reset the PIN code?"
+          confirmText="Yes"
+          cancelText="No"
+          onConfirm={confirmResetPin}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
