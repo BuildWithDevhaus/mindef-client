@@ -68,15 +68,16 @@ const Sidebar = () => {
       onClick: () => navigate("/admin/delete-inventory"),
       isActive: 
         location.pathname === "/admin/delete-inventory" ||
-        location.pathname === "/admin/delete-inventory/add",
-    },
+        location.pathname === "/admin/delete-inventory/add" ||
+        Boolean(useMatch("/admin/delete-inventory/edit/:deleteInventoryId")),
+      },
     {
       label: "Delete Reasons",
       onClick: () => navigate("/admin/delete-reasons"),
       isActive: 
         location.pathname === "/admin/delete-reasons" ||
         location.pathname === "/admin/delete-reasons/add" ||
-        Boolean(useMatch("/admin/delete-reasons/edit/:deleteReasonId")),
+        Boolean(useMatch("/admin/delete-reasons/edit/:rfidNo")),
     },
     {
       label: "Reports",
