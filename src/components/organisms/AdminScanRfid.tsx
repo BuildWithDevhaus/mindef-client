@@ -2,25 +2,37 @@ import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
 import { AdminNextStepDestionation } from '../../types/adminScanRfid';
 import { useUniform } from '../../hooks/useUniform';
+import { toastAlert } from '../../helpers/toastAlert';
 
 const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestination }) => {
-  const [rfidNo, setRfidNo] = useState("");
+  const [rfidNo, setRfidNo] = useState<string>("");
+  const [debouncedRfidNo, setDebouncedRfidNo] = useState<string>("");
   const { nextStep } = useStep();
   const { findUniform } = useUniform();
 
   useEffect(() => {
-    if (!rfidNo) return;
+    const handler = setTimeout(() => {
+      setDebouncedRfidNo(rfidNo);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [rfidNo]);
+
+  useEffect(() => {
+    if (!debouncedRfidNo) return;
 
     (async () => {
       try {
-        await findUniform(rfidNo);
+        await findUniform(debouncedRfidNo);
         nextStep(nextStepDestination);
       } catch (error) {
-        alert("The RFID code you entered is not registered in our system. Please contact the admin to register it before proceeding.");
+        toastAlert("error", "The RFID code you entered is not registered in our system.");
       }
       setRfidNo("");
     })();
-  }, [rfidNo]);
+  }, [debouncedRfidNo]);
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRfidNo(e.target.value);
