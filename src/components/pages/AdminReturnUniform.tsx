@@ -3,7 +3,7 @@ import AdminLayout from "../templates/AdminLayout";
 import AdminReturnUniformForm from "../organisms/AdminReturnUniformForm";
 import { useStep } from "../../hooks/useStep";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
 
 const AdminReturn: React.FC = () => {
 
@@ -25,10 +25,10 @@ const AdminReturn: React.FC = () => {
     nextStep("admin-return-uniform-scan-rfid");
   }, [])
   
-
   return (
     <AdminLayout headingText="Return Uniform" breadcrumbItems={breadcrumbItems}>
       <AdminReturnUniformForm />
+      <ToastContainer />
     </AdminLayout>
   );
 };

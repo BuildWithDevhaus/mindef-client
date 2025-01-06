@@ -7,6 +7,7 @@ import shirtMaleNo1 from "../../assets/images/Shirt (Male - No. 1).png";
 import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
 import ButtonSecondary from "../../components/atoms/ButtonSecondary";
 import { AdminNewUniformFormSubmitProps } from "../../types/adminScanRfid";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 
 const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
   shirtData,
@@ -58,8 +59,8 @@ const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
               </h1>
               <p className="text-xl">
                 {shirtData?.belongsTo
-                  ? `Description: ${shirtData?.uniformType}, ${shirtData?.gender} Shirt, ${shirtData?.belongsTo}`
-                  : `Description: ${pantsData?.uniformType}, ${pantsData?.gender} Pants, ${pantsData?.belongsTo}`}
+                  ? `Description: ${shirtData?.uniformType}, ${capitalizeFirstLetter(shirtData?.gender)} Shirt, ${shirtData?.belongsTo}`
+                  : `Description: ${pantsData?.uniformType}, ${capitalizeFirstLetter(pantsData?.gender)} Pants, ${pantsData?.belongsTo}`}
               </p>
             </div>
             <div>

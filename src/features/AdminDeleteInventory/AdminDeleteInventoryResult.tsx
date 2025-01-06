@@ -9,6 +9,7 @@ import { useStep } from '../../hooks/useStep'
 import { ShirtSchema } from '../../zod/shirt'
 import { PantsSchema } from '../../zod/pants'
 import { useUniform } from '../../hooks/useUniform'
+import { capitalizeFirstLetter } from '../../helpers/wordStructure'
 
 
 const AdminDeleteInventoryResult: React.FC = () => {
@@ -73,8 +74,8 @@ const AdminDeleteInventoryResult: React.FC = () => {
               </h1>
               <p className="text-xl">
                 {selectedShirt.rfidNo
-                  ? `Description: ${selectedShirt?.uniformType}, ${selectedShirt?.gender} Shirt, ${selectedShirt?.belongsTo}`
-                  : `Description: ${selectedPants?.uniformType}, ${selectedPants?.gender} Pants, ${selectedPants?.belongsTo}`}
+                  ? `Description: ${selectedShirt?.uniformType}, ${capitalizeFirstLetter(selectedShirt?.gender)} Shirt, ${selectedShirt?.belongsTo}`
+                  : `Description: ${selectedPants?.uniformType}, ${capitalizeFirstLetter(selectedPants?.gender)} Pants, ${selectedPants?.belongsTo}`}
               </p>
             </div>
             <div>

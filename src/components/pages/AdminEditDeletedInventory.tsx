@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { PantsInputSchema } from "../../zod/pants";
 import { useUniform } from "../../hooks/useUniform";
 import { ToastContainer } from "react-toastify";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 const AdminEditDeletedInventory: React.FC = () => {
   const navigate = useNavigate();
   const [shirt, setShirt] = useState<ShirtInputSchema>({
@@ -112,7 +113,7 @@ const AdminEditDeletedInventory: React.FC = () => {
               </h1>
               <p className="text-xl">
                 {uniform
-                  ? `Description: ${uniform.data.uniformType}, ${uniform.data.gender} ${uniform.type}, ${uniform.data.belongsTo}`
+                  ? `Description: ${uniform.data.uniformType}, ${capitalizeFirstLetter(uniform.data.gender)} ${uniform.type}, ${uniform.data.belongsTo}`
                   : "Description: "}
               </p>
             </div>

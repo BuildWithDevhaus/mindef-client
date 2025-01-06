@@ -12,6 +12,7 @@ import { usePants } from "../../hooks/usePants";
 import { useShirt } from "../../hooks/useShirt";
 import { useReason } from "../../hooks/useReason";
 import { useUniform } from "../../hooks/useUniform";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 
 const AdminDeleteInventoryReason: React.FC<AdminNextStepDestionation> = ({
   nextStepDestination,
@@ -103,8 +104,8 @@ const AdminDeleteInventoryReason: React.FC<AdminNextStepDestionation> = ({
               </h1>
               <p className="text-xl">
                 {selectedShirt.rfidNo
-                  ? `Description: ${selectedShirt.uniformType}, ${selectedShirt.gender} Shirt, ${selectedShirt.belongsTo}`
-                  : `Description: ${selectedPants?.uniformType}, ${selectedPants?.gender} Pants, ${selectedPants?.belongsTo}`}
+                  ? `Description: ${selectedShirt.uniformType}, ${capitalizeFirstLetter(selectedShirt.gender)} Shirt, ${selectedShirt.belongsTo}`
+                  : `Description: ${selectedPants?.uniformType}, ${capitalizeFirstLetter(selectedPants?.gender)} Pants, ${selectedPants?.belongsTo}`}
               </p>
             </div>
             <div>
