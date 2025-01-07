@@ -6,6 +6,7 @@ import useTableFilter from "../../hooks/useTableFilter";
 import { useYearlyReports } from "../../hooks/useYearlyReports";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import StatusTag from "../atoms/StatusTag";
+import { downloadXLSX } from "../../helpers/downloadXLSX";
 
 const YearlyReportHeaders = [
   "S/N",
@@ -31,6 +32,8 @@ const AdminYearlyReport: React.FC = () => {
 
   const { yearlyReports, getYearlyReports } = useYearlyReports();
   const [filteredYearlyReportsData, setFilteredYearlyReportsData] = useState<any[]>([]);
+  const [exportData, setExportData] = useState<any[]>([]);
+
   
   
     useEffect(() => {
@@ -41,28 +44,42 @@ const AdminYearlyReport: React.FC = () => {
     useEffect(() => {
       if (yearlyReports.length > 0) {
         const filteredYearlyReports = filterYearlyReportsDataByDateRange(yearlyReports);
-  
-        const mappedYearlyReports = filteredYearlyReports.map((yearlyReports, index) => {
-          
+    
+        // Data for frontend rendering
+        const mappedYearlyReportsForFrontend = filteredYearlyReports.map((yearlyReport, index) => {
           return [
             index + 1,
-            capitalizeFirstLetter(yearlyReports.uniformType),
-            capitalizeFirstLetter(yearlyReports.topBottom),
-            `${yearlyReports.size}cm`,
-            `Row: ${yearlyReports.row}, Rack: ${yearlyReports.rack}`,
-            capitalizeFirstLetter(yearlyReports.gender),
+            capitalizeFirstLetter(yearlyReport.uniformType),
+            capitalizeFirstLetter(yearlyReport.topBottom),
+            `${yearlyReport.size}cm`,
+            `Row: ${yearlyReport.row}, Rack: ${yearlyReport.rack}`,
+            capitalizeFirstLetter(yearlyReport.gender),
             <StatusTag
-              content={capitalizeFirstLetter(yearlyReports.deleteReason)}
-              variant="danger"   
+              content={capitalizeFirstLetter(yearlyReport.deleteReason)}
+              variant="danger"
             />,
-            new Date(yearlyReports.dateOfDisposal).toLocaleDateString("en-GB"),
+            new Date(yearlyReport.dateOfDisposal).toLocaleDateString("en-GB"),
           ];
         });
-  
-        setFilteredYearlyReportsData(mappedYearlyReports);
+    
+        const mappedYearlyReportsForExport = filteredYearlyReports.map((yearlyReport, index) => {
+          return [
+            index + 1,
+            capitalizeFirstLetter(yearlyReport.uniformType),
+            capitalizeFirstLetter(yearlyReport.topBottom),
+            `${yearlyReport.size}cm`,
+            `Row: ${yearlyReport.row}, Rack: ${yearlyReport.rack}`,
+            capitalizeFirstLetter(yearlyReport.gender),
+            yearlyReport.deleteReason ? capitalizeFirstLetter(yearlyReport.deleteReason) : "N/A", // Extract content
+            new Date(yearlyReport.dateOfDisposal).toLocaleDateString("en-GB"),
+          ];
+        });
+    
+        setFilteredYearlyReportsData(mappedYearlyReportsForFrontend);
+        setExportData(mappedYearlyReportsForExport); // Set data for download
       }
     }, [yearlyReports, yearlyReportsDateRange]);
-  
+        
   useEffect(()=>{
     (async () => {
       try {
@@ -70,9 +87,6 @@ const AdminYearlyReport: React.FC = () => {
         
         const date = new Date(yearlyReportsDateRange.startDate)
         const year = String(date.getFullYear());
-
-
-        console.log(year);
         
         await getYearlyReports(year)
       } catch (error) {
@@ -87,11 +101,16 @@ const AdminYearlyReport: React.FC = () => {
     { label: "Yearly Report", url: "/admin/reports/Yearly-report" },
   ];
 
+  const handleDownloadReport = () => {
+    const fileName = `Yearly_Report_${new Date().toISOString().slice(0, 10)}`;
+    downloadXLSX(YearlyReportHeaders, exportData, fileName); 
+  };
+
   return (
     <AdminLayout headingText="Yearly Report" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Inventory List</h2>
-        <ButtonPrimary>Download Full Report</ButtonPrimary>
+        <ButtonPrimary onClick={handleDownloadReport}>Download Full Report</ButtonPrimary>
       </div>
       <Table
         headers={YearlyReportHeaders}
