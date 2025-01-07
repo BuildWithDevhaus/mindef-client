@@ -51,9 +51,13 @@ const AdminUnitWing: React.FC = () => {
     setIsModalOpen(true);
   };  
 
-  const confirmDelete = () => {
-    deleteUnitWing(currentDivision.id);
-    toastAlert("success", `Unit/Wing "${currentDivision.name}" deleted successfully!`);
+  const confirmDelete = async () => {
+    try {
+      await deleteUnitWing(currentDivision.id);
+      toastAlert("success", `Unit/Wing "${currentDivision.name}" deleted successfully!`);
+    } catch (error) {
+      toastAlert("error", "Failed to delete Unit/Wing");
+    }
     setIsModalOpen(false);
     setCurrentDivision(null);
   };

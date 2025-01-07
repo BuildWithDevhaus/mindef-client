@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { useStep } from '../../hooks/useStep';
 import { AdminNewUniformFormNextProps } from '../../types/adminScanRfid';
+import { useUniform } from '../../hooks/useUniform';
+import { toastAlert } from '../../helpers/toastAlert';
 
 const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({ shirtData, pantsData, setShirtData, setPantsData, nextStepDestination }) => {
   const [rfidNo, setRfidNo] = useState("");
   const { nextStep } = useStep();
+  const { findUniform } = useUniform();
 
   useEffect(() => {
-    if (!rfidNo) return;
-
-    setShirtData({ ...shirtData, rfidNo });
-    setPantsData({ ...pantsData, rfidNo });
-    nextStep(nextStepDestination);
-
-    setRfidNo("");
+    (async () => {
+      try {
+        if (!rfidNo) return;
+        await findUniform(rfidNo);
+        toastAlert("error", "The RFID code you entered is already registered in our system.");
+      } catch (error) {
+        setShirtData({ ...shirtData, rfidNo });
+        setPantsData({ ...pantsData, rfidNo });
+        nextStep(nextStepDestination);
+      }
+      setRfidNo("");
+    })();
   }, [rfidNo]);
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {

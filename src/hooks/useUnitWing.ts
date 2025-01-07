@@ -37,6 +37,7 @@ export const useUnitWing = () => {
       return;
     } catch (error) {
       console.error(error);
+      throw error;
     }
   }
 
@@ -56,6 +57,7 @@ export const useUnitWing = () => {
       return;
     } catch (error) {
       console.error(error);
+      throw error;
     }
   }
 

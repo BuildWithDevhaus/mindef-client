@@ -40,13 +40,13 @@ const AdminRegisterNewUniformForm: React.FC  = () => {
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (shirt.collarLen && shirt.sleeve && shirt.shoulderLen) {
+    if (shirt.belongsTo && shirt.gender && shirt.uniformType && shirt.collarLen && shirt.sleeve && shirt.shoulderLen && shirt.row && shirt.rack) {
       createShirt(shirt);
-    } else {
+      nextStep("admin-register-new-uniform-form-result");
+    } else if (pants.belongsTo && pants.gender && pants.uniformType && pants.waist && pants.length && pants.row && pants.rack) {
       createPants(pants);
+      nextStep("admin-register-new-uniform-form-result");
     }
-    
-    nextStep("admin-register-new-uniform-form-result");
   }
 
   const handleResetForm = () => {

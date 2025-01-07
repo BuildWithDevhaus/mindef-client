@@ -13,6 +13,7 @@ import { useShirt } from "../../hooks/useShirt";
 import { useReason } from "../../hooks/useReason";
 import { useUniform } from "../../hooks/useUniform";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const AdminDeleteInventoryReason: React.FC<AdminNextStepDestionation> = ({
   nextStepDestination,
@@ -70,20 +71,28 @@ const AdminDeleteInventoryReason: React.FC<AdminNextStepDestionation> = ({
     setSelectedRemark(event.target.value);
   };
 
-  const handleSubmit = () => {
-    if (uniform?.type === "shirt") {
-      updateShirt(selectedShirt.rfidNo, {
-        status: "remarked",
-        deleteReasonId: parseInt(selectedRemark),
-        disposalDate: new Date().toISOString(),
-      });
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (selectedRemark) {
+      if (uniform?.type === "shirt") {
+        updateShirt(selectedShirt.rfidNo, {
+          status: "remarked",
+          deleteReasonId: parseInt(selectedRemark),
+          disposalDate: new Date().toISOString(),
+        });
+        nextStep(nextStepDestination);
+      } else if (uniform?.type === "pants") {
+        updatePants(selectedPants.rfidNo, {
+          status: "remarked",
+          deleteReasonId: parseInt(selectedRemark),
+          disposalDate: new Date().toISOString(),
+        });
+        nextStep(nextStepDestination);
+      }
+    } else {
+      toastAlert("error", "Please select a reason.");
     }
-    updatePants(selectedPants.rfidNo, {
-      status: "remarked",
-      deleteReasonId: parseInt(selectedRemark),
-      disposalDate: new Date().toISOString(),
-    });
-    nextStep(nextStepDestination);
   };
 
   return (

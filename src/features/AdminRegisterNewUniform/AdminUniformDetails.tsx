@@ -5,6 +5,7 @@ import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
 import SelectOptionPrimary from "../../components/molecules/SelectOptionPrimary";
 import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ shirtData, pantsData, setShirtData, setPantsData, nextStepDestination }) => {
   const { nextStep } = useStep();
@@ -34,7 +35,11 @@ const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ shirtData
   }
 
   const handleConfirm = () => {
-    nextStep(nextStepDestination);
+    if (uniformDetails.belongsTo && uniformDetails.gender && uniformDetails.uniformType) {
+      nextStep(nextStepDestination);
+    } else {
+      toastAlert("error", "Please fill in all the details.");
+    }
   }
 
   useEffect(() => {
@@ -77,7 +82,7 @@ const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ shirtData
           <option value="Colour Party">Colour Party</option>
         </SelectOptionPrimary>
       </div>
-        <ButtonPrimary onClick={() => handleConfirm()} variant="large">Confirm</ButtonPrimary>
+        <ButtonPrimary onClick={handleConfirm} variant="large">Confirm</ButtonPrimary>
       </div>
       <div className="w-1/2 flex items-center justify-center">
         <img

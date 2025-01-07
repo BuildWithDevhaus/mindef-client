@@ -244,7 +244,7 @@ const AdminDeleteInventory: React.FC = () => {
       {isModalOpen && (
         <ConfirmModal
           title="Are you sure?"
-          message={`You want to delete RFID "${currentShirt?.rfidNo || currentPants?.rfidNo}" with reason "${currentReason?.name}" from delete inventory?`}
+          message={`You want to change the status of "${currentShirt?.rfidNo || currentPants?.rfidNo}" to available for the reason: "${currentReason?.name}"`}
           confirmText="Yes"
           cancelText="No"
           onConfirm={confirmDelete}
