@@ -36,8 +36,12 @@ const useTableFilter = (
         ? parseDate(dateRange.endDate)
         : dateRange.endDate;
 
+    console.log(startDate, endDate, 'date');
+
     return data.filter((item) => {
       const itemDate = new Date(item[dateColumn]); // Dynamically access the column
+      console.log(itemDate, startDate, itemDate >= startDate);
+      console.log(itemDate, endDate, itemDate <= endDate);
       return itemDate >= startDate && itemDate <= endDate;
     });
   };

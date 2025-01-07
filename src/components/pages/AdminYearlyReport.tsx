@@ -82,7 +82,8 @@ const AdminYearlyReport: React.FC = () => {
         enablePagination={true}
         enableSearch={true}
         enableRowsPerPage={true}
-        enableDateRange={true}
+        enableDateRange={false}
+        enableYearlyFilter={true}
         initialSearchQuery={yearlyReportsSearchQuery}
         onSearchChange={setYearlyReportsSearchQuery}
         onRowsPerPageChange={setYearlyReportsRowsPerPage}

@@ -7,15 +7,24 @@ const monthlyReportsAtom = atom<MonthlyReportSchema[] | []>([]);
 export const useMonthlyReports = () => {
   const [monthlyReports, setMonthlyReports] = useAtom(monthlyReportsAtom);
 
-  const getMonthlyReports = async () => {
-    try {
-      const { data: monthlyReportsData }: { data: MonthlyReportSchema[] } = await api.get('/reports/monthly');
-      setMonthlyReports(monthlyReportsData);
-      return;
-    } catch (error) {
-      console.error(error);
-    }
+const getMonthlyReports = async (month?: string, year?: string) => {
+  try {
+    const params = new URLSearchParams();
+    if (month) params.append('month', month);
+    if (year) params.append('year', year);
+
+    console.log(`/reports/monthly?${params.toString()}`);
+
+    const { data: monthlyReportsData }: { data: MonthlyReportSchema[] } = await api.get(`/reports/monthly?${params.toString()}`);
+
+    console.log(monthlyReportsData)
+
+    setMonthlyReports(monthlyReportsData);
+    return monthlyReportsData;
+  } catch (error) {
+    console.error(error);
   }
+}
 
   return { monthlyReports, getMonthlyReports };
 }
