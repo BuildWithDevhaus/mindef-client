@@ -45,7 +45,6 @@ const AdminYearlyReport: React.FC = () => {
       if (yearlyReports.length > 0) {
         const filteredYearlyReports = filterYearlyReportsDataByDateRange(yearlyReports);
     
-        // Data for frontend rendering
         const mappedYearlyReportsForFrontend = filteredYearlyReports.map((yearlyReport, index) => {
           return [
             index + 1,
@@ -70,13 +69,13 @@ const AdminYearlyReport: React.FC = () => {
             `${yearlyReport.size}cm`,
             `Row: ${yearlyReport.row}, Rack: ${yearlyReport.rack}`,
             capitalizeFirstLetter(yearlyReport.gender),
-            yearlyReport.deleteReason ? capitalizeFirstLetter(yearlyReport.deleteReason) : "N/A", // Extract content
+            yearlyReport.deleteReason ? capitalizeFirstLetter(yearlyReport.deleteReason) : "N/A",
             new Date(yearlyReport.dateOfDisposal).toLocaleDateString("en-GB"),
           ];
         });
     
         setFilteredYearlyReportsData(mappedYearlyReportsForFrontend);
-        setExportData(mappedYearlyReportsForExport); // Set data for download
+        setExportData(mappedYearlyReportsForExport); 
       }
     }, [yearlyReports, yearlyReportsDateRange]);
         
