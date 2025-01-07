@@ -27,7 +27,7 @@ const AdminYearlyReport: React.FC = () => {
     dateRange: yearlyReportsDateRange,
     setDateRange: setYearlyReportsDateRange,
     filterDataByDateRange: filterYearlyReportsDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null });
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, "dateOfDisposal", 'year');
 
   const { yearlyReports, getYearlyReports } = useYearlyReports();
   const [filteredYearlyReportsData, setFilteredYearlyReportsData] = useState<any[]>([]);
@@ -62,7 +62,25 @@ const AdminYearlyReport: React.FC = () => {
         setFilteredYearlyReportsData(mappedYearlyReports);
       }
     }, [yearlyReports, yearlyReportsDateRange]);
+  
+  useEffect(()=>{
+    (async () => {
+      try {
+        if(!yearlyReportsDateRange.startDate) return;
+        
+        const date = new Date(yearlyReportsDateRange.startDate)
+        const year = String(date.getFullYear());
 
+
+        console.log(year);
+        
+        await getYearlyReports(year)
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [yearlyReportsDateRange])
+  
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Reports", url: "/admin/reports" },

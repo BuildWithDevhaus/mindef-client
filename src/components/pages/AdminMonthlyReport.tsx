@@ -40,8 +40,7 @@ const AdminMonthlyReport: React.FC = () => {
 
   useEffect(() => {
     if (monthlyReports.length > 0) {
-      const filteredMonthlyReports =
-        filterMonthlyReportsDataByDateRange(monthlyReports);
+      const filteredMonthlyReports = filterMonthlyReportsDataByDateRange(monthlyReports);
 
       const mappedMonthlyReports = filteredMonthlyReports.map(
         (monthlyReports, index) => {
