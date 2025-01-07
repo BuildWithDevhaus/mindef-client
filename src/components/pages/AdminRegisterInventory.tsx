@@ -243,7 +243,6 @@ const AdminRegisterInventory: React.FC = () => {
           onCancel={cancelDelete}
         />
       )}
-      \
       <ToastContainer />
     </AdminLayout>
   );
