@@ -5,6 +5,7 @@ import ButtonPrimary from "../atoms/ButtonPrimary";
 import useTableFilter from "../../hooks/useTableFilter";
 import { useMonthlyReports } from "../../hooks/useMonthlyReports";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+import { downloadXLSX } from "../../helpers/downloadXLSX";
 
 export const MonthlyReportHeaders = [
   "S/N",
@@ -88,11 +89,16 @@ const AdminMonthlyReport: React.FC = () => {
     { label: "Monthly Report", url: "/admin/reports/monthly-report" },
   ];
 
+  const handleDownloadReport = () => {
+    const fileName = `Monthly_Report_${new Date().toISOString().slice(0, 10)}`;
+    downloadXLSX(MonthlyReportHeaders, filteredMonthlyReportsData, fileName);
+  };
+
   return (
     <AdminLayout headingText="Monthly Report" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Inventory List</h2>
-        <ButtonPrimary>Download Full Report</ButtonPrimary>
+        <ButtonPrimary onClick={handleDownloadReport} >Download Full Report</ButtonPrimary>
       </div>
       <Table
         headers={MonthlyReportHeaders}
