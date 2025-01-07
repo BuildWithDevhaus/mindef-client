@@ -27,7 +27,7 @@ const AdminMonthlyReport: React.FC = () => {
     dateRange: monthlyReportsDateRange,
     setDateRange: setMonthlyReportDateRange,
     filterDataByDateRange: filterMonthlyReportsDataByDateRange,
-  } = useTableFilter("", 5, { startDate: null, endDate: null });
+  } = useTableFilter("", 5, { startDate: null, endDate: null }, "dateOfDrawing", 'month');
 
   const { monthlyReports, getMonthlyReports } = useMonthlyReports();
   const [filteredMonthlyReportsData, setFilteredMonthlyReportsData] = useState<
@@ -40,11 +40,8 @@ const AdminMonthlyReport: React.FC = () => {
 
   useEffect(() => {
     if (monthlyReports.length > 0) {
-      console.log(monthlyReports, '<<< from useEffect');
-      
       const filteredMonthlyReports =
         filterMonthlyReportsDataByDateRange(monthlyReports);
-        console.log(filteredMonthlyReports, '<<< from useEffect 2');
 
       const mappedMonthlyReports = filteredMonthlyReports.map(
         (monthlyReports, index) => {

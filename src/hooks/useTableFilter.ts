@@ -17,7 +17,8 @@ const useTableFilter = (
   initialSearchQuery: string,
   initialRowsPerPage: number,
   initialDateRange: DateRange,
-  dateColumn: string = "createdAt" // Default to "createdAt"
+  dateColumn: string = "createdAt", // Default to "createdAt"
+  filterFormat: 'day' | 'month' | 'year' = 'day'
 ) => {
   const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
   const [rowsPerPage, setRowsPerPage] = useState<number>(initialRowsPerPage);
@@ -36,13 +37,43 @@ const useTableFilter = (
         ? parseDate(dateRange.endDate)
         : dateRange.endDate;
 
-    console.log(startDate, endDate, 'date');
-
     return data.filter((item) => {
       const itemDate = new Date(item[dateColumn]); // Dynamically access the column
-      console.log(itemDate, startDate, itemDate >= startDate);
-      console.log(itemDate, endDate, itemDate <= endDate);
-      return itemDate >= startDate && itemDate <= endDate;
+
+      if (filterFormat === 'day') {
+        return itemDate >= startDate && itemDate <= endDate;
+      }
+
+      if (filterFormat === 'month') {
+        const itemMonth = itemDate.getMonth();
+        const itemYear = itemDate.getFullYear();
+
+        const startMonth = startDate.getMonth();
+        const startYear = startDate.getFullYear();
+
+        const endMonth = endDate.getMonth();
+        const endYear = endDate.getFullYear();
+
+        const isAfterStart =
+          itemYear > startYear ||
+          (itemYear === startYear && itemMonth >= startMonth);
+
+        const isBeforeEnd =
+          itemYear < endYear ||
+          (itemYear === endYear && itemMonth <= endMonth);
+
+        return isAfterStart && isBeforeEnd;
+      }
+
+      if (filterFormat === 'year') {
+        const itemYear = itemDate.getFullYear();
+        const startYear = startDate.getFullYear();
+        const endYear = endDate.getFullYear();
+
+        return itemYear >= startYear && itemYear <= endYear;
+      }
+
+      return false;
     });
   };
 
