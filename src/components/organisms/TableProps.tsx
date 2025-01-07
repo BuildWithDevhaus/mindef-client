@@ -14,6 +14,8 @@ const Table: React.FC<TableProps> = ({
   enableSearch = true,
   enableRowsPerPage = true,
   enableDateRange = true,
+  enableMonthlyFilter = false,
+  enableYearlyFilter = false,
   initialSearchQuery = "",
   onPageChange,
   onSearchChange,
@@ -110,6 +112,16 @@ const Table: React.FC<TableProps> = ({
           {enableDateRange && (
             <div className="mb-8 flex items-center justify-between">
               <DateRange value={dateRange} onChange={handleDateRangeChange} />
+            </div>
+          )}
+          {enableMonthlyFilter && (
+            <div className="mb-8 flex items-center justify-between">
+              <DateRange value={dateRange} onChange={handleDateRangeChange} format="MM/YYYY" showFooter={false} showShortcuts={false} asSingle={true} />
+            </div>
+          )}
+          {enableYearlyFilter && (
+            <div className="mb-8 flex items-center justify-between">
+              <DateRange value={dateRange} onChange={handleDateRangeChange} format="YYYY" showFooter={false} showShortcuts={false} asSingle={true} />
             </div>
           )}
           {enableSearch && (

@@ -6,6 +6,8 @@ interface TableProps {
   enableSearch?: boolean;
   enableRowsPerPage?: boolean;
   enableDateRange?: boolean;
+  enableMonthlyFilter?: boolean;
+  enableYearlyFilter?: boolean;
   initialSearchQuery?: string;
   onPageChange?: (page: number) => void;
   onSearchChange?: (query: string) => void;
