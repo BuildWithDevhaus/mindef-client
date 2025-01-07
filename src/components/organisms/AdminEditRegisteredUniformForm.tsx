@@ -58,9 +58,13 @@ const AdminEditRegisteredUniformForm: React.FC  = () => {
       updateShirt(shirt.rfidNo, shirt);
     } else {
       updatePants(pants.rfidNo, pants);
-    }
-    
-    navigate("/admin/register-inventory");
+    }    
+    navigate("/admin/register-inventory", {
+      state: {
+        toastMessage: `Uniform "${uniform?.data?.rfidNo}" details updated successfully`,
+      },
+    });
+
     handleResetForm();
   }
 
