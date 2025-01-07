@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useStep } from '../../hooks/useStep'
 import ButtonBack from '../../components/atoms/ButtonBack';
 import { useUniform } from '../../hooks/useUniform';
@@ -9,6 +9,14 @@ const ScanRfidUser: React.FC<StepProps> = ({ backOption }) => {
   const [debouncedRfidNo, setDebouncedRfidNo] = useState<string>("");
   const { nextStep } = useStep();
   const { findUniform } = useUniform();
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -53,6 +61,7 @@ const ScanRfidUser: React.FC<StepProps> = ({ backOption }) => {
             className="border border-gray-300 bg-gray-200"
             value={rfidNo}
             onChange={handleScan}
+            ref={inputRef}
           />
         </form>
       </div>

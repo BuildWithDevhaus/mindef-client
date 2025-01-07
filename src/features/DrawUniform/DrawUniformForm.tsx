@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ContainerLayout from '../../components/templates/ContainerLayout'
 import shirtMaleNo1 from "../../assets/images/Shirt (Male - No. 1).png";
 import pantsMaleNo1 from '../../assets/images/Pants (Male - No. 1).png'
@@ -48,6 +48,14 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
   });
   const { uniform, findUniform, createDrawUniform } = useUniform();
   const { nextStep } = useStep();
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     if (!uniform) return;
@@ -184,6 +192,7 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
           className="border border-gray-300 bg-gray-200"
           value={rfidNo}
           onChange={handleScan}
+          ref={inputRef}
         />
       </form>
 
