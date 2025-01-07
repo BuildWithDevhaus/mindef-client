@@ -31,7 +31,7 @@ const AdminAddDeleteReason: React.FC = () => {
           state: { toastMessage: `The Delete Reason "${reason.name}" has been added.` },
         });
       } catch (error) {
-        toastAlert("error", "Failed to add reason. Please try again.");
+        toastAlert("error", "A reason with that name already exists. Please enter a different name.");
       }
     } else {
       toastAlert("error", "Please enter a reason");
