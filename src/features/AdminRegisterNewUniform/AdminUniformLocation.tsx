@@ -8,6 +8,7 @@ import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
 import ButtonSecondary from "../../components/atoms/ButtonSecondary";
 import { AdminNewUniformFormSubmitProps } from "../../types/adminScanRfid";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
   shirtData,
@@ -45,6 +46,16 @@ const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
       setPantsData({ ...pantsData, [e.target.name]: e.target.value });
     }
   };
+
+  const handleSubmit = () => {
+    if (shirtData.belongsTo && shirtData.row && shirtData.rack) {
+      onSubmit();
+    } else if (pantsData.belongsTo && pantsData.row && pantsData.rack) {
+      onSubmit();
+    } else {
+      toastAlert("error", "Please fill in all the details.");
+    }
+  }
 
   return (
     <div className="flex justify-center items-center">
@@ -103,7 +114,7 @@ const AdminUniformLocation: React.FC<AdminNewUniformFormSubmitProps> = ({
           <div className="w-full flex gap-9">
             <ButtonPrimary
               className="w-full text-xl font-medium"
-              onClick={onSubmit}
+              onClick={handleSubmit}
             >
               Confirm
             </ButtonPrimary>

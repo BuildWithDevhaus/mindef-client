@@ -8,6 +8,7 @@ import pantsMaleNo1 from "../../assets/images/Pants (Male - No. 1).png";
 import ButtonSecondary from "../../components/atoms/ButtonSecondary";
 import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   shirtData,
@@ -60,7 +61,13 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   };
 
   const handleConfirm = () => {
-    nextStep(nextStepDestination);
+    if (shirtData.belongsTo && shirtData.collarLen && shirtData.sleeve && shirtData.shoulderLen) {
+      nextStep(nextStepDestination);
+    } else if (pantsData.belongsTo && pantsData.waist && pantsData.length) {
+      nextStep(nextStepDestination);
+    } else {
+      toastAlert("error", "Please fill in all the details.");
+    }
   };
 
   return (
