@@ -3,6 +3,7 @@ import AdminLayout from "../templates/AdminLayout";
 import { useStep } from "../../hooks/useStep";
 import { useNavigate } from "react-router-dom";
 import AdminDeleteInventoryForm from "../organisms/AdminDeleteInventoryForm";
+import { ToastContainer } from "react-toastify";
 
 const AdminAddDeleteInventory: React.FC = () => {
 
@@ -29,6 +30,7 @@ const AdminAddDeleteInventory: React.FC = () => {
   return (
     <AdminLayout headingText="Delete Inventory" breadcrumbItems={breadcrumbItems}>
       <AdminDeleteInventoryForm />
+      <ToastContainer />
     </AdminLayout>
   );
 };
