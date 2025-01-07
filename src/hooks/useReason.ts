@@ -57,6 +57,7 @@ export const useReason = () => {
       return;
     } catch (error) {
       console.error(error);
+      throw error;
     }
   }
 

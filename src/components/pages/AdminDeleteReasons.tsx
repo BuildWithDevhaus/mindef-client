@@ -52,10 +52,14 @@ const AdminDeleteReasons: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (currentReason) {
-      deleteReason(currentReason.id);
-      toastAlert("success", `Reason "${currentReason.name}" deleted successfully!`);
+      try {
+        await deleteReason(currentReason.id);
+        toastAlert("success", `Reason "${currentReason.name}" deleted successfully!`);
+      } catch (error: any) {
+        toastAlert("error", error.response.data.message || "Failed to delete reason");
+      }
       setIsModalOpen(false);
       setCurrentReason(null);
     }
