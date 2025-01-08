@@ -13,6 +13,8 @@ import ConfirmModal from "../molecules/ConfirmModal";
 import { toastAlert } from "../../helpers/toastAlert";
 import { ToastContainer } from "react-toastify";
 import ButtonSecondary from "../atoms/ButtonSecondary";
+import ReactFileUpload from "../molecules/ReactFileUpload";
+import Modal from "../molecules/Modals";
 
 export const shirtRegisterHeaders = [
   "Shirt ID:",
@@ -43,6 +45,22 @@ const AdminRegisterInventory: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
+
+
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [uploadType, setUploadType] = useState<"shirt" | "pants" | null>(null);
+
+
+  const handleOpenUploadModal = (type: "shirt" | "pants") => {
+    setUploadType(type);
+    setIsUploadModalOpen(true);
+  };
+
+  const handleCloseUploadModal = () => {
+    setIsUploadModalOpen(false);
+    setUploadType(null);
+  };
+
 
   const {
     searchQuery: shirtSearchQuery,
@@ -180,6 +198,9 @@ const AdminRegisterInventory: React.FC = () => {
     }
   }, [pants, pantsDateRange]);
 
+
+
+
   const handleRegisterUniform = () => navigate("/admin/register-inventory/add");
 
   const breadcrumbItems = [
@@ -195,7 +216,9 @@ const AdminRegisterInventory: React.FC = () => {
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
         <div className="flex gap-6">
-          <ButtonSecondary>Mass Upload Shirt</ButtonSecondary>
+          <ButtonSecondary onClick={() => handleOpenUploadModal("shirt")}>
+            Mass Upload Shirt
+          </ButtonSecondary>
           <ButtonPrimary onClick={handleRegisterUniform}>
             Register New Shirt
           </ButtonPrimary>
@@ -218,7 +241,9 @@ const AdminRegisterInventory: React.FC = () => {
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
         <div className="flex gap-6">
-          <ButtonSecondary>Mass Upload Pants</ButtonSecondary>
+          <ButtonSecondary onClick={() => handleOpenUploadModal("pants")}>
+            Mass Upload Pants
+          </ButtonSecondary>
           <ButtonPrimary onClick={handleRegisterUniform}>
             Register New Pants
           </ButtonPrimary>
@@ -251,6 +276,13 @@ const AdminRegisterInventory: React.FC = () => {
         />
       )}
       <ToastContainer />
+      <Modal isOpen={isUploadModalOpen} onClose={handleCloseUploadModal}>
+        <ReactFileUpload  uploadType={uploadType}/>
+        {/* <div className="flex justify-center gap-4">
+          <ButtonSecondary>Get The Template</ButtonSecondary>
+          <ButtonPrimary>Bulk Upload</ButtonPrimary>
+        </div> */}
+      </Modal>
     </AdminLayout>
   );
 };
