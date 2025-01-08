@@ -8,6 +8,7 @@ import { ReasonInputSchema } from "../../zod/reason";
 import { useReason } from "../../hooks/useReason";
 import { useNavigate } from "react-router-dom";
 import { toastAlert } from "../../helpers/toastAlert";
+import useKeyPress from "../../helpers/useKeyPress";
 
 const AdminAddDeleteReason: React.FC = () => {
   const navigate = useNavigate();
@@ -49,6 +50,9 @@ const AdminAddDeleteReason: React.FC = () => {
       toastAlert("error", "Please enter a reason");
     }
   };
+
+  useKeyPress("Enter", handleButtonClick);
+
   return (
     <AdminLayout headingText="Delete Reasons" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">

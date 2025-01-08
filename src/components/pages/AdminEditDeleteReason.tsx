@@ -8,16 +8,18 @@ import { ReasonInputSchema } from "../../zod/reason";
 import { useReason } from "../../hooks/useReason";
 import { useNavigate, useParams } from "react-router-dom";
 import { toastAlert } from "../../helpers/toastAlert";
+import useKeyPress from "../../helpers/useKeyPress";
+
 
 const AdminEditDeleteReason: React.FC = () => {
-    const [reason, setReason] = useState<ReasonInputSchema>({
-      name: "",
-    });
-    
-    const { updateReason, findReason, selectedReason } = useReason();
-    const { deleteReasonId } = useParams();
-    const navigate = useNavigate();
-    
+  const [reason, setReason] = useState<ReasonInputSchema>({
+    name: "",
+  });
+
+  const { updateReason, findReason, selectedReason } = useReason();
+  const { deleteReasonId } = useParams();
+  const navigate = useNavigate();
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -32,17 +34,17 @@ const AdminEditDeleteReason: React.FC = () => {
     { label: "Edit Reason" },
   ];
 
-      useEffect(() => {
-        if (deleteReasonId) findReason(deleteReasonId as string);        
-      }, [deleteReasonId]);
-      
-      useEffect(() => {
-        if (selectedReason) {
-          setReason(selectedReason);
-        }        
-      }, [selectedReason]);
+  useEffect(() => {
+    if (deleteReasonId) findReason(deleteReasonId as string);
+  }, [deleteReasonId]);
 
-    const handleButtonClick = () => {
+  useEffect(() => {
+    if (selectedReason) {
+      setReason(selectedReason);
+    }
+  }, [selectedReason]);
+
+  const handleButtonClick = () => {
     if (reason.name.trim()) {
       updateReason(deleteReasonId as string, reason);
       navigate("/admin/delete-reasons", {
@@ -55,6 +57,8 @@ const AdminEditDeleteReason: React.FC = () => {
     }
   };
 
+  useKeyPress("Enter", handleButtonClick)
+  
   return (
     <AdminLayout headingText="Delete Reasons" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
@@ -67,7 +71,7 @@ const AdminEditDeleteReason: React.FC = () => {
           className="text-lg text-left"
           placeholder="(edit reason for deletion here)"
           value={reason.name}
-          onChange={(e) => 
+          onChange={(e) =>
             setReason((prev) => ({ ...prev, name: e.target.value }))
           }
           ref={inputRef}

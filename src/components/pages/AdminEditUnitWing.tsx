@@ -8,6 +8,7 @@ import { useUnitWing } from "../../hooks/useUnitWing";
 import { UnitWingInputSchema } from "../../zod/unitWing";
 import { useNavigate, useParams } from "react-router-dom";
 import { toastAlert } from "../../helpers/toastAlert";
+import useKeyPress from "../../helpers/useKeyPress";
 
 const AdminEditUnitWing: React.FC = () => {
   const [unitWing, setUnitWing] = useState<UnitWingInputSchema>({
@@ -53,6 +54,8 @@ const AdminEditUnitWing: React.FC = () => {
       toastAlert("error", "Please enter a unit/wing");
     }
   };
+
+  useKeyPress("Enter", handleButtonClick);
 
   return (
     <AdminLayout headingText="Unit/Wing" breadcrumbItems={breadcrumbItems}>
