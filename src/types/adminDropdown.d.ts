@@ -3,7 +3,11 @@ interface AdminDropdownMenuProps {
   }
 
   interface DropdownItemProps {
-    icon?: React.ReactNode;
-    label: string;       
-    onClick: () => void;    
+    icon?: React.ReactNode; 
+    label: string; 
+    onClick: () => void; 
+    className?: string; 
+    role?: string; 
+    tabIndex?: number; 
+    onFocus?: () => void; 
   }
