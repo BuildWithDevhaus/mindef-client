@@ -56,6 +56,12 @@ const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({
     setRfidNo(e.target.value);
   };
 
+  const handleBlur = () => {
+    if (inputRef.current) {
+      inputRef.current.focus(); 
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center h-full gap-5">
       <h1 className="text-6xl font-bold">Scan RFID Code</h1>
