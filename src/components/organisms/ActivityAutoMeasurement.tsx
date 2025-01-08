@@ -8,7 +8,6 @@ import { disableBackOptionWhenAdmin } from "../../helpers/adminConditions";
 import { useStaff } from "../../hooks/useStaff";
 import { useShirt } from "../../hooks/useShirt";
 import { usePants } from "../../hooks/usePants";
-import { ToastContainer } from "react-toastify";
 
 const ActivityAutoMeasurement: React.FC = () => {
   const [manualMeasurementInput, setManualMeasurementInput] = useState<ManualMeasurementForm>({
@@ -74,7 +73,6 @@ const ActivityAutoMeasurement: React.FC = () => {
           {step === "activity-auto-measurement-notfound" && (
             <NotFound />
           )}
-          <ToastContainer />
         </form>
       )}
     </>
