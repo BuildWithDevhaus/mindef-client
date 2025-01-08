@@ -97,5 +97,16 @@ export const usePants = () => {
     }
   }
 
-  return { pants, selectedPants, pantsDimensions, filteredPants, getPants, findPants, deletePants, createPants, updatePants, getPantsDimensionRange, getPantsByFilter };
+  const createBulkPants = async (pantsData: PantsInputSchema[]) => {
+    try {
+      const { data } = await api.post('/pants/bulk', pantsData);
+      getPants();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  return { pants, selectedPants, pantsDimensions, filteredPants, getPants, findPants, deletePants, createPants, updatePants, getPantsDimensionRange, getPantsByFilter, createBulkPants };
 }

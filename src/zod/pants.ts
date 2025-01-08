@@ -40,3 +40,16 @@ export const pantsDimensionsSchema = z.object({
 });
 
 export type PantsDimensionsSchema = z.infer<typeof pantsDimensionsSchema>;
+
+export const pantsBulkInputSchema = z.object({
+  "RFID No": z.string().min(1),
+  "Belongs To": z.string().min(1),
+  "Uniform Type": z.string().min(1),
+  Gender: z.enum(['male', 'female', 'Male', 'Female']),
+  Waist: z.string().min(1),
+  Length: z.string().min(1),
+  Row: z.string().min(1),
+  Rack: z.string().min(1)
+});
+
+export type PantsBulkInput = z.infer<typeof pantsBulkInputSchema>;

@@ -96,5 +96,16 @@ export const useShirt = () => {
     }
   }
 
-  return { shirts, selectedShirt, shirtDimensions, filteredShirts, getShirts, findShirt, deleteShirt, createShirt, updateShirt, getShirtsDimensionRange, getShirtsByFilter };
+  const createBulkShirts = async (shirtsData: ShirtInputSchema[]) => {
+    try {
+      const { data } = await api.post('/shirts/bulk', shirtsData);
+      getShirts();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  return { shirts, selectedShirt, shirtDimensions, filteredShirts, getShirts, findShirt, deleteShirt, createShirt, updateShirt, getShirtsDimensionRange, getShirtsByFilter, createBulkShirts };
 }
