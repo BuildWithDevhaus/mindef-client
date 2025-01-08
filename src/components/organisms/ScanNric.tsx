@@ -5,10 +5,12 @@ import { useStaff } from "../../hooks/useStaff";
 const ScanNric: React.FC = () => {
   const [nricNo, setNricNo] = useState("");
   const { step, nextStep } = useStep();
+  const [debouncedNricNo, setDebouncedNricno] = useState<string>("");
+
   const { staff, isCheckingStaff, staffLogin } = useStaff();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-    
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -16,9 +18,19 @@ const ScanNric: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!nricNo) return;
-    staffLogin(nricNo);
+    const handler = setTimeout(() => {
+      setDebouncedNricno(nricNo);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
   }, [nricNo]);
+
+  useEffect(() => {
+    if (!debouncedNricNo) return;
+    staffLogin(debouncedNricNo);
+  }, [debouncedNricNo]);
 
   useEffect(() => {
     if (!isCheckingStaff) {
@@ -35,6 +47,12 @@ const ScanNric: React.FC = () => {
     setNricNo(e.target.value);
   };
 
+  const handleBlur = () => {
+    if (inputRef.current) {
+      inputRef.current.focus(); 
+    }
+  };
+
   return (
     <>
       {step === "scan-nric" && (
@@ -48,10 +66,12 @@ const ScanNric: React.FC = () => {
               type="text"
               name="nricNo"
               id="nricNo"
-              className="border border-gray-300 bg-gray-200"
+              className="border border-gray-300 bg-gray-200 opacity-0 cursor-default absolute"
               value={nricNo}
               onChange={handleScan}
               ref={inputRef}
+              onBlur={handleBlur}
+              autoComplete="off"
             />
           </form>
         </div>
