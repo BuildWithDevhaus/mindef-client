@@ -193,9 +193,12 @@ const AdminRegisterInventory: React.FC = () => {
     >
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
+        <div className="flex gap-6">
+          <ButtonSecondary onClick={openShirtModal}>Mass Upload Shirt</ButtonSecondary>
         <ButtonPrimary onClick={handleRegisterUniform}>
           Register New Shirt
         </ButtonPrimary>
+        </div>
       </div>
       <Table
         headers={shirtRegisterHeaders}
@@ -213,9 +216,12 @@ const AdminRegisterInventory: React.FC = () => {
       />
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
+        <div className="flex gap-6">
+          <ButtonSecondary onClick={openPantsModal}>Mass Upload Pants</ButtonSecondary>
         <ButtonPrimary onClick={handleRegisterUniform}>
           Register New Pants
         </ButtonPrimary>
+        </div>
       </div>
       <Table
         headers={pantsRegisterHeaders}
