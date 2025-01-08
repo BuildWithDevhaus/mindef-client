@@ -46,6 +46,12 @@ const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestinatio
     setRfidNo(e.target.value);
   };
 
+  const handleBlur = () => {
+    if (inputRef.current) {
+      inputRef.current.focus(); 
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center h-full gap-5">
       <h1 className="text-6xl font-bold">Scan RFID Code</h1>
@@ -57,14 +63,15 @@ const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestinatio
           type="text"
           name="rfidNo"
           id="rfidNo"
-          className="border border-gray-300 bg-gray-200"
+          className="border border-gray-300 bg-gray-200 opacity-0 cursor-default"
           value={rfidNo}
           onChange={handleScan}
           ref={inputRef}
+          onBlur={handleBlur} 
         />
       </form>
     </div>
-  )
+  );
 }
 
-export default AdminScanRfid
+export default AdminScanRfid;
