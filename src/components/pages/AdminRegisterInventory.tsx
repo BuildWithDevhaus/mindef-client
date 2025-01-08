@@ -13,7 +13,6 @@ import ConfirmModal from "../molecules/ConfirmModal";
 import { toastAlert } from "../../helpers/toastAlert";
 import { ToastContainer } from "react-toastify";
 import ButtonSecondary from "../atoms/ButtonSecondary";
-import FileUploadModal from "../molecules/FileUploadModal";
 
 export const shirtRegisterHeaders = [
   "Shirt ID:",
@@ -196,7 +195,7 @@ const AdminRegisterInventory: React.FC = () => {
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
         <div className="flex gap-6">
-          <ButtonSecondary onClick={openShirtModal}>Mass Upload Shirt</ButtonSecondary>
+          <ButtonSecondary>Mass Upload Shirt</ButtonSecondary>
           <ButtonPrimary onClick={handleRegisterUniform}>
             Register New Shirt
           </ButtonPrimary>
@@ -219,7 +218,7 @@ const AdminRegisterInventory: React.FC = () => {
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
         <div className="flex gap-6">
-          <ButtonSecondary onClick={openPantsModal}>Mass Upload Pants</ButtonSecondary>
+          <ButtonSecondary>Mass Upload Pants</ButtonSecondary>
           <ButtonPrimary onClick={handleRegisterUniform}>
             Register New Pants
           </ButtonPrimary>
