@@ -63,7 +63,7 @@ const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestinatio
           type="text"
           name="rfidNo"
           id="rfidNo"
-          className="border border-gray-300 bg-gray-200"
+          className="border border-gray-300 bg-gray-200 opacity-0 cursor-default"
           value={rfidNo}
           onChange={handleScan}
           ref={inputRef}
@@ -71,7 +71,7 @@ const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestinatio
         />
       </form>
     </div>
-  )
+  );
 }
 
-export default AdminScanRfid
+export default AdminScanRfid;
