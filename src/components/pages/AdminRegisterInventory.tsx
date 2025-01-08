@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ConfirmModal from "../molecules/ConfirmModal";
 import { toastAlert } from "../../helpers/toastAlert";
 import { ToastContainer } from "react-toastify";
+import ButtonSecondary from "../atoms/ButtonSecondary";
 
 export const shirtRegisterHeaders = [
   "Shirt ID:",
@@ -42,7 +43,7 @@ const AdminRegisterInventory: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
-  
+
   const {
     searchQuery: shirtSearchQuery,
     setSearchQuery: setShirtSearchQuery,
@@ -52,7 +53,7 @@ const AdminRegisterInventory: React.FC = () => {
     setDateRange: setShirtDateRange,
     filterDataByDateRange: filterShirtDataByDateRange,
   } = useTableFilter("", 5, { startDate: null, endDate: null }, "createdAt");
-  
+
   const {
     searchQuery: pantsSearchQuery,
     setSearchQuery: setPantsSearchQuery,
@@ -62,7 +63,7 @@ const AdminRegisterInventory: React.FC = () => {
     setDateRange: setPantsDateRange,
     filterDataByDateRange: filterPantsDataByDateRange,
   } = useTableFilter("", 5, { startDate: null, endDate: null }, "createdAt");
-  
+
   const { shirts, getShirts, deleteShirt } = useShirt();
   const { pants, getPants, deletePants } = usePants();
   const [filteredShirtData, setFilteredShirtData] = useState<any[]>([]);
@@ -74,7 +75,7 @@ const AdminRegisterInventory: React.FC = () => {
   useEffect(() => {
     if (state?.toastMessage) {
       console.log("here");
-      
+
       toastAlert("success", state.toastMessage);
       navigate(location.pathname, { replace: true });
     }
@@ -193,9 +194,12 @@ const AdminRegisterInventory: React.FC = () => {
     >
       <div className="mb-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Shirt Registered</h2>
-        <ButtonPrimary onClick={handleRegisterUniform}>
-          Register New Shirt
-        </ButtonPrimary>
+        <div className="flex gap-6">
+          <ButtonSecondary>Mass Upload Shirt</ButtonSecondary>
+          <ButtonPrimary onClick={handleRegisterUniform}>
+            Register New Shirt
+          </ButtonPrimary>
+        </div>
       </div>
       <Table
         headers={shirtRegisterHeaders}
@@ -213,9 +217,12 @@ const AdminRegisterInventory: React.FC = () => {
       />
       <div className="my-8 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#101828]">Pants Registered</h2>
-        <ButtonPrimary onClick={handleRegisterUniform}>
-          Register New Pants
-        </ButtonPrimary>
+        <div className="flex gap-6">
+          <ButtonSecondary>Mass Upload Pants</ButtonSecondary>
+          <ButtonPrimary onClick={handleRegisterUniform}>
+            Register New Pants
+          </ButtonPrimary>
+        </div>
       </div>
       <Table
         headers={pantsRegisterHeaders}
