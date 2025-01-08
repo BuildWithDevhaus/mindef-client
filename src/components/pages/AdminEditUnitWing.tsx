@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
@@ -17,6 +17,13 @@ const AdminEditUnitWing: React.FC = () => {
   const { updateUnitWing, findUnitWing, selectedUnitWing } = useUnitWing();
   const { unitWingId } = useParams();
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
@@ -34,15 +41,16 @@ const AdminEditUnitWing: React.FC = () => {
     }
   }, [selectedUnitWing]);
 
-  //TODO: upon success redirect to the main table and show toaster
   const handleButtonClick = () => {
     if (unitWing.name.trim()) {
       updateUnitWing(unitWingId as string, unitWing);
       navigate("/admin/unit-wing", {
-        state: { toastMessage: `The Unit/Wing "${unitWing.name}" has been updated.` },
-      })
+        state: {
+          toastMessage: `The Unit/Wing "${unitWing.name}" has been updated.`,
+        },
+      });
     } else {
-      toastAlert ("error", "Please enter a unit/wing");
+      toastAlert("error", "Please enter a unit/wing");
     }
   };
 
@@ -56,6 +64,7 @@ const AdminEditUnitWing: React.FC = () => {
           className="text-lg text-left"
           placeholder="(edit Unit/Wing)"
           value={unitWing.name}
+          ref={inputRef}
           onChange={(e) =>
             setUnitWing((prev) => ({ ...prev, name: e.target.value }))
           }

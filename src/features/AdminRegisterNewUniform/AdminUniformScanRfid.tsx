@@ -1,20 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import { useStep } from '../../hooks/useStep';
-import { AdminNewUniformFormNextProps } from '../../types/adminScanRfid';
-import { useUniform } from '../../hooks/useUniform';
-import { toastAlert } from '../../helpers/toastAlert';
+import React, { useEffect, useRef, useState } from "react";
+import { useStep } from "../../hooks/useStep";
+import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
+import { useUniform } from "../../hooks/useUniform";
+import { toastAlert } from "../../helpers/toastAlert";
 
-const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({ shirtData, pantsData, setShirtData, setPantsData, nextStepDestination }) => {
+const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({
+  shirtData,
+  pantsData,
+  setShirtData,
+  setPantsData,
+  nextStepDestination,
+}) => {
   const [rfidNo, setRfidNo] = useState("");
+  const [debouncedRfidNo, setDebouncedRfidNo] = useState<string>("");
   const { nextStep } = useStep();
   const { findUniform } = useUniform();
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedRfidNo(rfidNo);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [rfidNo]);
 
   useEffect(() => {
     (async () => {
       try {
-        if (!rfidNo) return;
-        await findUniform(rfidNo);
-        toastAlert("error", "The RFID code you entered is already registered in our system.");
+        if (!debouncedRfidNo) return;
+        await findUniform(debouncedRfidNo);
+        toastAlert(
+          "error",
+          "The RFID code you entered is already registered in our system."
+        );
       } catch (error) {
         setShirtData({ ...shirtData, rfidNo });
         setPantsData({ ...pantsData, rfidNo });
@@ -22,7 +50,7 @@ const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({ shirtDat
       }
       setRfidNo("");
     })();
-  }, [rfidNo]);
+  }, [debouncedRfidNo]);
 
   const handleScan = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRfidNo(e.target.value);
@@ -42,10 +70,11 @@ const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({ shirtDat
           className="border border-gray-300 bg-gray-200"
           value={rfidNo}
           onChange={handleScan}
+          ref={inputRef}
         />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AdminUniformScanRfid
+export default AdminUniformScanRfid;
