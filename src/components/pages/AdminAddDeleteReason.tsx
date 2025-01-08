@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
@@ -14,6 +14,13 @@ const AdminAddDeleteReason: React.FC = () => {
   const [reason, setReason] = useState<ReasonInputSchema>({
     name: "",
   });
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const breadcrumbItems = [
     { label: "Admin Menu" },
@@ -28,10 +35,15 @@ const AdminAddDeleteReason: React.FC = () => {
       try {
         await createReason(reason);
         navigate("/admin/delete-reasons", {
-          state: { toastMessage: `The Delete Reason "${reason.name}" has been added.` },
+          state: {
+            toastMessage: `The Delete Reason "${reason.name}" has been added.`,
+          },
         });
       } catch (error) {
-        toastAlert("error", "A reason with that name already exists. Please enter a different name.");
+        toastAlert(
+          "error",
+          "A reason with that name already exists. Please enter a different name."
+        );
       }
     } else {
       toastAlert("error", "Please enter a reason");
@@ -52,6 +64,7 @@ const AdminAddDeleteReason: React.FC = () => {
           onChange={(e) =>
             setReason((prev) => ({ ...prev, name: e.target.value }))
           }
+          ref={inputRef}
         />
         <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
       </div>

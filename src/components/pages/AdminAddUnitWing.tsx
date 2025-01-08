@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
@@ -15,6 +15,15 @@ const AdminAddUnitWing: React.FC = () => {
     name: "",
   });
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Unit/Wing", url: "/admin/unit-wing" },
@@ -28,7 +37,9 @@ const AdminAddUnitWing: React.FC = () => {
       try {
         await createUnitWing(unitWing);
         navigate("/admin/unit-wing", {
-          state: { toastMessage: `The Unit/Wing "${unitWing.name}" has been added.` },
+          state: {
+            toastMessage: `The Unit/Wing "${unitWing.name}" has been added.`,
+          },
         });
       } catch (error) {
         toastAlert("error", "Failed to add unit/wing");
@@ -51,6 +62,7 @@ const AdminAddUnitWing: React.FC = () => {
             onChange={(e) =>
               setUnitWing((prev) => ({ ...prev, name: e.target.value }))
             }
+          ref={inputRef}
           />
           <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
       </div>
@@ -60,4 +72,3 @@ const AdminAddUnitWing: React.FC = () => {
 };
 
 export default AdminAddUnitWing;
-

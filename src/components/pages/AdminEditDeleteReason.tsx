@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminLayout from "../templates/AdminLayout";
 import ButtonPrimary from "../atoms/ButtonPrimary";
 import InputFieldPrimary from "../atoms/InputFieldPrimary";
@@ -18,6 +18,14 @@ const AdminEditDeleteReason: React.FC = () => {
     const { deleteReasonId } = useParams();
     const navigate = useNavigate();
     
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const breadcrumbItems = [
     { label: "Admin Menu" },
     { label: "Delete Reasons", url: "/admin/delete-reasons" },
@@ -38,17 +46,21 @@ const AdminEditDeleteReason: React.FC = () => {
     if (reason.name.trim()) {
       updateReason(deleteReasonId as string, reason);
       navigate("/admin/delete-reasons", {
-        state: { toastMessage: `Reason for deletion has been updated to "${reason.name}"` },
+        state: {
+          toastMessage: `Reason for deletion has been updated to "${reason.name}"`,
+        },
       });
     } else {
-      toastAlert( "error", "Please enter a reason");
+      toastAlert("error", "Please enter a reason");
     }
   };
 
   return (
     <AdminLayout headingText="Delete Reasons" breadcrumbItems={breadcrumbItems}>
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#101828]">Edit Reason for Delete Inventory</h2>
+        <h2 className="text-2xl font-bold text-[#101828]">
+          Edit Reason for Delete Inventory
+        </h2>
       </div>
       <div className="flex flex-col items-end gap-8">
         <InputFieldPrimary
@@ -58,6 +70,7 @@ const AdminEditDeleteReason: React.FC = () => {
           onChange={(e) => 
             setReason((prev) => ({ ...prev, name: e.target.value }))
           }
+          ref={inputRef}
         />
         <ButtonPrimary onClick={handleButtonClick}>Confirm</ButtonPrimary>
       </div>
