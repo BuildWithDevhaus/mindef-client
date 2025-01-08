@@ -6,6 +6,8 @@ import ButtonPrimary from "../../components/atoms/ButtonPrimary";
 import InputFieldSecondary from "../../components/atoms/InputFieldSecondary";
 import InputContainerLayout from "../../components/templates/InputContainerLayout";
 import ButtonBack from "../../components/atoms/ButtonBack";
+import { useUniform } from "../../hooks/useUniform";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const AutoMeasurementForm: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   manualMeasurementInput,
@@ -14,18 +16,27 @@ const AutoMeasurementForm: React.FC<ManualMeasurementFormStepSubmitProps> = ({
   backOption,
 }) => {
   const [inputValue, setInputValue] = useState(manualMeasurementInput);
+  const { getLatestAutoMeasurementDetails } = useUniform();
 
   useEffect(() => {
-    // TODO: Load the data from the file
-    const dummyData = {
-      collarLen: "22",
-      sleeve: "21",
-      shoulderLen: "20",
-      waist: "19",
-      length: "18",
-    };
-
-    setInputValue({ ...manualMeasurementInput, ...dummyData });
+    (async ()=> {
+      try {
+        const autoMeasurementData = await getLatestAutoMeasurementDetails();
+  
+        // TODO: Change the mapping keys
+        const data = {
+          collarLen: autoMeasurementData.CL,
+          sleeve: autoMeasurementData.S,
+          shoulderLen: autoMeasurementData.SL,
+          waist: autoMeasurementData.W,
+          length: autoMeasurementData.PL,
+        }
+  
+        setInputValue({ ...manualMeasurementInput, ...data });
+      } catch (error) {
+        toastAlert("error", "Failed to get auto measurement details");
+      }
+    })();
   }, []);
 
   const handleConfirm = () => {

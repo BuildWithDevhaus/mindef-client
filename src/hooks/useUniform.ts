@@ -3,6 +3,7 @@ import { api } from "../helpers/api";
 import { ShirtSchema } from "../zod/shirt";
 import { PantsSchema } from "../zod/pants";
 import { DrawUniformInputSchema } from "../zod/drawUniform";
+import { AutoMeasurementSchema } from "../zod/autoMeasurement";
 
 type UniformSchema = { type: 'shirt', data: ShirtSchema } | { type: 'pants', data: PantsSchema };
 
@@ -37,6 +38,16 @@ export const useUniform = () => {
     }
   }
 
-  return { uniform, findUniform, createDrawUniform };
+  const getLatestAutoMeasurementDetails = async () => {
+    try {
+      const { data }: { data: AutoMeasurementSchema } = await api.get('/uniforms/auto-measurement');
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  return { uniform, findUniform, createDrawUniform, getLatestAutoMeasurementDetails };
 };
 
