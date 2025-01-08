@@ -43,3 +43,17 @@ export const shirtDimensionsSchema = z.object({
 })
 
 export type ShirtDimensionsSchema = z.infer<typeof shirtDimensionsSchema>;
+
+export const shirtBulkInputSchema = z.object({
+  "RFID No": z.string().min(1),
+  "Belongs To": z.string().min(1),
+  "Uniform Type": z.string().min(1),
+  Gender: z.enum(['male', 'female', 'Male', 'Female']),
+  "Shoulder Length": z.string().min(1),
+  Sleeve: z.string().min(1),
+  "Collar Length": z.string().min(1),
+  Row: z.string().min(1),
+  Rack: z.string().min(1)
+});
+
+export type ShirtBulkInput = z.infer<typeof shirtBulkInputSchema>;
