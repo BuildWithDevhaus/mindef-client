@@ -17,6 +17,7 @@ import { PantsBulkInput, pantsBulkInputSchema } from "../../zod/pants";
 import { useShirt } from "../../hooks/useShirt";
 import { usePants } from "../../hooks/usePants";
 import { AxiosError } from "axios";
+import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 
 interface ReactFileUploadProps {
   uploadType: "shirt" | "pants" | null;
@@ -272,6 +273,7 @@ export default function ReactFileUpload({ uploadType }: ReactFileUploadProps) {
 
   return (
     <div>
+      <p className="font-semibold text-2xl text-center mb-3">Mass Upload {capitalizeFirstLetter(uploadType || "")}</p>
       <FileUpload
         ref={fileUploadRef}
         name="massUpload"
@@ -285,7 +287,7 @@ export default function ReactFileUpload({ uploadType }: ReactFileUploadProps) {
         itemTemplate={itemTemplate}
         emptyTemplate={emptyTemplate}
       />
-      <div className="flex gap-3 justify-end">
+      <div className="flex gap-3 justify-center">
         <ButtonSecondary onClick={handleDownloadTemplate}>
           Download Template
         </ButtonSecondary>
