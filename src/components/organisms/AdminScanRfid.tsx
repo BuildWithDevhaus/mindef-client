@@ -67,6 +67,7 @@ const AdminScanRfid: React.FC<AdminNextStepDestionation> = ({ nextStepDestinatio
           value={rfidNo}
           onChange={handleScan}
           ref={inputRef}
+          onBlur={handleBlur} 
         />
       </form>
     </div>

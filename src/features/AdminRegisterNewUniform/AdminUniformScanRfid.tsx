@@ -77,6 +77,7 @@ const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({
           value={rfidNo}
           onChange={handleScan}
           ref={inputRef}
+          onBlur={handleBlur}
         />
       </form>
     </div>
