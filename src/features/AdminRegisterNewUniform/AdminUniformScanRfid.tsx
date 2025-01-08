@@ -73,11 +73,12 @@ const AdminUniformScanRfid: React.FC<AdminNewUniformFormNextProps> = ({
           type="text"
           name="rfidNo"
           id="rfidNo"
-          className="border border-gray-300 bg-gray-200 opacity-0 cursor-default"
+          className="border border-gray-300 bg-gray-200 opacity-0 cursor-default absolute"
           value={rfidNo}
           onChange={handleScan}
           ref={inputRef}
           onBlur={handleBlur}
+          autoComplete='off'
         />
       </form>
     </div>
