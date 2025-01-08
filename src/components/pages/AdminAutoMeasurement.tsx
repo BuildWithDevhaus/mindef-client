@@ -3,6 +3,7 @@ import AdminLayout from "../templates/AdminLayout";
 import ActivityAutoMeasurement from "../organisms/ActivityAutoMeasurement";
 import { useStep } from "../../hooks/useStep";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const AdminAutoMeasurement: React.FC = () => {
 
@@ -31,6 +32,7 @@ const AdminAutoMeasurement: React.FC = () => {
       <div className="py-10 h-full">
         <ActivityAutoMeasurement />
       </div>
+      <ToastContainer />
     </AdminLayout>
   );
 };

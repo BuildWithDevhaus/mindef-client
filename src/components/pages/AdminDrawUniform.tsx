@@ -3,6 +3,7 @@ import AdminLayout from "../templates/AdminLayout";
 import ActivityDrawUniform from "../organisms/ActivityDrawUniform";
 import { useStep } from "../../hooks/useStep";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const AdminDrawUniform: React.FC = () => {
 
@@ -32,6 +33,7 @@ const AdminDrawUniform: React.FC = () => {
       <div className="py-10 h-full">
         <ActivityDrawUniform />
       </div>
+      <ToastContainer />
     </AdminLayout>
   );
 };
