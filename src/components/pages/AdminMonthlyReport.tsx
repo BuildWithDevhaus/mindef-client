@@ -90,9 +90,15 @@ const AdminMonthlyReport: React.FC = () => {
   ];
 
   const handleDownloadReport = () => {
-    const fileName = `Monthly_Report_${new Date().toISOString().slice(0, 10)}`;
+    const startDate = monthlyReportsDateRange.startDate ? new Date(monthlyReportsDateRange.startDate) : new Date();
+    const month = String(startDate.getMonth() + 1).padStart(2, '0');
+    const year = String(startDate.getFullYear()); 
+  
+    const fileName = `Monthly_Report_${month}_${year}`;
+  
     downloadXLSX(MonthlyReportHeaders, filteredMonthlyReportsData, fileName);
   };
+  
 
   return (
     <AdminLayout headingText="Monthly Report" breadcrumbItems={breadcrumbItems}>

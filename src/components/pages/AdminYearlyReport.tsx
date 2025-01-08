@@ -101,7 +101,10 @@ const AdminYearlyReport: React.FC = () => {
   ];
 
   const handleDownloadReport = () => {
-    const fileName = `Yearly_Report_${new Date().toISOString().slice(0, 10)}`;
+    const startDate = yearlyReportsDateRange.startDate ? new Date(yearlyReportsDateRange.startDate) : new Date();
+    const year = String(startDate.getFullYear()); 
+
+    const fileName = `Yearly_Report_${year}`;
     downloadXLSX(YearlyReportHeaders, exportData, fileName); 
   };
 
