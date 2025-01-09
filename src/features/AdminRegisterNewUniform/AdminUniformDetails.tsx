@@ -63,11 +63,10 @@ const AdminUniformDetails: React.FC<AdminNewUniformFormNextProps> = ({ shirtData
         </SelectOptionPrimary>
         <h2 className="font-bold text-2xl">This shirt belongs to:</h2>
         <SelectOptionPrimary placeholder="Select" name="belongsTo" className="w-full text-lg py-[10px] px-[14px]" value={uniformDetails.belongsTo} onChange={handleChange}>
+          <option value="Army">Army</option>
           <option value="Airforce">Airforce</option>
           <option value="Navy">Navy</option>
-          <option value="Army">Army</option>
-          <option value="Marines">Marines</option>
-          <option value="Infantry">Infantry</option>
+          <option value="DIS">DIS</option>
         </SelectOptionPrimary>
         
         <h2 className="font-bold text-2xl">Gender:</h2>
