@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
-import ActivityManualMeasurement from "../organisms/ActivityManualMeasurement";
+import AdminManualMeasurementForm from "../organisms/AdminManualMeasurementForm";
 import { useStep } from "../../hooks/useStep";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -23,13 +23,13 @@ const AdminManualMeasurement: React.FC = () => {
 
 
   useEffect(() => {
-    nextStep('activity-manual-measurement-uniform-type')
+    nextStep('activity-manual-measurement-gender')
   }, []);
 
   return (
     <AdminLayout headingText="Manual Measurement" breadcrumbItems={breadcrumbItems}>
       <div className="py-10 h-full">
-        <ActivityManualMeasurement />
+        <AdminManualMeasurementForm />
       </div>
       <ToastContainer />
     </AdminLayout>

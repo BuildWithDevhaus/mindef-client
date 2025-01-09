@@ -112,17 +112,17 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
 
   return (
     <>
-      <div className='flex h-full justify-center items-center'>
+      <div className='flex justify-center items-center'>
         <ContainerLayout>
           <div className='flex flex-col gap-12'>
             <div className='flex gap-24'>
-              <div className='flex flex-col gap-12'>
+              <div className='flex flex-col gap-6'>
                 <div className='flex justify-between items-center'>
-                  <label className='font-bold text-[32px]'>Shirt</label>
+                  <label className='font-bold text-[25px]'>Shirt</label>
                   <img
                     src={shirtMaleNo1}
                     alt="Shirt"
-                    className="w-48 h-48 object-contain"
+                    className="w-40 h-40 object-contain"
                   />
                 </div>
                 <div className='border border-black' />
@@ -130,31 +130,31 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
                   {selectedShirt?.rfidNo ? (
                     <>
                       <div>
-                        <p className='font-bold text-[32px]'>Shirt ID:</p>
-                        <p className='font-bold text-[32px]'>{selectedShirt.rfidNo}</p>
+                        <p className='font-bold text-[25px]'>Shirt ID:</p>
+                        <p className='font-bold text-[25px]'>{selectedShirt.rfidNo}</p>
                       </div>
                       <div className='flex flex-col gap-2'>
-                        <p className='text-2xl'>Description : {selectedShirt.uniformType} {capitalizeFirstLetter(selectedShirt.gender)} Shirt, {selectedShirt.belongsTo}</p>
-                        <p className='text-2xl'>Shoulder Length : <span className='font-bold'>{selectedShirt.shoulderLen} cm</span></p>
-                        <p className='text-2xl'>Collar : <span className='font-bold'>{selectedShirt.collarLen} cm</span></p>
-                        <p className='text-2xl'>Sleeve Length : <span className='font-bold'>{selectedShirt.sleeve} cm</span></p>
+                        <p className='text-xl'>Description : {selectedShirt.uniformType} {capitalizeFirstLetter(selectedShirt.gender)} Shirt, {selectedShirt.belongsTo}</p>
+                        <p className='text-xl'>Shoulder Length : <span className='font-bold'>{selectedShirt.shoulderLen} cm</span></p>
+                        <p className='text-xl'>Collar : <span className='font-bold'>{selectedShirt.collarLen} cm</span></p>
+                        <p className='text-xl'>Sleeve Length : <span className='font-bold'>{selectedShirt.sleeve} cm</span></p>
                       </div>
                     </>
                   ) : (
                     <div>
-                      <p className='font-bold text-[32px] mb-3'>Scan RFID Code</p>
-                      <p className='text-2xl'>Please scan the RDIF code in your shirt using the barcode scanner.</p>
+                      <p className='font-bold text-[25px] mb-3'>Scan RFID Code</p>
+                      <p className='text-xl'>Please scan the RDIF code in your shirt using the barcode scanner.</p>
                     </div>
                   )}
                 </div>
               </div>
-              <div className='flex flex-col gap-12'>
+              <div className='flex flex-col gap-6'>
                 <div className='flex justify-between items-center'>
-                  <label className='font-bold text-[32px]'>Pants</label>
+                  <label className='font-bold text-[25px]'>Pants</label>
                   <img
                     src={pantsMaleNo1}
                     alt="Pants"
-                    className="w-48 h-48 object-contain"
+                    className="w-40 h-40 object-contain"
                   />
                 </div>
                 <div className='border border-black' />
@@ -162,19 +162,19 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
                   {selectedPants?.rfidNo ? (
                     <>
                       <div>
-                        <p className='font-bold text-[32px]'>Pants ID:</p>
-                        <p className='font-bold text-[32px]'>{selectedPants.rfidNo}</p>
+                        <p className='font-bold text-[25px]'>Pants ID:</p>
+                        <p className='font-bold text-[25px]'>{selectedPants.rfidNo}</p>
                       </div>
                       <div className='flex flex-col gap-2'>
-                        <p className='text-2xl'>Description : {selectedPants.uniformType} {capitalizeFirstLetter(selectedPants.gender)} Pants, {selectedPants.belongsTo}</p>
-                        <p className='text-2xl'>Waist : <span className='font-bold'>{selectedPants.waist} cm</span></p>
-                        <p className='text-2xl'>Trouser Length : <span className='font-bold'>{selectedPants.length} cm</span></p>
+                        <p className='text-xl'>Description : {selectedPants.uniformType} {capitalizeFirstLetter(selectedPants.gender)} Pants, {selectedPants.belongsTo}</p>
+                        <p className='text-xl'>Waist : <span className='font-bold'>{selectedPants.waist} cm</span></p>
+                        <p className='text-xl'>Trouser Length : <span className='font-bold'>{selectedPants.length} cm</span></p>
                       </div>
                     </>
                   ) : (
                     <div>
-                      <p className='font-bold text-[32px] mb-3'>Scan RFID Code</p>
-                      <p className='text-2xl'>Please scan the RDIF code in your pants using the barcode scanner.</p>
+                      <p className='font-bold text-[25px] mb-3'>Scan RFID Code</p>
+                      <p className='text-xl'>Please scan the RDIF code in your pants using the barcode scanner.</p>
                     </div>
                   )}
                 </div>

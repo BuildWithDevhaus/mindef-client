@@ -6,7 +6,8 @@ interface InputFieldProps {
 }
 
 interface InputLayoutProps {
-  children: ReactNode;
-  title: string;
+  children: React.ReactNode;
   label: string;
+  title: string;
+  variant?: "default" | "small";
 }

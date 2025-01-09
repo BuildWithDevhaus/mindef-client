@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import AdminLayout from "../templates/AdminLayout";
-import ActivityDrawUniform from "../organisms/ActivityDrawUniform";
 import { useStep } from "../../hooks/useStep";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import AdminDrawUniformForm from "../organisms/AdminDrawUniformForm";
 
 const AdminDrawUniform: React.FC = () => {
 
@@ -30,9 +30,7 @@ const AdminDrawUniform: React.FC = () => {
 
   return (
     <AdminLayout headingText="Draw Uniform" breadcrumbItems={breadcrumbItems}>
-      <div className="py-10 h-full">
-        <ActivityDrawUniform />
-      </div>
+        <AdminDrawUniformForm />
       <ToastContainer />
     </AdminLayout>
   );
