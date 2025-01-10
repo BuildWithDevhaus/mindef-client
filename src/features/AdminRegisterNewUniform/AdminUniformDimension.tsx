@@ -9,6 +9,7 @@ import ButtonSecondary from "../../components/atoms/ButtonSecondary";
 import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import { toastAlert } from "../../helpers/toastAlert";
+import IconMeasure from "../../components/atoms/IconMeasure";
 
 const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   shirtData,
@@ -47,16 +48,17 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   }, [shirtData, pantsData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     if (shirtData.belongsTo) {
       setShirtData({
         ...shirtData,
-        [e.target.name]: e.target.value,
-      })
+        [name]: value,
+      });
     } else if (pantsData.belongsTo) {
       setPantsData({
         ...pantsData,
-        [e.target.name]: e.target.value,
-      })
+        [name]: value,
+      });
     }
   };
 
@@ -69,6 +71,43 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
       toastAlert("error", "Please fill in all the details.");
     }
   };
+
+  const setupSerial = async (inputName: string) => {
+    if (!("serial" in navigator)) {
+      console.error("Web Serial API is not supported in this browser.");
+      return;
+    }
+  
+    try {
+      const port = await navigator.serial.requestPort();
+      await port.open({ baudRate: 9600 });
+  
+      const textDecoder = new TextDecoderStream();
+      await port.readable.pipeTo(textDecoder.writable);
+      const reader = textDecoder.readable.getReader();
+  
+      let buffer = "";
+  
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        if (value) buffer += value;
+  
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+  
+        lines.forEach((line) => {
+          handleChange({
+            target: { name: inputName, value: line.trim() },
+          } as React.ChangeEvent<HTMLInputElement>);
+        });
+      }
+  
+      reader.releaseLock();
+    } catch (err) {
+      console.error("Serial communication error:", err);
+    }
+  };  
 
   return (
     <div className="flex justify-center items-center">
@@ -101,7 +140,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
               <>
                 <div className="flex justify-between items-center">
                   <h1 className="font-bold text-lg">Shoulder</h1>
-                  <div className="flex justify-between items-center w-96">
+                  <div className="flex justify-between items-center w-[26rem]">
                     <p className="font-medium">Width</p>
                     <InputFieldSecondary
                       className="max-w-[278px]"
@@ -111,11 +150,14 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${shirtDimensions.shoulderLen}`}
                       onChange={handleChange}
                     />
+                    <div onClick={() => setupSerial("shoulderLen")} className="cursor-pointer">
+                      <IconMeasure />
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
                   <h1 className="font-bold text-lg">Sleeve</h1>
-                  <div className="flex justify-between items-center w-96">
+                  <div className="flex justify-between items-center w-[26rem]">
                     <p className="font-medium">Length</p>
                     <InputFieldSecondary
                       className="max-w-[278px]"
@@ -125,11 +167,14 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${shirtDimensions.sleeve}`}
                       onChange={handleChange}
                     />
+                    <div onClick={() => setupSerial("sleeve")} className="cursor-pointer">
+                      <IconMeasure />
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
                   <h1 className="font-bold text-lg">Collar</h1>
-                  <div className="flex justify-between items-center w-96">
+                  <div className="flex justify-between items-center w-[26rem]">
                     <p className="font-medium">Width</p>
                     <InputFieldSecondary
                       className="max-w-[278px]"
@@ -139,6 +184,9 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${shirtDimensions.collarLen}`}
                       onChange={handleChange}
                     />
+                    <div onClick={() => setupSerial("collarLen")} className="cursor-pointer">
+                      <IconMeasure />
+                    </div>
                   </div>
                 </div>
               </>
@@ -146,7 +194,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
               <>
                 <div className="flex justify-between items-center">
                   <h1 className="font-bold text-lg">Waist</h1>
-                  <div className="flex justify-between items-center w-96">
+                  <div className="flex justify-between items-center w-[26rem]">
                     <p className="font-medium">Width</p>
                     <InputFieldSecondary
                       className="max-w-[278px]"
@@ -156,11 +204,14 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${pantsDimensions.waist}`}
                       onChange={handleChange}
                     />
+                    <div onClick={() => setupSerial("waist")} className="cursor-pointer">
+                      <IconMeasure />
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
                   <h1 className="font-bold text-lg">Pants Length</h1>
-                  <div className="flex justify-between items-center w-96">
+                  <div className="flex justify-between items-center w-[26rem]">
                     <p className="font-medium">Length</p>
                     <InputFieldSecondary
                       className="max-w-[278px]"
@@ -170,6 +221,9 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${pantsDimensions.length}`}
                       onChange={handleChange}
                     />
+                    <div onClick={() => setupSerial("length")} className="cursor-pointer">
+                      <IconMeasure />
+                    </div>
                   </div>
                 </div>
               </>
