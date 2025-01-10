@@ -19,16 +19,8 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   nextStepDestination,
 }) => {
   const { nextStep, backStep } = useStep();
-  const [shirtDimensions, setShirtDimensions] = useState({
-    collarLen: "",
-    sleeve: "",
-    shoulderLen: "",
-  });
-
-  const [pantsDimensions, setPantsDimensions] = useState({
-    waist: "",
-    length: "",
-  });
+  const [shirtDimensions, setShirtDimensions] = useState(shirtData);
+  const [pantsDimensions, setPantsDimensions] = useState(pantsData);
 
   useEffect(() => {
     if (shirtData.collarLen || shirtData.sleeve || shirtData.shoulderLen) {
@@ -49,28 +41,31 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (shirtData.belongsTo) {
-      setShirtData({
-        ...shirtData,
+    if (shirtDimensions.belongsTo) {
+      setShirtDimensions({
+        ...shirtDimensions,
         [name]: value,
       });
-    } else if (pantsData.belongsTo) {
-      setPantsData({
-        ...pantsData,
+    } else if (pantsDimensions.belongsTo) {
+      setPantsDimensions({
+        ...pantsDimensions,
         [name]: value,
       });
     }
   };
 
   const handleConfirm = () => {
-    if (shirtData.belongsTo && shirtData.collarLen && shirtData.sleeve && shirtData.shoulderLen) {
+    if (shirtDimensions.belongsTo && shirtDimensions.collarLen && shirtDimensions.sleeve && shirtDimensions.shoulderLen) {
+      setShirtData(shirtDimensions);
       nextStep(nextStepDestination);
-    } else if (pantsData.belongsTo && pantsData.waist && pantsData.length) {
+    } else if (pantsDimensions.belongsTo && pantsDimensions.waist && pantsDimensions.length) {
+      setPantsData(pantsDimensions);
       nextStep(nextStepDestination);
     } else {
       toastAlert("error", "Please fill in all the details.");
     }
   };
+  
 
   const setupSerial = async (inputName: string) => {
     if (!("serial" in navigator)) {
