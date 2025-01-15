@@ -9,6 +9,7 @@ import { disableBackOptionWhenAdmin } from "../../helpers/adminConditions";
 import { useStaff } from "../../hooks/useStaff";
 import { useShirt } from "../../hooks/useShirt";
 import { usePants } from "../../hooks/usePants";
+import { toastAlert } from "../../helpers/toastAlert";
 
 const ActivityManualMeasurement: React.FC = () => {
   const [manualMeasurementInput, setManualMeasurementInput] = useState<ManualMeasurementForm>({
@@ -33,6 +34,8 @@ const ActivityManualMeasurement: React.FC = () => {
     e.preventDefault();
 
     if (!staff) return;
+
+    if (!manualMeasurementInput.uniformType || !manualMeasurementInput.shoulderLen || !manualMeasurementInput.sleeve || !manualMeasurementInput.collarLen || !manualMeasurementInput.waist || !manualMeasurementInput.length) return toastAlert("error", "All fields are required");
 
     const shirts = await getShirtsByFilter(manualMeasurementInput.uniformType, staff.gender, manualMeasurementInput.collarLen, manualMeasurementInput.sleeve, manualMeasurementInput.shoulderLen);
     const pants = await getPantsByFilter(manualMeasurementInput.uniformType, staff.gender, manualMeasurementInput.waist, manualMeasurementInput.length);
