@@ -10,6 +10,7 @@ import { AdminNewUniformFormNextProps } from "../../types/adminScanRfid";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 import { toastAlert } from "../../helpers/toastAlert";
 import IconMeasure from "../../components/atoms/IconMeasure";
+import { userSerialPort } from "../../hooks/userSerialPort";
 
 const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   shirtData,
@@ -21,6 +22,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   const { nextStep, backStep } = useStep();
   const [shirtDimensions, setShirtDimensions] = useState(shirtData);
   const [pantsDimensions, setPantsDimensions] = useState(pantsData);
+  const { getSerialData } = userSerialPort();
 
   useEffect(() => {
     if (shirtData.collarLen || shirtData.sleeve || shirtData.shoulderLen) {
@@ -67,42 +69,17 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
   };
   
 
-  const setupSerial = async (inputName: string) => {
-    if (!("serial" in navigator)) {
-      console.error("Web Serial API is not supported in this browser.");
-      return;
-    }
-  
+  const handleSerial = async (inputName: string) => {
     try {
-      const port = await navigator.serial.requestPort();
-      await port.open({ baudRate: 9600 });
-  
-      const textDecoder = new TextDecoderStream();
-      await port.readable.pipeTo(textDecoder.writable);
-      const reader = textDecoder.readable.getReader();
-  
-      let buffer = "";
-  
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        if (value) buffer += value;
-  
-        const lines = buffer.split("\n");
-        buffer = lines.pop() || "";
-  
-        lines.forEach((line) => {
-          handleChange({
-            target: { name: inputName, value: line.trim() },
-          } as React.ChangeEvent<HTMLInputElement>);
-        });
-      }
-  
-      reader.releaseLock();
+      const serialData = await getSerialData();
+      
+      handleChange({
+        target: { name: inputName, value: serialData.data },
+      } as React.ChangeEvent<HTMLInputElement>);
     } catch (err) {
-      console.error("Serial communication error:", err);
+      console.error(err);
     }
-  };  
+  };
 
   return (
     <div className="flex justify-center items-center">
@@ -145,7 +122,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${shirtDimensions.shoulderLen}`}
                       onChange={handleChange}
                     />
-                    <div onClick={() => setupSerial("shoulderLen")} className="cursor-pointer">
+                    <div onClick={() => handleSerial("shoulderLen")} className="cursor-pointer">
                       <IconMeasure />
                     </div>
                   </div>
@@ -162,7 +139,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${shirtDimensions.sleeve}`}
                       onChange={handleChange}
                     />
-                    <div onClick={() => setupSerial("sleeve")} className="cursor-pointer">
+                    <div onClick={() => handleSerial("sleeve")} className="cursor-pointer">
                       <IconMeasure />
                     </div>
                   </div>
@@ -179,7 +156,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${shirtDimensions.collarLen}`}
                       onChange={handleChange}
                     />
-                    <div onClick={() => setupSerial("collarLen")} className="cursor-pointer">
+                    <div onClick={() => handleSerial("collarLen")} className="cursor-pointer">
                       <IconMeasure />
                     </div>
                   </div>
@@ -199,7 +176,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${pantsDimensions.waist}`}
                       onChange={handleChange}
                     />
-                    <div onClick={() => setupSerial("waist")} className="cursor-pointer">
+                    <div onClick={() => handleSerial("waist")} className="cursor-pointer">
                       <IconMeasure />
                     </div>
                   </div>
@@ -216,7 +193,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
                       value={`${pantsDimensions.length}`}
                       onChange={handleChange}
                     />
-                    <div onClick={() => setupSerial("length")} className="cursor-pointer">
+                    <div onClick={() => handleSerial("length")} className="cursor-pointer">
                       <IconMeasure />
                     </div>
                   </div>
