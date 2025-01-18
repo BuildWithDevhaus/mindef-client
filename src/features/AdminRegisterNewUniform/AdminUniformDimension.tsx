@@ -74,7 +74,7 @@ const AdminUniformDimension: React.FC<AdminNewUniformFormNextProps> = ({
       const serialData = await getSerialData();
       
       handleChange({
-        target: { name: inputName, value: serialData.data },
+        target: { name: inputName, value: serialData },
       } as React.ChangeEvent<HTMLInputElement>);
     } catch (err) {
       console.error(err);
