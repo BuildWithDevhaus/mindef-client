@@ -9,51 +9,20 @@ import { useReason } from "../../hooks/useReason";
 import { useRemarkedShirt } from "../../hooks/useRemarkedShirt";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRemarkedPants } from "../../hooks/useRemarkedPants";
-import { ShirtInputSchema } from "../../zod/shirt";
 import "react-toastify/dist/ReactToastify.css";
-import { PantsInputSchema } from "../../zod/pants";
 import { useUniform } from "../../hooks/useUniform";
 import { ToastContainer } from "react-toastify";
 import { capitalizeFirstLetter } from "../../helpers/wordStructure";
 const AdminEditDeletedInventory: React.FC = () => {
   const navigate = useNavigate();
-  const [shirt, setShirt] = useState<ShirtInputSchema>({
-    rfidNo: "",
-    belongsTo: "",
-    uniformType: "",
-    gender: "",
-    shoulderLen: "",
-    sleeve: "",
-    collarLen: "",
-    row: "",
-    rack: "",
-  });
-  const [pants, setPants] = useState<PantsInputSchema>({
-    rfidNo: "",
-    belongsTo: "",
-    uniformType: "",
-    gender: "",
-    waist: "",
-    length: "",
-    row: "",
-    rack: "",
-  });
   const [selectedRemark, setSelectedRemark] = useState<string>("");
   const { rfidNo } = useParams();
-  ``;
 
   const { uniform, findUniform } = useUniform();
 
   useEffect(() => {
     if (rfidNo) findUniform(rfidNo);
   }, []);
-
-  useEffect(() => {
-    if (uniform) {
-      if (uniform.type === "shirt") setShirt(uniform.data as ShirtInputSchema);
-      else setPants(uniform.data as PantsInputSchema);
-    }
-  }, [uniform]);
   
   useEffect(() => {
     if (uniform) {
@@ -69,7 +38,6 @@ const AdminEditDeletedInventory: React.FC = () => {
   const { updateRemarkedShirt } = useRemarkedShirt();
   const { updateRemarkedPants } = useRemarkedPants();
   const { getReasons, reasons } = useReason();
-
 
   const handleSubmit = () => {
     if (uniform?.type === "shirt") {

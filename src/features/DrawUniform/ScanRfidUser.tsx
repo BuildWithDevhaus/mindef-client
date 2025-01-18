@@ -52,6 +52,16 @@ const ScanRfidUser: React.FC<StepProps> = ({ backOption }) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+
+  const preventFormSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div className="flex flex-col justify-center items-center h-full gap-5">
@@ -59,7 +69,7 @@ const ScanRfidUser: React.FC<StepProps> = ({ backOption }) => {
         <h2 className="text-3xl text-center">
           Please scan the RDIF code in your shirt and pants using the barcode scanner.
         </h2>
-        <form name="rfid-form" id="rfid-form">
+        <form name="rfid-form" id="rfid-form" onSubmit={preventFormSubmission}>
           <input
             type="text"
             name="rfidNo"
@@ -70,6 +80,7 @@ const ScanRfidUser: React.FC<StepProps> = ({ backOption }) => {
             ref={inputRef}
             onBlur={handleBlur}
             autoComplete='off'
+            onKeyDown={handleKeyDown}
           />
         </form>
       </div>

@@ -52,6 +52,16 @@ const ScanNric: React.FC = () => {
       inputRef.current.focus(); 
     }
   };
+  
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+
+  const preventFormSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   return (
     <>
@@ -59,9 +69,9 @@ const ScanNric: React.FC = () => {
         <div className="flex flex-col justify-center items-center h-full gap-5">
           <h1 className="text-6xl font-bold">Scan your ID</h1>
           <h2 className="text-3xl">
-            Please scan your ID using the barcode Scanner
+            Please scan your ID using the barcode Scanner.
           </h2>
-          <form name="nric-form" id="nric-form">
+          <form name="nric-form" id="nric-form" onSubmit={preventFormSubmission}>
             <input
               type="text"
               name="nricNo"
@@ -72,6 +82,7 @@ const ScanNric: React.FC = () => {
               ref={inputRef}
               onBlur={handleBlur}
               autoComplete="off"
+              onKeyDown={handleKeyDown}
             />
           </form>
         </div>
