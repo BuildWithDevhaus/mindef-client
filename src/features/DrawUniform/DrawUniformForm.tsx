@@ -110,6 +110,16 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+
+  const preventFormSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div className='flex h-full justify-center items-center'>
@@ -190,7 +200,7 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
         </ContainerLayout>
       </div>
 
-      <form name="rfid-form" id="rfid-form">
+      <form name="rfid-form" id="rfid-form" onSubmit={preventFormSubmission}>
         <input
           type="text"
           name="rfidNo"
@@ -201,6 +211,7 @@ const DrawUniformForm: React.FC<StepProps> = ({ backOption }) => {
           ref={inputRef}
           onBlur={handleBlur}
           autoComplete='off'
+          onKeyDown={handleKeyDown}
         />
       </form>
 
